@@ -136,6 +136,12 @@
     cursor: url("/cursors/arrow.svg") 4 4, auto;
   }
 
+  /* Running text keeps the I-beam so it still reads as selectable.
+     :where() keeps this at zero specificity, so the control rules below win. */
+  :where(p, h1, h2, h3, h4, h5, h6, li, figcaption, blockquote, dt, dd, td, th, label) {
+    cursor: text;
+  }
+
   a,
   button,
   [role="button"] {
@@ -148,6 +154,14 @@
 
   [data-grabbable]:active {
     cursor: url("/cursors/grab.svg") 8 9, grabbing;
+  }
+
+  /* Text inside a control belongs to the control, not to the copy. */
+  a *,
+  button *,
+  [role="button"] *,
+  [data-grabbable] * {
+    cursor: inherit;
   }
 
   :disabled {
