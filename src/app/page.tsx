@@ -5,7 +5,7 @@ const HomePage: React.FC = () => {
   return (
     <main
       id="home"
-      className="dot-grid flex flex-1 flex-col gap-16 overflow-hidden px-10 py-12 lg:flex-row lg:gap-20"
+      className="dot-grid flex flex-1 flex-col gap-16 overflow-hidden lg:flex-row lg:gap-20"
     >
       <HomeIntro />
 

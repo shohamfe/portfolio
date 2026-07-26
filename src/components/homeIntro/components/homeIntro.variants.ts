@@ -1,4 +1,7 @@
-export const introRoot = "flex w-full flex-col gap-8 lg:max-w-lg lg:shrink-0";
+/* The page's own padding moved here so the canvas can go edge to edge without
+ * shifting the intro's visual position — main used to pad both children
+ * uniformly, now each side carries its own inset. */
+export const introRoot = "flex w-full flex-col gap-8 px-10 pb-12 pt-12 lg:max-w-lg lg:shrink-0";
 
 export const introHeader = "flex flex-col gap-3";
 
