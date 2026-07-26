@@ -12,8 +12,8 @@ export const SITE = {
 export const LINKS = {
   email: "mailto:shoham.fe@gmail.com",
   linkedin: "https://www.linkedin.com/in/shoham-fe",
-  // TODO(shoham): confirm the GitHub handle — not in the Figma file.
-  github: "https://github.com/shohamfellner",
+  github: "https://github.com/ShohamFe",
+  // TODO(shoham): confirm the Figma profile handle.
   figma: "https://www.figma.com/@shohamfellner",
 } as const;
 
