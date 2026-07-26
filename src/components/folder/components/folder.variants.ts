@@ -1,21 +1,23 @@
 import { cva } from "class-variance-authority";
 
-/** The two coloured sheets that peek out from behind each folder body. */
+/** Sticky-note sheets that sit behind the folder body. Values taken from the
+ *  Figma folder component: 70px square, 8px radius, 8px padding, and a shadow
+ *  that lifts upward rather than down. */
 export const sheetVariants = cva(
-  "absolute top-0 flex h-16 w-20 items-start justify-center rounded-xl pt-1.5 shadow-sm",
+  "flex size-[70px] shrink-0 flex-col items-start rounded-lg border border-solid p-2 drop-shadow-[0px_-10px_7.5px_rgba(0,0,0,0.05)]",
   {
     variants: {
       color: {
-        pink: "bg-danger-50 text-danger",
-        green: "bg-success-50 text-success",
-        yellow: "bg-warning-50 text-warning",
-        grey: "bg-default-50 text-default-600",
-        blue: "bg-primary-50 text-primary",
-        purple: "bg-secondary-50 text-secondary",
+        blue: "bg-primary-50 border-primary-300",
+        purple: "bg-secondary-50 border-secondary-300",
+        pink: "bg-danger-50 border-danger-300",
+        yellow: "bg-warning-50 border-warning-300",
+        green: "bg-success-50 border-success-300",
+        grey: "bg-white border-default-300",
       },
       side: {
-        left: "left-0 -rotate-6 origin-bottom-right",
-        right: "right-0 rotate-6 origin-bottom-left",
+        left: "-rotate-5",
+        right: "rotate-5",
       },
     },
     defaultVariants: { color: "grey", side: "left" },

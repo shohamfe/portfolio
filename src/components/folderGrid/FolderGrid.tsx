@@ -1,11 +1,12 @@
 import Folder from "@/components/folder/Folder";
 import { TECH_FOLDERS } from "@/constants/tech";
 
-/** Static grid of technology folders. Phase 2 turns this into a draggable
- *  canvas; the folder markup stays the same. */
+/** Static grid of technology folders. The 100px gutter comes from the Figma
+ *  grid. Phase 2 turns this into a draggable canvas; the folder markup and
+ *  spacing stay as they are. */
 const FolderGrid: React.FC = () => {
   return (
-    <ul className="grid grid-cols-2 gap-x-10 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+    <ul className="flex flex-wrap content-start items-start gap-[100px]">
       {TECH_FOLDERS.map((folder) => (
         <li key={folder.id}>
           <Folder folder={folder} />

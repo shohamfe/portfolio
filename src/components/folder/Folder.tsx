@@ -3,29 +3,49 @@ import { cn } from "@/lib/cn";
 import { sheetVariants } from "./components/folder.variants";
 import type { FolderProps } from "./types/folder.types";
 
-/** A single technology folder: two coloured sheets peeking out from behind a
- *  translucent folder body carrying the technology's logo. Static here —
- *  dragging is layered on by the canvas that renders it. */
+/** A single technology folder: two rotated sticky-note sheets tucked behind a
+ *  frosted folder body that holds the technology's logo card.
+ *
+ *  Sizes, radii, shadows and the -64px overlap all come from the Figma folder
+ *  component. Static here — dragging is layered on by the canvas. */
 const Folder: React.FC<FolderProps> = ({ folder, className }) => {
   const [leftSheet, rightSheet] = folder.sheets;
 
   return (
-    <figure className={cn("flex w-28 flex-col items-center gap-2", className)}>
-      <div className="relative h-24 w-28">
-        <div className={sheetVariants({ color: leftSheet.color, side: "left" })}>
-          <leftSheet.Icon aria-hidden className="size-4" />
+    <figure
+      className={cn("flex h-[196px] w-[175px] flex-col items-center justify-end gap-4", className)}
+    >
+      <div className="flex h-40 w-full flex-col items-center justify-end">
+        <div className="relative z-0 mb-[-64px] flex items-center justify-center">
+          <div className={sheetVariants({ color: leftSheet.color, side: "left" })}>
+            <span className="flex items-center justify-center rounded-full bg-default-300 p-1">
+              <leftSheet.Icon aria-hidden className="size-4" />
+            </span>
+          </div>
+
+          <div className={sheetVariants({ color: rightSheet.color, side: "right" })}>
+            <span className="flex items-center justify-center rounded-full bg-default-300 p-1">
+              <rightSheet.Icon aria-hidden className="size-4" />
+            </span>
+          </div>
         </div>
 
-        <div className={sheetVariants({ color: rightSheet.color, side: "right" })}>
-          <rightSheet.Icon aria-hidden className="size-4" />
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 flex h-20 items-center justify-center rounded-2xl bg-surface-raised/70 shadow-lg backdrop-blur-xl">
-          <Image src={folder.logo} alt="" width={40} height={40} className="size-10 object-contain" />
+        <div className="relative z-10 flex h-[125px] w-full items-center justify-center rounded-[32px] border-2 border-solid border-white bg-white/60 p-1 shadow-[0px_20px_25px_0px_rgba(0,0,0,0.1),0px_8px_10px_0px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
+          <div className="flex size-[60px] items-center justify-center overflow-clip rounded-2xl bg-white p-2.5 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
+            <Image
+              src={folder.logo}
+              alt=""
+              width={40}
+              height={40}
+              className="size-10 object-contain"
+            />
+          </div>
         </div>
       </div>
 
-      <figcaption className="font-ui text-tiny text-text-muted">{folder.label}</figcaption>
+      <figcaption className="text-center font-body text-[16px] font-medium text-black">
+        {folder.label}
+      </figcaption>
     </figure>
   );
 };
