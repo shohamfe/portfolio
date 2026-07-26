@@ -1,31 +1,72 @@
+import type { IconType } from "react-icons";
+import {
+  PiArrowsClockwise,
+  PiArrowsCounterClockwise,
+  PiAtom,
+  PiBracketsAngle,
+  PiBracketsCurly,
+  PiBrowser,
+  PiChatCircleText,
+  PiCheckSquare,
+  PiCloud,
+  PiCube,
+  PiCursor,
+  PiDatabase,
+  PiDownloadSimple,
+  PiFrameCorners,
+  PiGitBranch,
+  PiGlobe,
+  PiHardDrives,
+  PiImage,
+  PiKanban,
+  PiLightning,
+  PiMagicWand,
+  PiPackage,
+  PiPaintBrush,
+  PiPalette,
+  PiPath,
+  PiPenNib,
+  PiPuzzlePiece,
+  PiShieldCheck,
+  PiSignpost,
+  PiSparkle,
+  PiSquaresFour,
+  PiStack,
+  PiStackSimple,
+  PiStarFour,
+  PiTerminal,
+  PiUsersThree,
+  PiVectorTwo,
+} from "react-icons/pi";
+
 // Catalogue of technology "folders" shown on the Home canvas.
 // Each folder is a white folder body carrying a tech logo, backed by two
 // coloured sheets. Every sheet carries a small Phosphor icon badge chosen to
-// describe something the technology actually does (not just decoration).
+// describe something the technology actually does, not just decoration.
 
 export type SheetColor = "pink" | "green" | "yellow" | "grey" | "blue" | "purple";
 
 export interface TechFolderSheet {
   color: SheetColor;
-  icon: string; // Phosphor export name from react-icons/pi
+  Icon: IconType;
 }
 
 export interface TechFolder {
   id: string;
   label: string;
-  logo: string; // public path, e.g. "/logos/react.png"
+  logo: string;
   sheets: [TechFolderSheet, TechFolderSheet];
 }
 
-// Grid order matches the Figma "Folders Grid" (node 49:2193) layout.
+// Grid order matches the Figma folder grid (node 49:2193).
 export const TECH_FOLDERS: readonly TechFolder[] = [
   {
     id: "react",
     label: "React",
     logo: "/logos/react.png",
     sheets: [
-      { color: "blue", icon: "PiAtom" }, // component model / atomic structure
-      { color: "grey", icon: "PiPuzzlePiece" }, // composable components
+      { color: "blue", Icon: PiAtom },
+      { color: "grey", Icon: PiPuzzlePiece },
     ],
   },
   {
@@ -33,8 +74,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "TypeScript",
     logo: "/logos/typescript.png",
     sheets: [
-      { color: "blue", icon: "PiShieldCheck" }, // type safety
-      { color: "grey", icon: "PiBracketsCurly" }, // syntax / type annotations
+      { color: "blue", Icon: PiShieldCheck },
+      { color: "grey", Icon: PiBracketsCurly },
     ],
   },
   {
@@ -42,8 +83,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "JavaScript",
     logo: "/logos/javascript.png",
     sheets: [
-      { color: "yellow", icon: "PiLightning" }, // dynamic, event-driven
-      { color: "grey", icon: "PiBrowser" }, // runs in the browser
+      { color: "yellow", Icon: PiLightning },
+      { color: "grey", Icon: PiBrowser },
     ],
   },
   {
@@ -51,8 +92,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Node.js",
     logo: "/logos/nodejs.png",
     sheets: [
-      { color: "green", icon: "PiHardDrives" }, // server runtime
-      { color: "grey", icon: "PiTerminal" }, // CLI / scripting
+      { color: "green", Icon: PiHardDrives },
+      { color: "grey", Icon: PiTerminal },
     ],
   },
   {
@@ -60,8 +101,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Claude",
     logo: "/logos/claude.png",
     sheets: [
-      { color: "pink", icon: "PiSparkle" }, // generative AI
-      { color: "yellow", icon: "PiChatCircleText" }, // conversational assistant
+      { color: "pink", Icon: PiSparkle },
+      { color: "yellow", Icon: PiChatCircleText },
     ],
   },
   {
@@ -69,8 +110,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "HTML5",
     logo: "/logos/html5.png",
     sheets: [
-      { color: "pink", icon: "PiBracketsAngle" }, // markup tags
-      { color: "grey", icon: "PiStackSimple" }, // document structure
+      { color: "pink", Icon: PiBracketsAngle },
+      { color: "grey", Icon: PiStackSimple },
     ],
   },
   {
@@ -78,8 +119,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "CSS3",
     logo: "/logos/css3.png",
     sheets: [
-      { color: "blue", icon: "PiPaintBrush" }, // styling
-      { color: "pink", icon: "PiPalette" }, // colors / theming
+      { color: "blue", Icon: PiPaintBrush },
+      { color: "pink", Icon: PiPalette },
     ],
   },
   {
@@ -87,8 +128,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Figma",
     logo: "/logos/figma.png",
     sheets: [
-      { color: "purple", icon: "PiFrameCorners" }, // frames / canvas
-      { color: "pink", icon: "PiCursor" }, // design tool pointer
+      { color: "purple", Icon: PiFrameCorners },
+      { color: "pink", Icon: PiCursor },
     ],
   },
   {
@@ -96,8 +137,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "GitHub",
     logo: "/logos/github.png",
     sheets: [
-      { color: "grey", icon: "PiGitBranch" }, // version control
-      { color: "purple", icon: "PiUsersThree" }, // collaboration
+      { color: "grey", Icon: PiGitBranch },
+      { color: "purple", Icon: PiUsersThree },
     ],
   },
   {
@@ -105,8 +146,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "npm",
     logo: "/logos/npm.png",
     sheets: [
-      { color: "pink", icon: "PiPackage" }, // packages
-      { color: "grey", icon: "PiDownloadSimple" }, // installing dependencies
+      { color: "pink", Icon: PiPackage },
+      { color: "grey", Icon: PiDownloadSimple },
     ],
   },
   {
@@ -114,8 +155,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Illustrator",
     logo: "/logos/illustrator.png",
     sheets: [
-      { color: "yellow", icon: "PiPenNib" }, // vector pen tool
-      { color: "grey", icon: "PiVectorTwo" }, // vector paths
+      { color: "yellow", Icon: PiPenNib },
+      { color: "grey", Icon: PiVectorTwo },
     ],
   },
   {
@@ -123,8 +164,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Photoshop",
     logo: "/logos/photoshop.png",
     sheets: [
-      { color: "blue", icon: "PiImage" }, // photo / raster editing
-      { color: "grey", icon: "PiStackSimple" }, // layers
+      { color: "blue", Icon: PiImage },
+      { color: "grey", Icon: PiStackSimple },
     ],
   },
   {
@@ -132,8 +173,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "AWS",
     logo: "/logos/aws.png",
     sheets: [
-      { color: "yellow", icon: "PiCloud" }, // cloud hosting
-      { color: "grey", icon: "PiStack" }, // infrastructure stack
+      { color: "yellow", Icon: PiCloud },
+      { color: "grey", Icon: PiStack },
     ],
   },
   {
@@ -141,8 +182,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Jira",
     logo: "/logos/jira.png",
     sheets: [
-      { color: "blue", icon: "PiKanban" }, // kanban boards
-      { color: "purple", icon: "PiCheckSquare" }, // task tracking
+      { color: "blue", Icon: PiKanban },
+      { color: "purple", Icon: PiCheckSquare },
     ],
   },
   {
@@ -150,8 +191,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "MUI",
     logo: "/logos/mui.png",
     sheets: [
-      { color: "blue", icon: "PiSquaresFour" }, // component grid
-      { color: "purple", icon: "PiCube" }, // UI building blocks
+      { color: "blue", Icon: PiSquaresFour },
+      { color: "purple", Icon: PiCube },
     ],
   },
   {
@@ -159,8 +200,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Axios",
     logo: "/logos/axios.png",
     sheets: [
-      { color: "grey", icon: "PiArrowsClockwise" }, // requests / retries
-      { color: "purple", icon: "PiGlobe" }, // network calls
+      { color: "grey", Icon: PiArrowsClockwise },
+      { color: "purple", Icon: PiGlobe },
     ],
   },
   {
@@ -168,8 +209,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "TanStack",
     logo: "/logos/tanstack.png",
     sheets: [
-      { color: "green", icon: "PiDatabase" }, // data fetching / caching
-      { color: "yellow", icon: "PiArrowsCounterClockwise" }, // refetching / sync
+      { color: "green", Icon: PiDatabase },
+      { color: "yellow", Icon: PiArrowsCounterClockwise },
     ],
   },
   {
@@ -177,8 +218,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "React Router",
     logo: "/logos/react-router.png",
     sheets: [
-      { color: "pink", icon: "PiSignpost" }, // navigation
-      { color: "grey", icon: "PiPath" }, // routes as paths
+      { color: "pink", Icon: PiSignpost },
+      { color: "grey", Icon: PiPath },
     ],
   },
   {
@@ -186,8 +227,8 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     label: "Gemini",
     logo: "/logos/gemini.png",
     sheets: [
-      { color: "purple", icon: "PiStarFour" }, // matches the Gemini mark
-      { color: "blue", icon: "PiMagicWand" }, // generative AI
+      { color: "purple", Icon: PiStarFour },
+      { color: "blue", Icon: PiMagicWand },
     ],
   },
-] as const;
+];
