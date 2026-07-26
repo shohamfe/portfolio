@@ -120,17 +120,29 @@
   }
 
   /* Custom cursors are plain CSS so they respect the user's OS pointer
-     settings. Only the label pill that trails the arrow is JS-driven. */
+     settings. Only the label pill that trails the arrow is JS-driven.
+     Arrow at rest, Hand over anything clickable or draggable, Grab while the
+     button is held down. Each keeps a standard keyword fallback. */
   body {
     cursor: url("/cursors/arrow.svg") 4 4, auto;
   }
 
+  a,
+  button,
+  [role="button"],
   [data-grabbable] {
-    cursor: url("/cursors/hand.svg") 12 12, grab;
+    cursor: url("/cursors/hand.svg") 12 12, pointer;
   }
 
+  a:active,
+  button:active,
+  [role="button"]:active,
   [data-grabbable]:active {
     cursor: url("/cursors/grab.svg") 12 12, grabbing;
+  }
+
+  :disabled {
+    cursor: url("/cursors/arrow.svg") 4 4, not-allowed;
   }
 }
 
