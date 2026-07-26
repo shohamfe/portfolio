@@ -131,14 +131,14 @@
   button,
   [role="button"],
   [data-grabbable] {
-    cursor: url("/cursors/hand.svg") 12 12, pointer;
+    cursor: url("/cursors/hand.svg") 9 10, pointer;
   }
 
   a:active,
   button:active,
   [role="button"]:active,
   [data-grabbable]:active {
-    cursor: url("/cursors/grab.svg") 12 12, grabbing;
+    cursor: url("/cursors/grab.svg") 8 9, grabbing;
   }
 
   :disabled {
