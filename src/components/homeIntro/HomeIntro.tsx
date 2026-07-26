@@ -13,7 +13,7 @@ const HEADING_CLASSES = "font-display text-h2 font-extrabold text-text-strong";
  *  announced as a named landmark rather than an anonymous region. */
 const HomeIntro: React.FC = () => {
   return (
-    <div className="flex w-full max-w-sm flex-col gap-8">
+    <div className="flex w-full flex-col gap-8 lg:max-w-lg lg:shrink-0">
       <header className="flex flex-col gap-3">
         <h1 className="font-display text-h1 font-bold text-text-strong">{SITE.name}</h1>
 

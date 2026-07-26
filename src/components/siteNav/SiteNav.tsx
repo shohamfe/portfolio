@@ -21,7 +21,7 @@ const SiteNav: React.FC<SiteNavProps> = ({ className }) => {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Main" className={cn("flex items-center gap-6", className)}>
+    <nav aria-label="Main" className={cn("flex flex-wrap items-center gap-x-6 gap-y-3", className)}>
       <ul className="flex items-center gap-2">
         {ROUTES.map((route) => (
           <li key={route.href}>
