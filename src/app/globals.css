@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Layer 1 — Palette primitives
+   Raw values from the Figma variable set. Never referenced directly by a
+   component; only the semantic layer below is allowed to read these.
+   ========================================================================== */
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-primary-50: #e6f1fe;
+  --color-primary-300: #66aaf9;
+  --color-primary: #006fee;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary-50: #f2eafa;
+  --color-secondary-300: #ae7ede;
+  --color-secondary: #7828c8;
+  --color-secondary-foreground: #ffffff;
+
+  --color-success-50: #e8faf0;
+  --color-success-300: #74dfa2;
+  --color-success: #17c964;
+  --color-success-foreground: #000000;
+
+  --color-warning-50: #fefce8;
+  --color-warning-300: #f9c97c;
+  --color-warning: #f5a524;
+  --color-warning-foreground: #000000;
+
+  --color-danger-50: #fee7ef;
+  --color-danger-300: #f871a0;
+  --color-danger: #f31260;
+  --color-danger-foreground: #ffffff;
+
+  --color-default-50: #fafafa;
+  --color-default-300: #d4d4d8;
+  --color-default-400: #a1a1aa;
+  --color-default-600: #52525b;
+  --color-default-700: #3f3f46;
+  --color-default-800: #27272a;
+  --color-default-foreground: #000000;
+
+  --color-content1-foreground: #11181c;
+  --color-content4-foreground: #52525b;
+
+  /* Type scale — sizes and line heights come straight from the Figma styles. */
+  --text-h1: 3.75rem; /* 60px */
+  --text-h1--line-height: 1;
+  --text-h2: 2rem; /* 32px */
+  --text-h2--line-height: 1;
+  --text-h5: 2rem; /* 32px */
+  --text-h5--line-height: 1;
+  --text-code: 1.5rem; /* 24px */
+  --text-code--line-height: 1;
+  --text-body: 1.125rem; /* 18px */
+  --text-body--line-height: 1.5;
+  --text-small: 0.875rem; /* 14px */
+  --text-small--line-height: 1.4286;
+  --text-tiny: 0.75rem; /* 12px */
+  --text-tiny--line-height: 1.3333;
+
+  --font-display: var(--font-syne);
+  --font-body: var(--font-google-sans-flex);
+  --font-code: var(--font-google-sans-code);
+  --font-ui: var(--font-inter);
+
+  /* Background dot grid — 2px dot on a 24px pitch, from the Figma component. */
+  --dot-grid-size: 24px;
+  --dot-grid-dot: 2px;
+}
+
+/* ==========================================================================
+   Layer 2 — Semantic tokens
+   What components actually consume. Renaming a role here re-themes the site
+   without touching a single component.
+   ========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --surface-page: var(--color-default-50);
+  --surface-raised: var(--color-white);
+  --surface-sunken: var(--color-default-300);
+
+  --text-strong: var(--color-content1-foreground);
+  --text-muted: var(--color-content4-foreground);
+  --text-inverse: var(--color-white);
+
+  --border-subtle: rgb(17 17 17 / 0.15);
+
+  --accent: var(--color-primary);
+  --accent-foreground: var(--color-primary-foreground);
+
+  /* Resume sections dim to this until they enter the viewport. */
+  --text-dormant: var(--color-default-600);
+
+  --dot-grid-color: var(--color-default-300);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface-page: var(--surface-page);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-text-strong: var(--text-strong);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-dormant: var(--text-dormant);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  body {
+    background-color: var(--surface-page);
+    color: var(--text-strong);
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+
+  /* Custom cursors are plain CSS so they respect the user's OS pointer
+     settings. Only the label pill that trails the arrow is JS-driven. */
+  body {
+    cursor: url("/cursors/arrow.svg") 4 4, auto;
+  }
+
+  [data-grabbable] {
+    cursor: url("/cursors/hand.svg") 12 12, grab;
+  }
+
+  [data-grabbable]:active {
+    cursor: url("/cursors/grab.svg") 12 12, grabbing;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility dot-grid {
+  background-image: radial-gradient(
+    var(--dot-grid-color) var(--dot-grid-dot),
+    transparent var(--dot-grid-dot)
+  );
+  background-size: var(--dot-grid-size) var(--dot-grid-size);
+}
+
+/* Motion is the whole point of this site, so reduced-motion degrades rather
+   than disables: transforms land instantly instead of animating. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
