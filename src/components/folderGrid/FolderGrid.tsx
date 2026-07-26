@@ -6,9 +6,9 @@ import { TECH_FOLDERS } from "@/constants/tech";
  *  spacing stay as they are. */
 const FolderGrid: React.FC = () => {
   return (
-    <ul className="flex flex-wrap content-start items-start gap-[100px]">
+    <ul id="folder-grid" className="flex flex-wrap content-start items-start gap-[100px]">
       {TECH_FOLDERS.map((folder) => (
-        <li key={folder.id}>
+        <li key={folder.id} id={`folder-grid-item-${folder.id}`}>
           <Folder folder={folder} />
         </li>
       ))}
