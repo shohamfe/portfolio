@@ -69,6 +69,15 @@
   /* Background dot grid — 2px dot on a 24px pitch, from the Figma component. */
   --dot-grid-size: 24px;
   --dot-grid-dot: 2px;
+
+  /* Named multi-layer shadows. Inline arbitrary values with more than one
+     layer do not generate reliably, so they live in the theme instead. */
+  --shadow-folder:
+    0 20px 25px 0 rgb(0 0 0 / 0.1), 0 8px 10px 0 rgb(0 0 0 / 0.1);
+  --shadow-logo-card:
+    0 25px 50px -12px rgb(0 0 0 / 0.35), 0 10px 20px -8px rgb(0 0 0 / 0.22);
+  --shadow-note:
+    0 -10px 7.5px 0 rgb(0 0 0 / 0.1), 0 -4px 3px 0 rgb(0 0 0 / 0.08);
 }
 
 /* ==========================================================================
