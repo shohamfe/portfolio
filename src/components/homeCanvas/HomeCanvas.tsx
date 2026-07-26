@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useDragControls, useReducedMotion } from "motion/react";
 import {
   COLUMNS,
   COLUMN_STEP,
@@ -25,12 +25,27 @@ const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT;
  *
  *  Dragging empty space pans the whole board, which rubber-bands at the edges
  *  rather than stopping dead. Dragging a folder moves just that folder, and
- *  every position is remembered across reloads. */
+ *  every position is remembered across reloads.
+ *
+ *  The pan layer's own drag listener is disabled (`dragListener={false}`) and
+ *  started manually via `dragControls`, only when the pointer actually went
+ *  down on empty canvas. Relying on event propagation to stop a folder's own
+ *  drag from also starting the parent's pan does not work — Motion's pointer
+ *  handling does not respect a child's stopPropagation the way plain DOM
+ *  listeners would, so both gestures used to fire at once and the folder
+ *  never moved. */
 const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const dragControls = useDragControls();
 
   const { offsets, moveBy } = usePersistedOffsets();
+
+  const startPan = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      dragControls.start(event);
+    }
+  };
 
   return (
     <div id="home-canvas" ref={viewportRef} className={cn(canvasViewport, className)}>
@@ -40,9 +55,12 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
         className={canvasPanLayer}
         style={{ width: CONTENT_WIDTH, height: CONTENT_HEIGHT }}
         drag
+        dragListener={false}
+        dragControls={dragControls}
         dragConstraints={viewportRef}
         dragElastic={prefersReducedMotion ? 0 : DRAG_ELASTIC}
         dragMomentum={!prefersReducedMotion}
+        onPointerDown={startPan}
       >
         {TECH_FOLDERS.map((folder, index) => (
           <DraggableFolder
