@@ -12,11 +12,16 @@ const syne = Syne({
   display: "swap",
 });
 
+/* Next has no metrics for Google Sans Flex yet, so it cannot synthesise a
+   size-matched fallback. Declaring the fallback explicitly silences the build
+   warning and keeps the swap from falling through to an unstyled serif. */
 const googleSansFlex = Google_Sans_Flex({
   variable: "--font-google-sans-flex",
   subsets: ["latin"],
   weight: "400",
   display: "swap",
+  fallback: ["system-ui", "Segoe UI", "sans-serif"],
+  adjustFontFallback: false,
 });
 
 const googleSansCode = Google_Sans_Code({
@@ -24,6 +29,8 @@ const googleSansCode = Google_Sans_Code({
   subsets: ["latin"],
   weight: "300",
   display: "swap",
+  fallback: ["ui-monospace", "Consolas", "monospace"],
+  adjustFontFallback: false,
 });
 
 const inter = Inter({
