@@ -12,8 +12,11 @@ export const folderStack = "flex h-40 w-full flex-col items-center justify-end";
 /** Sheets tuck 64px behind the folder body. */
 export const sheetRow = "relative z-0 mb-[-64px] flex items-center justify-center";
 
+/* bg-white/60 is load-bearing, not decorative: backdrop-blur alone has no
+ * reliable visible tint of its own, so without a translucent colour under it
+ * the card reads as a bare blur patch rather than a frosted card. */
 export const folderBody =
-  "relative z-10 flex h-[125px] w-full items-center justify-center rounded-[32px] border-2 border-solid border-white p-1 shadow-folder backdrop-blur-[20px]";
+  "relative z-10 flex h-[125px] w-full items-center justify-center rounded-[32px] border-2 border-solid border-white bg-white/60 p-1 shadow-folder backdrop-blur-[20px]";
 
 export const logoCard =
   "flex size-[60px] items-center justify-center overflow-clip rounded-2xl bg-white p-2.5 shadow-logo-card";
