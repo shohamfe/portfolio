@@ -1,4 +1,5 @@
 import { PiLink } from "react-icons/pi";
+import Typewriter from "@/components/typewriter/Typewriter";
 import type { ResumeEntryProps } from "../types/resumeTimeline.types";
 import {
   entryBullets,
@@ -31,7 +32,13 @@ const ResumeEntry: React.FC<ResumeEntryProps> = ({ entry }) => {
           )}
         </h3>
 
-        {entry.subtitle && <p className={entrySubtitle}>{entry.subtitle}</p>}
+        {entry.subtitleWords ? (
+          <p className={entrySubtitle}>
+            <Typewriter words={entry.subtitleWords} />
+          </p>
+        ) : (
+          entry.subtitle && <p className={entrySubtitle}>{entry.subtitle}</p>
+        )}
 
         {entry.bullets.length > 0 && (
           <ul className={entryBullets}>

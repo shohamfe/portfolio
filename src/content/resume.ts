@@ -9,6 +9,9 @@ export interface ResumeEntry {
   year?: string;
   title: string;
   subtitle?: string;
+  /** Renders the subtitle as a typing/deleting cycle through these words
+   *  instead of the static `subtitle` string. Takes priority when present. */
+  subtitleWords?: readonly string[];
   /** Rendered as a link when href is present. */
   href?: string;
   bullets: string[];
@@ -39,7 +42,14 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
         id: "next",
         year: "2026",
         title: "Present",
-        subtitle: "Your Company's name",
+        // Last 2 are placeholders - swap for whatever reads best.
+        subtitleWords: [
+          "Reserved",
+          "Your Company's name",
+          "This Company",
+          "Insert Company Here",
+          "TBD, Inc.",
+        ],
         bullets: [],
       },
     ],
