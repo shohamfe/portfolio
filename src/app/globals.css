@@ -177,6 +177,28 @@
   background-size: var(--dot-grid-size) var(--dot-grid-size);
 }
 
+/* Plain CSS, deliberately not a Motion initial/animate: Motion silently never
+   runs a mount animation on ANY descendant of a drag-enabled element — not
+   just ones with their own drag props, any descendant at all, confirmed by
+   testing a bare probe with no drag and no custom motion values. The folder
+   canvas's pan layer has `drag`, so the folders' drop-in has to live outside
+   Motion's orchestration entirely. animation-delay is set inline per folder
+   for the stagger, since Tailwind can't express a dynamic per-index value. */
+@utility folder-drop-in {
+  animation: folder-drop-in 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes folder-drop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Motion is the whole point of this site, so reduced-motion degrades rather
    than disables: transforms land instantly instead of animating. */
 @media (prefers-reduced-motion: reduce) {

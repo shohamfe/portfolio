@@ -43,8 +43,19 @@ export const canvasPanLayer = "absolute left-0 top-0 lg:left-[72px] lg:top-[-552
 export const canvasIntroMask =
   "dot-grid hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:bg-surface-page/70 lg:backdrop-blur-md lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
 
-/** left/top are set inline from the folder's committed position.
- *  outline-none is deliberate — removing only the focus-visible classes left
- *  the browser's own default focus ring showing (a heavy black rectangle),
- *  since that default isn't tied to the Tailwind utilities that were removed. */
-export const canvasFolderSlot = "absolute outline-none";
+/** left/top are set inline from the folder's committed position. This is the
+ *  outer wrapper only — it owns positioning and the mount drop-in animation,
+ *  nothing else. It deliberately carries no drag props and no externally
+ *  created motion values: doing both on the same element (as the drag grip
+ *  below needs to) turns out to silently stop the mount animation from ever
+ *  running, freezing the element at its initial state forever. */
+export const canvasFolderSlot = "absolute";
+
+/** The actual drag grip, nested inside canvasFolderSlot. `relative` is
+ *  needed for whileDrag's zIndex to have any effect at all — z-index is
+ *  inert on a position:static element, and x/y motion values only produce a
+ *  transform, not a position. outline-none is deliberate — removing only the
+ *  focus-visible classes left the browser's own default focus ring showing
+ *  (a heavy black rectangle), since that default isn't tied to the Tailwind
+ *  utilities that were removed. */
+export const canvasFolderGrip = "relative outline-none";

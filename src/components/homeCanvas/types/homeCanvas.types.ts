@@ -15,8 +15,17 @@ export interface DraggableFolderProps {
   offset: Offset;
   /** Reports a movement delta, not an absolute position. */
   onMove: (id: string, delta: Offset) => void;
+  /** Position in the grid, used to stagger the initial drop-in animation. */
+  index: number;
 }
 
 export interface HomeCanvasProps {
   className?: string;
+}
+
+export interface CanvasHintProps {
+  /** The element the cursor is tracked over. */
+  boundaryRef: React.RefObject<HTMLElement | null>;
+  /** True once the user has touched the canvas — hides the hint immediately. */
+  dismissed: boolean;
 }

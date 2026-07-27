@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useDragControls, useReducedMotion } from "motion/react";
 import {
   CANVAS_MARGIN,
@@ -13,6 +13,7 @@ import {
 } from "@/constants/canvas";
 import { TECH_FOLDERS } from "@/constants/tech";
 import { cn } from "@/lib/cn";
+import CanvasHint from "./components/CanvasHint";
 import DraggableFolder from "./components/DraggableFolder";
 import { canvasPanLayer, canvasViewport } from "./components/homeCanvas.variants";
 import { originForIndex, usePersistedOffsets } from "./hooks/homeCanvas.hooks";
@@ -39,10 +40,13 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const dragControls = useDragControls();
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const { offsets, moveBy } = usePersistedOffsets();
 
   const startPan = (event: React.PointerEvent<HTMLDivElement>) => {
+    setHasInteracted(true);
+
     if (event.target === event.currentTarget) {
       dragControls.start(event);
     }
@@ -67,12 +71,15 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
           <DraggableFolder
             key={folder.id}
             folder={folder}
+            index={index}
             origin={originForIndex(index)}
             offset={offsets[folder.id] ?? { x: 0, y: 0 }}
             onMove={moveBy}
           />
         ))}
       </motion.div>
+
+      <CanvasHint boundaryRef={viewportRef} dismissed={hasInteracted} />
     </div>
   );
 };
