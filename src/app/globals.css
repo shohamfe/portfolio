@@ -167,31 +167,45 @@
   :disabled {
     cursor: url("/cursors/arrow.svg") 4 4, not-allowed;
   }
+}
 
-  /* Resume entries dim once they leave the focus band, so the entry being
-     read stands out from the rest.
+/* Resume entries dim once they leave the focus band, so the entry being read
+   stands out from the rest.
 
-     Deliberately keyed on data-in-view="false" rather than dimming by default
-     and un-dimming what is in view. Both attributes are set by useScrollFocus,
-     and an IntersectionObserver delivers its first records asynchronously - so
-     dimming by default means every entry sits at 40% until that first delivery
-     lands, and stays there forever if it never does. Keyed this way, unreadable
-     is never the resting state: entries dim only once something has positively
-     established they are outside the band.
+   Deliberately outside every @layer. Tailwind's own utility classes (like the
+   text-text-strong on these same elements) live in its utilities layer, and a
+   named CSS layer always wins over an earlier-declared one regardless of
+   selector specificity - a rule in @layer base cannot beat a utility class no
+   matter how specific it is written, only an unlayered rule outranks every
+   layer unconditionally. This was tried inside @layer base first and silently
+   did nothing, confirmed by directly reading the computed colour before and
+   after toggling the attributes: identical in both states.
 
-     Dimming uses opacity and grayscale rather than a colour token because the
-     entries set their own text colours per element; a filter reaches all of
-     them at once without having to override each one. */
-  [data-scroll-dim] {
-    transition:
-      opacity 450ms ease-out,
-      filter 450ms ease-out;
-  }
+   Deliberately keyed on data-in-view="false" rather than dimming by default
+   and un-dimming what is in view. Both attributes are set by useScrollFocus,
+   and an IntersectionObserver delivers its first records asynchronously - so
+   dimming by default means every entry sits dimmed until that first delivery
+   lands, and stays there forever if it never does. Keyed this way, unreadable
+   is never the resting state: entries dim only once something has positively
+   established they are outside the band.
 
-  [data-scroll-dim][data-in-view="false"] {
-    opacity: 0.4;
-    filter: grayscale(1);
-  }
+   A direct colour swap to --text-dormant, not opacity+grayscale: that filter
+   approach barely affects text that is already near-black and low-saturation
+   (--text-strong itself), so the "dimmed" state read as almost identical to
+   the active one instead of visibly receding. --text-dormant already existed
+   in the theme for exactly this purpose and was never wired up. Targeting by
+   tag rather than touching entryTitle/entrySubtitle/entryBullets directly
+   keeps those classes free to set their own resting colour. */
+[data-scroll-dim] h3,
+[data-scroll-dim] p,
+[data-scroll-dim] li {
+  transition: color 450ms ease-out;
+}
+
+[data-scroll-dim][data-in-view="false"] h3,
+[data-scroll-dim][data-in-view="false"] p,
+[data-scroll-dim][data-in-view="false"] li {
+  color: var(--color-text-dormant);
 }
 
 @utility dot-grid {
