@@ -28,9 +28,16 @@ export const canvasPanLayer =
  *  would fight with the text for legibility instead of reading as a
  *  deliberate frosted-glass layer. Decorative only — aria-hidden, no pointer
  *  events — and scoped to lg: since mobile stacks intro above the canvas
- *  rather than overlapping it. */
+ *  rather than overlapping it.
+ *
+ *  The blur is deliberately light (12px, not the 40px first tried): the dot
+ *  pattern has a 24px pitch, and a blur radius bigger than that just smears
+ *  every dot into its neighbours until the pattern disappears into a flat
+ *  wash instead of surviving as a soft, still-visible texture. Legibility
+ *  comes mostly from the translucent surface tint layered with it, not from
+ *  blur strength. */
 export const canvasIntroMask =
-  "hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:backdrop-blur-2xl lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
+  "hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:bg-surface-page/70 lg:backdrop-blur-md lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
 
 /** left/top are set inline from the folder's committed position.
  *  outline-none is deliberate — removing only the focus-visible classes left
