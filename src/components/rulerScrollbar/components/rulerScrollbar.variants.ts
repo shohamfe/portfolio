@@ -3,7 +3,10 @@ import { cva } from "class-variance-authority";
 /** Every ruler class string lives here so RulerScrollbar stays markup-only.
  *  Sizes and gap come straight from the Figma ruler component (node 55:1433). */
 
-export const rulerRoot = "pointer-events-none flex w-10 flex-col items-end gap-2";
+/** h-full + justify-between (not a fixed gap) so the ruler always spans
+ *  whatever height its container gives it, spreading tickCount ticks evenly
+ *  across that space rather than stacking to a short, fixed total height. */
+export const rulerRoot = "pointer-events-none flex h-full w-10 flex-col items-end justify-between";
 
 /** Tick width and colour both step down together with distance from the
  *  active index - width shrinks and colour fades from `text-strong` (near
@@ -11,7 +14,7 @@ export const rulerRoot = "pointer-events-none flex w-10 flex-col items-end gap-2
  *  outward, so the two read as one continuous "bulge" rather than two
  *  independent scales. */
 export const rulerTickVariants = cva(
-  "h-px transition-[width,background-color] duration-150 ease-out",
+  "h-1 rounded-full transition-[width,background-color] duration-150 ease-out",
   {
     variants: {
       distance: {
