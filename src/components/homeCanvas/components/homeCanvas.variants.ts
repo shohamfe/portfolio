@@ -30,14 +30,16 @@ export const canvasPanLayer =
  *  events — and scoped to lg: since mobile stacks intro above the canvas
  *  rather than overlapping it.
  *
- *  The blur is deliberately light (12px, not the 40px first tried): the dot
- *  pattern has a 24px pitch, and a blur radius bigger than that just smears
- *  every dot into its neighbours until the pattern disappears into a flat
- *  wash instead of surviving as a soft, still-visible texture. Legibility
- *  comes mostly from the translucent surface tint layered with it, not from
- *  blur strength. */
+ *  Blurring the dots (either via backdrop-filter here or via filter on the
+ *  canvas layer itself) turned out not to work at any radius: the dots are
+ *  --color-default-300 on --color-default-50, already very low contrast, and
+ *  blurring a low-contrast pattern erases it rather than softening it —
+ *  which is why dropping 40px to 12px produced no visible difference at all.
+ *  This paints its own crisp dot-grid layer instead, immune to that, with
+ *  backdrop-blur kept underneath only to calm whatever folder colour happens
+ *  to be dragged behind it. Both fade together via the same mask-image. */
 export const canvasIntroMask =
-  "hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:bg-surface-page/70 lg:backdrop-blur-md lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
+  "dot-grid hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:bg-surface-page/70 lg:backdrop-blur-md lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
 
 /** left/top are set inline from the folder's committed position.
  *  outline-none is deliberate — removing only the focus-visible classes left
