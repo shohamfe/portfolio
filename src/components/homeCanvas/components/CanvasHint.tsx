@@ -44,6 +44,13 @@ const FADE_MS = 300;
  *  (transform-origin still applies to those individual properties, so
  *  origin-top-left keeps working.)
  *
+ *  z-50 also belongs on the wrapper, for the same reason: z-index is inert on
+ *  a position:static element, and only the wrapper is positioned (floating-ui
+ *  writes position into floatingStyles). On the static pill it did nothing, so
+ *  the portal sat at z-index auto and HomeIntro's z-20 painted over it. Both
+ *  compare in the root stacking context, since main is position:relative with
+ *  z-index auto and so does not open one of its own.
+ *
  *  pointer-events-none belongs on the positioned wrapper, not just the pill
  *  inside it. Without it the wrapper is a hit-testable box sitting right
  *  under the cursor, so moving fast enough to catch up to the pill put the
@@ -102,11 +109,11 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
         ref={refs.setFloating}
         style={floatingStyles}
         {...getFloatingProps()}
-        className="pointer-events-none"
+        className="pointer-events-none z-50"
       >
         <div
           className={cn(
-            "pointer-events-none z-50 origin-top-left translate-x-3 scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,scale] duration-300 ease-out",
+            "pointer-events-none origin-top-left translate-x-3 scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,scale] duration-300 ease-out",
             isOpen && "scale-100 opacity-100",
           )}
         >
