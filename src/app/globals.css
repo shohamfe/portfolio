@@ -167,6 +167,31 @@
   :disabled {
     cursor: url("/cursors/arrow.svg") 4 4, not-allowed;
   }
+
+  /* Resume entries dim once they leave the focus band, so the entry being
+     read stands out from the rest.
+
+     Deliberately keyed on data-in-view="false" rather than dimming by default
+     and un-dimming what is in view. Both attributes are set by useScrollFocus,
+     and an IntersectionObserver delivers its first records asynchronously - so
+     dimming by default means every entry sits at 40% until that first delivery
+     lands, and stays there forever if it never does. Keyed this way, unreadable
+     is never the resting state: entries dim only once something has positively
+     established they are outside the band.
+
+     Dimming uses opacity and grayscale rather than a colour token because the
+     entries set their own text colours per element; a filter reaches all of
+     them at once without having to override each one. */
+  [data-scroll-dim] {
+    transition:
+      opacity 450ms ease-out,
+      filter 450ms ease-out;
+  }
+
+  [data-scroll-dim][data-in-view="false"] {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
 }
 
 @utility dot-grid {
