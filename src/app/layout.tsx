@@ -56,7 +56,10 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
       lang="en"
       className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      {/* h-full (not min-h-full) plus overflow-hidden locks the document to
+          exactly the viewport height — nothing on the page scrolls except the
+          specific regions that opt in with their own overflow-y. */}
+      <body className="flex h-full flex-col overflow-hidden">{children}</body>
     </html>
   );
 };
