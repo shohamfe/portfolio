@@ -22,15 +22,29 @@ export const logoImage = "size-10 object-contain";
 
 export const folderLabel = "text-center font-body text-[16px] font-medium text-black";
 
-export const sheetIconBadge = "flex items-center justify-center rounded-full bg-default-300 p-1";
+/** Badge background matches its sheet's own border colour (bg-primary-300 for
+ *  the blue sheet, etc.), rather than a flat grey regardless of sheet colour. */
+export const sheetIconBadgeVariants = cva("flex items-center justify-center rounded-full p-1", {
+  variants: {
+    color: {
+      blue: "bg-primary-300",
+      purple: "bg-secondary-300",
+      pink: "bg-danger-300",
+      yellow: "bg-warning-300",
+      green: "bg-success-300",
+      grey: "bg-default-300",
+    },
+  },
+  defaultVariants: { color: "grey" },
+});
 
 export const sheetIcon = "size-4";
 
 /** 70px note with a colour-matched border and a shadow that lifts upward,
  *  since the sheet reads as sitting behind and above the folder body.
  *
- *  On hover it fans out — rotates further and lifts higher — so more of it
- *  peeks out from behind the folder body. Figma's prototype interactions
+ *  On hover it fans out — rotates further and lifts higher, revealing most of
+ *  the note from behind the folder body. Figma's prototype interactions
  *  aren't exposed by any available tool, so these values are a reasonable
  *  guess rather than a pulled spec; revise against the real prototype. */
 export const sheetVariants = cva(
@@ -46,8 +60,8 @@ export const sheetVariants = cva(
         grey: "bg-white border-default-300",
       },
       side: {
-        left: "-rotate-5 group-hover:-translate-y-2 group-hover:-rotate-12",
-        right: "rotate-5 group-hover:-translate-y-2 group-hover:rotate-12",
+        left: "-rotate-5 group-hover:-translate-y-8 group-hover:-rotate-12",
+        right: "rotate-5 group-hover:-translate-y-8 group-hover:rotate-12",
       },
     },
     defaultVariants: { color: "grey", side: "left" },
