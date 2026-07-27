@@ -1,11 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { PiEnvelopeSimple, PiFigmaLogo, PiGithubLogo, PiLinkedinLogo } from "react-icons/pi";
+import { PiEnvelopeSimple, PiFigmaLogo, PiGithubLogo, PiLinkedinLogo, PiPhone } from "react-icons/pi";
 import IconButton from "@/components/iconButton/IconButton";
 import Magnetic from "@/components/magnetic/Magnetic";
 import NavPill from "@/components/navPill/NavPill";
-import { LINKS, ROUTES } from "@/constants/site";
+import { CONTACT, LINKS, ROUTES } from "@/constants/site";
 import { cn } from "@/lib/cn";
 import type { SiteNavProps } from "./types/siteNav.types";
 
@@ -13,7 +13,11 @@ const EXTERNAL_LINKS = [
   { href: LINKS.github, label: "GitHub profile", icon: <PiGithubLogo /> },
   { href: LINKS.linkedin, label: "LinkedIn profile", icon: <PiLinkedinLogo /> },
   { href: LINKS.figma, label: "Figma profile", icon: <PiFigmaLogo /> },
-  { href: LINKS.email, label: "Email Shoham", icon: <PiEnvelopeSimple /> },
+];
+
+const CONTACT_ITEMS = [
+  { href: LINKS.email, text: CONTACT.email, label: "Email Shoham", icon: <PiEnvelopeSimple aria-hidden /> },
+  { href: LINKS.phone, text: CONTACT.phone, label: "Call Shoham", icon: <PiPhone aria-hidden /> },
 ];
 
 /** Route pills plus the external profile links. Shared by Home and Resume. */
@@ -21,35 +25,52 @@ const SiteNav: React.FC<SiteNavProps> = ({ className }) => {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Main" className={cn("flex flex-wrap items-center gap-x-6 gap-y-3", className)}>
-      <ul className="flex items-center gap-2">
-        {ROUTES.map((route) => (
-          <li key={route.href}>
-            <Magnetic>
-              <NavPill href={route.href} active={pathname === route.href}>
-                {route.label}
-              </NavPill>
-            </Magnetic>
+    <div className={cn("flex flex-col gap-3", className)}>
+      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        {CONTACT_ITEMS.map((item) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              aria-label={item.label}
+              className="inline-flex items-center gap-1.5 font-ui text-small text-text-muted hover:text-text-strong"
+            >
+              {item.icon}
+              {item.text}
+            </a>
           </li>
         ))}
       </ul>
 
-      <ul className="flex items-center gap-2">
-        {EXTERNAL_LINKS.map((link) => (
-          <li key={link.href}>
-            <Magnetic>
-              <IconButton
-                href={link.href}
-                aria-label={link.label}
-                icon={link.icon}
-                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-              />
-            </Magnetic>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      <nav aria-label="Main" className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <ul className="flex items-center gap-2">
+          {ROUTES.map((route) => (
+            <li key={route.href}>
+              <Magnetic>
+                <NavPill href={route.href} active={pathname === route.href}>
+                  {route.label}
+                </NavPill>
+              </Magnetic>
+            </li>
+          ))}
+        </ul>
+
+        <ul className="flex items-center gap-2">
+          {EXTERNAL_LINKS.map((link) => (
+            <li key={link.href}>
+              <Magnetic>
+                <IconButton
+                  href={link.href}
+                  aria-label={link.label}
+                  icon={link.icon}
+                  target="_blank"
+                  rel="noreferrer"
+                />
+              </Magnetic>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 };
 

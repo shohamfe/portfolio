@@ -11,10 +11,18 @@ export const SITE = {
 
 export const LINKS = {
   email: "mailto:shoham.fe@gmail.com",
+  phone: "tel:+972508882689",
   linkedin: "https://www.linkedin.com/in/shoham-fe",
   github: "https://github.com/ShohamFe",
   // TODO(shoham): confirm the Figma profile handle.
   figma: "https://www.figma.com/@shohamfellner",
+} as const;
+
+/** Display strings for the contact line — LINKS carries the href-formatted
+ *  versions (tel: needs E.164, not the local 050- format people read). */
+export const CONTACT = {
+  email: "shoham.fe@gmail.com",
+  phone: "050-8882689",
 } as const;
 
 /** Nav order matches the Figma header. Portfolio is a stub until designed. */
