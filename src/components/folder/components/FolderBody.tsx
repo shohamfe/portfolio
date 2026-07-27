@@ -7,7 +7,14 @@ const FolderBody: React.FC<FolderBodyProps> = ({ id, logo }) => {
   return (
     <div id={id} className={folderBody}>
       <div id={`${id}-card`} className={logoCard}>
-        <Image src={logo} alt="" width={40} height={40} className={logoImage} />
+        <Image
+          src={logo}
+          alt=""
+          width={40}
+          height={40}
+          draggable={false}
+          className={logoImage}
+        />
       </div>
     </div>
   );
