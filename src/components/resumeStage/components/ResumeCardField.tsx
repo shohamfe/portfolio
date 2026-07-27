@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import StickyCard from "@/components/stickyCard/StickyCard";
 import { RESUME_CARD_PLACEMENTS } from "@/constants/resume";
 import { RESUME_CARDS } from "@/content/resume";
@@ -13,13 +14,19 @@ const CARDS_BY_ID = new Map(RESUME_CARDS.map((card) => [card.id, card]));
  *  RESUME_CARD_PLACEMENTS; a placement naming a card that no longer exists is
  *  skipped rather than crashing the page.
  *
+ *  Each card's drag is bounded to this field's own box, so a card can never
+ *  be pulled outside the page and force a scrollbar in either direction.
+ *
  *  Labelled rather than aria-hidden: only the scattering is decorative. Each
  *  note carries a claim that appears nowhere else on the page, so hiding the
  *  field would drop that content from assistive tech entirely. */
 const ResumeCardField: React.FC<ResumeCardFieldProps> = ({ className }) => {
+  const fieldRef = useRef<HTMLElement>(null);
+
   return (
     <aside
       id="resume-card-field"
+      ref={fieldRef}
       aria-label="Highlights"
       className={cn(cardFieldRoot, className)}
     >
@@ -33,7 +40,12 @@ const ResumeCardField: React.FC<ResumeCardFieldProps> = ({ className }) => {
             className={cardFieldItem}
             style={{ top: placement.top, left: placement.left }}
           >
-            <StickyCard card={card} rotation={placement.rotation} parallaxDepth={placement.depth} />
+            <StickyCard
+              card={card}
+              rotation={placement.rotation}
+              parallaxDepth={placement.depth}
+              boundaryRef={fieldRef}
+            />
           </div>
         );
       })}
