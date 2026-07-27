@@ -37,6 +37,14 @@ const FADE_MS = 300;
  *  then an animate-target flip — and swapping both out for a plain CSS
  *  transition changed nothing, which is what ruled Motion out entirely.)
  *
+ *  pointer-events-none belongs on the positioned wrapper, not just the pill
+ *  inside it. Without it the wrapper is a hit-testable box sitting right
+ *  under the cursor, so moving fast enough to catch up to the pill put the
+ *  pointer over the wrapper instead of the canvas — useClientPoint stopped
+ *  receiving pointermove, and the pill froze mid-flight until some unrelated
+ *  re-render (a click) shook it loose. It also would have swallowed the
+ *  pointerdown that starts a canvas pan whenever a drag began underneath it.
+ *
  *  bottom-start, not bottom: plain "bottom" centres the pill horizontally on
  *  the cursor point, which is what kept it looking centred no matter how the
  *  offset was tuned. "-start" aligns the pill's left edge to the point, so it
@@ -50,14 +58,18 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   // canvas. Once leaving, the timeout is disabled so it cannot re-trigger.
   useAnimationFrameTimeout(
     () => setPhase("leaving"),
-    phase === "visible" ? HINT_DURATION_MS : null
+    phase === "visible" ? HINT_DURATION_MS : null,
   );
 
   useEffect(() => {
-    if (dismissed) setPhase((current) => (current === "visible" ? "leaving" : current));
+    if (dismissed)
+      setPhase((current) => (current === "visible" ? "leaving" : current));
   }, [dismissed]);
 
-  useAnimationFrameTimeout(() => setPhase("gone"), phase === "leaving" ? FADE_MS : null);
+  useAnimationFrameTimeout(
+    () => setPhase("gone"),
+    phase === "leaving" ? FADE_MS : null,
+  );
 
   const isOpen = phase === "visible";
 
@@ -79,11 +91,16 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
 
   return (
     <FloatingPortal>
-      <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
+      <div
+        ref={refs.setFloating}
+        style={floatingStyles}
+        {...getFloatingProps()}
+        className="pointer-events-none"
+      >
         <div
           className={cn(
             "pointer-events-none z-50 origin-top-left translate-x-3 scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,transform] duration-300 ease-out",
-            isOpen && "scale-100 opacity-100"
+            isOpen && "scale-100 opacity-100",
           )}
         >
           Try moving things around
