@@ -37,10 +37,12 @@ const FADE_MS = 300;
  *  then an animate-target flip — and swapping both out for a plain CSS
  *  transition changed nothing, which is what ruled Motion out entirely.)
  *
- *  Position is a flat CSS translate rather than floating-ui's crossAxis
- *  offset: useClientPoint tracks a zero-size virtual point, and crossAxis
- *  alignment (meant to shift along the side of a real, sized reference) has
- *  no reliable meaning against a point with no size to offset from. */
+ *  bottom-start, not bottom: plain "bottom" centres the pill horizontally on
+ *  the cursor point, which is what kept it looking centred no matter how the
+ *  offset was tuned. "-start" aligns the pill's left edge to the point, so it
+ *  extends down and to the right. translate-x-3 then adds a small diagonal
+ *  gap, and origin-top-left makes it grow out of the corner nearest the
+ *  cursor rather than from its own middle. */
 const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   const [phase, setPhase] = useState<HintPhase>("visible");
 
@@ -61,7 +63,7 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
-    placement: "bottom",
+    placement: "bottom-start",
     middleware: [offsetMiddleware(16)],
   });
 
