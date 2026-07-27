@@ -1,6 +1,8 @@
 import SiteNav from "@/components/siteNav/SiteNav";
 import { SITE } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
+import { cn } from "@/lib/cn";
+import type { HomeIntroProps } from "./types/homeIntro.types";
 import {
   introDivider,
   introHeader,
@@ -20,9 +22,9 @@ const { passion, howIWork, about } = HOME_CONTENT;
 /** The left-hand column of the Home page: identity, navigation, and the three
  *  short prose sections. Each section is labelled by its heading so it is
  *  announced as a named landmark rather than an anonymous region. */
-const HomeIntro: React.FC = () => {
+const HomeIntro: React.FC<HomeIntroProps> = ({ className }) => {
   return (
-    <div id="home-intro" className={introRoot}>
+    <div id="home-intro" className={cn(introRoot, className)}>
       <header id="home-intro-header" className={introHeader}>
         <h1 id="home-intro-name" className={introName}>
           {SITE.name}
