@@ -17,8 +17,19 @@ import type { StickyCardProps } from "./types/stickyCard.types";
  *
  *  Two nested motion elements, not one - Motion only manages one x/y pair
  *  per element, so the cursor-parallax offset (outer) and the drag offset
- *  (inner, Motion's own internal x/y) have to live on separate elements. */
-const StickyCard: React.FC<StickyCardProps> = ({ card, rotation = 0, parallaxDepth = 0.5, className }) => {
+ *  (inner, Motion's own internal x/y) have to live on separate elements.
+ *
+ *  dragElastic is 0, not just a small value with a snap-back: paired with
+ *  dragConstraints, elastic 0 means the position is clamped to the boundary
+ *  continuously while dragging, so the card cannot leave the given bounds
+ *  even mid-gesture. There is nothing to snap back from. */
+const StickyCard: React.FC<StickyCardProps> = ({
+  card,
+  rotation = 0,
+  parallaxDepth = 0.5,
+  boundaryRef,
+  className,
+}) => {
   const { x, y, prefersReducedMotion } = useStickyCardParallax(parallaxDepth);
   const id = `sticky-card-${card.id}`;
 
@@ -30,6 +41,7 @@ const StickyCard: React.FC<StickyCardProps> = ({ card, rotation = 0, parallaxDep
         className={cn(stickyCardVariants({ color: card.color }), className)}
         style={{ rotate: `${rotation}deg` }}
         drag
+        dragConstraints={boundaryRef}
         dragMomentum={false}
         dragElastic={0}
         whileDrag={
