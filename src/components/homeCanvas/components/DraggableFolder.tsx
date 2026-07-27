@@ -17,13 +17,13 @@ const ARROW_DELTAS: Record<string, Offset> = {
 
 /** One folder the user can pick up and move anywhere on the canvas.
  *
- *  Two nested elements, not one — this is load-bearing, not decoration.
+ *  Two nested elements, not one - this is load-bearing, not decoration.
  *  Positioning lives on the outer slot; drag and its x/y motion values live
  *  on the inner grip. The mount drop-in is plain CSS (the folder-drop-in
  *  utility), not Motion's initial/animate: Motion never runs a mount
  *  animation on ANY descendant of a drag-enabled ancestor (confirmed with a
  *  bare probe carrying no drag props and no custom motion values, nested
- *  inside the pan layer — still froze at `initial` forever), and the pan
+ *  inside the pan layer - still froze at `initial` forever), and the pan
  *  layer these folders live inside has `drag`, so there was no way to keep
  *  this on Motion's side at all.
  *
@@ -35,7 +35,7 @@ const ARROW_DELTAS: Record<string, Offset> = {
  *
  *  left/top only transition while not dragging, so a keyboard nudge glides
  *  but a drag still tracks the pointer 1:1. isDragging is cleared a frame
- *  after the drag-end position commits, rather than in the same tick — doing
+ *  after the drag-end position commits, rather than in the same tick - doing
  *  it immediately would let the transition apply to that same commit, and
  *  since the commit's delta is only visually a no-op once x/y are reset, that
  *  would animate a jump that should not be visible at all. */

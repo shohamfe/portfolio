@@ -29,6 +29,6 @@ export type HintPhase = "visible" | "leaving" | "gone";
 export interface CanvasHintProps {
   /** The element the cursor is tracked over. */
   boundaryRef: React.RefObject<HTMLElement | null>;
-  /** True once the user has touched the canvas — hides the hint immediately. */
+  /** True once the user has touched the canvas - hides the hint immediately. */
   dismissed: boolean;
 }

@@ -14,7 +14,7 @@ import { cn } from "@/lib/cn";
 import type { CursorLabelProps } from "./types/cursorLabel.types";
 
 /** Tooltip pill that follows the cursor while hovering `children`. The only
- *  JS-driven cursor element on the site — the arrow/hand/grab cursors are
+ *  JS-driven cursor element on the site - the arrow/hand/grab cursors are
  *  plain CSS, set in globals.css. Positioning and ARIA wiring come from
  *  @floating-ui/react rather than a hand-rolled mousemove listener. */
 const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className }) => {

@@ -1,5 +1,5 @@
 /* The page's own padding moved here so the canvas can go edge to edge without
- * shifting the intro's visual position — main used to pad both children
+ * shifting the intro's visual position - main used to pad both children
  * uniformly, now each side carries its own inset.
  *
  * h-full/min-h-0 are lg-only: only at that breakpoint does the intro sit in a
@@ -8,7 +8,7 @@
 export const introRoot =
   "flex w-full flex-col px-10 pt-12 lg:h-full lg:min-h-0 lg:max-w-lg lg:shrink-0";
 
-/** Name, tagline and nav — stays put above the scrollable content. */
+/** Name, tagline and nav - stays put above the scrollable content. */
 export const introFixed = "flex shrink-0 flex-col gap-8";
 
 export const introHeader = "flex flex-col gap-3";

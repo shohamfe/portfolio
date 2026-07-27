@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-/** Placeholder 404. Awaiting a design — deliberately plain until then. */
+/** Placeholder 404. Awaiting a design - deliberately plain until then. */
 const NotFound: React.FC = () => {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">

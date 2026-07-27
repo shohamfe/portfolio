@@ -7,7 +7,7 @@ import type { InteractiveHoverButtonProps } from "./types/interactiveHoverButton
 /** Ported from https://21st.dev/@dillionverma/components/interactive-hover-button.
  *  Original classes (bg-background, bg-primary, text-primary-foreground) swapped
  *  for our surface/accent tokens; lucide-react's ArrowRight swapped for Phosphor.
- *  No cursor utility here — globals.css drives the custom cursors. */
+ *  No cursor utility here - globals.css drives the custom cursors. */
 const InteractiveHoverButton: React.FC<InteractiveHoverButtonProps> = ({
   children,
   className,

@@ -15,7 +15,7 @@ import type { Offset, OffsetMap } from "../types/homeCanvas.types";
  *
  *  A plain setTimeout fires on its own schedule with no relationship to the
  *  browser's paint cycle, so a state change made from one is not guaranteed
- *  to be painted — it can sit applied-but-invisible until some unrelated
+ *  to be painted - it can sit applied-but-invisible until some unrelated
  *  input event (a click, a mousemove) forces a repaint. requestAnimationFrame
  *  only runs as part of producing a frame, so anything scheduled from it is
  *  painted by construction.
@@ -69,7 +69,7 @@ const parseStored = (raw: string): OffsetMap => {
  *
  *  Starts from DEFAULT_FOLDER_OFFSETS (a hand-arranged layout) rather than an
  *  empty grid, so a first-time visitor sees that arrangement from the very
- *  first paint instead of the neat grid snapping into it after hydration —
+ *  first paint instead of the neat grid snapping into it after hydration -
  *  the default is a static constant, identical on server and client, so
  *  seeding useState with it directly is hydration-safe. A visitor's own
  *  stored drags are layered on top per folder id, not swapped in wholesale,

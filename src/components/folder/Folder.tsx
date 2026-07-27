@@ -5,7 +5,7 @@ import { folderLabel, folderRoot, folderStack, sheetRow } from "./components/fol
 import type { FolderProps } from "./types/folder.types";
 
 /** A single technology folder: two rotated sticky notes tucked behind a
- *  frosted body that holds the technology's logo card. Static here — dragging
+ *  frosted body that holds the technology's logo card. Static here - dragging
  *  is layered on by the canvas that renders it. */
 const Folder: React.FC<FolderProps> = ({ folder, className }) => {
   const [leftSheet, rightSheet] = folder.sheets;

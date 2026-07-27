@@ -18,7 +18,7 @@ export const LINKS = {
     "https://www.figma.com/design/l5phLfD82JdpZIZ2up9XPr/Shoham-Fellner-Resume?node-id=49-1160&t=IqXtCEdOPYhCn5Th-1",
 } as const;
 
-/** Display strings for the contact line — LINKS carries the href-formatted
+/** Display strings for the contact line - LINKS carries the href-formatted
  *  versions (tel: needs E.164, not the local 050- format people read). */
 export const CONTACT = {
   email: "shoham.fe@gmail.com",

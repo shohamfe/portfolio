@@ -11,7 +11,7 @@ export const canvasViewport = "dot-grid relative flex-1 overflow-hidden";
 
 /** The layer that actually moves.
  *
- *  Below lg, 0,0 is correct as-is — the canvas is a normal flex item to the
+ *  Below lg, 0,0 is correct as-is - the canvas is a normal flex item to the
  *  right of the intro, so no extra inset is needed. At lg, the canvas becomes
  *  a full-bleed layer spanning behind the intro too, so the pan layer needs
  *  its own explicit offset to keep the folders' visual start where it was:
@@ -28,14 +28,14 @@ export const canvasPanLayer = "absolute left-0 top-0 lg:left-[72px] lg:top-[-552
  *  fade out into sharp, unblurred canvas. The canvas is full-bleed behind the
  *  intro at the lg breakpoint, so without this the folders panning underneath
  *  would fight with the text for legibility instead of reading as a
- *  deliberate frosted-glass layer. Decorative only — aria-hidden, no pointer
- *  events — and scoped to lg: since mobile stacks intro above the canvas
+ *  deliberate frosted-glass layer. Decorative only - aria-hidden, no pointer
+ *  events - and scoped to lg: since mobile stacks intro above the canvas
  *  rather than overlapping it.
  *
  *  Blurring the dots (either via backdrop-filter here or via filter on the
  *  canvas layer itself) turned out not to work at any radius: the dots are
  *  --color-default-300 on --color-default-50, already very low contrast, and
- *  blurring a low-contrast pattern erases it rather than softening it —
+ *  blurring a low-contrast pattern erases it rather than softening it -
  *  which is why dropping 40px to 12px produced no visible difference at all.
  *  This paints its own crisp dot-grid layer instead, immune to that, with
  *  backdrop-blur kept underneath only to calm whatever folder colour happens
@@ -44,7 +44,7 @@ export const canvasIntroMask =
   "dot-grid hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-10 lg:block lg:w-[720px] lg:bg-surface-page/70 lg:backdrop-blur-md lg:[mask-image:linear-gradient(to_right,black,black_55%,transparent)]";
 
 /** left/top are set inline from the folder's committed position. This is the
- *  outer wrapper only — it owns positioning and the mount drop-in animation,
+ *  outer wrapper only - it owns positioning and the mount drop-in animation,
  *  nothing else. It deliberately carries no drag props and no externally
  *  created motion values: doing both on the same element (as the drag grip
  *  below needs to) turns out to silently stop the mount animation from ever
@@ -52,9 +52,9 @@ export const canvasIntroMask =
 export const canvasFolderSlot = "absolute";
 
 /** The actual drag grip, nested inside canvasFolderSlot. `relative` is
- *  needed for whileDrag's zIndex to have any effect at all — z-index is
+ *  needed for whileDrag's zIndex to have any effect at all - z-index is
  *  inert on a position:static element, and x/y motion values only produce a
- *  transform, not a position. outline-none is deliberate — removing only the
+ *  transform, not a position. outline-none is deliberate - removing only the
  *  focus-visible classes left the browser's own default focus ring showing
  *  (a heavy black rectangle), since that default isn't tied to the Tailwind
  *  utilities that were removed. */

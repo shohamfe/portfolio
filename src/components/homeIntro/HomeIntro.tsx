@@ -23,7 +23,7 @@ const { passion, howIWork, about } = HOME_CONTENT;
 
 /** The left-hand column of the Home page: identity, navigation, and the three
  *  short prose sections. Name/tagline/nav and the divider stay fixed; only
- *  the content below the divider scrolls, and only the page below it — the
+ *  the content below the divider scrolls, and only the page below it - the
  *  page itself never scrolls (see body's h-full/overflow-hidden in layout).
  *  Each section is labelled by its heading so it announces as a named
  *  landmark rather than an anonymous region. */

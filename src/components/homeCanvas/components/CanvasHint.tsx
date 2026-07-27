@@ -17,7 +17,7 @@ const HINT_DURATION_MS = 10000;
 const FADE_MS = 300;
 
 /** Cursor-following pill shown for the first 10 seconds after Home mounts, or
- *  until the user first touches the canvas — whichever comes first. Nothing
+ *  until the user first touches the canvas - whichever comes first. Nothing
  *  else on the page signals that the folders (and the canvas itself) are
  *  draggable, so this nudges first-time visitors toward finding out.
  *
@@ -27,14 +27,14 @@ const FADE_MS = 300;
  *
  *  Both phase changes are timed with requestAnimationFrame rather than
  *  setTimeout. This is the actual fix for a bug where the pill would sit
- *  frozen on screen past its timeout and only vanish — instantly, with no
- *  fade — once the user clicked something. React had already applied the
+ *  frozen on screen past its timeout and only vanish - instantly, with no
+ *  fade - once the user clicked something. React had already applied the
  *  hidden state; the browser simply had not repainted, and the click forced
  *  the repaint that revealed it. setTimeout has no relationship to the paint
  *  cycle, so nothing guaranteed a frame would follow it. rAF only runs as
  *  part of producing a frame, so a state change scheduled from it is painted
- *  by construction. (Two earlier attempts blamed Motion — AnimatePresence,
- *  then an animate-target flip — and swapping both out for a plain CSS
+ *  by construction. (Two earlier attempts blamed Motion - AnimatePresence,
+ *  then an animate-target flip - and swapping both out for a plain CSS
  *  transition changed nothing, which is what ruled Motion out entirely.)
  *
  *  The transition lists `scale`, not `transform`. Tailwind v4 compiles the
@@ -47,7 +47,7 @@ const FADE_MS = 300;
  *  pointer-events-none belongs on the positioned wrapper, not just the pill
  *  inside it. Without it the wrapper is a hit-testable box sitting right
  *  under the cursor, so moving fast enough to catch up to the pill put the
- *  pointer over the wrapper instead of the canvas — useClientPoint stopped
+ *  pointer over the wrapper instead of the canvas - useClientPoint stopped
  *  receiving pointermove, and the pill froze mid-flight until some unrelated
  *  re-render (a click) shook it loose. It also would have swallowed the
  *  pointerdown that starts a canvas pan whenever a drag began underneath it.

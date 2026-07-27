@@ -32,7 +32,7 @@ const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT + 2 * CANVAS_MARGIN
  *  The pan layer's own drag listener is disabled (`dragListener={false}`) and
  *  started manually via `dragControls`, only when the pointer actually went
  *  down on empty canvas. Relying on event propagation to stop a folder's own
- *  drag from also starting the parent's pan does not work — Motion's pointer
+ *  drag from also starting the parent's pan does not work - Motion's pointer
  *  handling does not respect a child's stopPropagation the way plain DOM
  *  listeners would, so both gestures used to fire at once and the folder
  *  never moved. */

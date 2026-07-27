@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Layer 1 — Palette primitives
+   Layer 1 - Palette primitives
    Raw values from the Figma variable set. Never referenced directly by a
    component; only the semantic layer below is allowed to read these.
    ========================================================================== */
@@ -45,7 +45,7 @@
   --color-content1-foreground: #11181c;
   --color-content4-foreground: #52525b;
 
-  /* Type scale — sizes and line heights come straight from the Figma styles. */
+  /* Type scale - sizes and line heights come straight from the Figma styles. */
   --text-h1: 3.75rem; /* 60px */
   --text-h1--line-height: 1;
   --text-h2: 2rem; /* 32px */
@@ -66,7 +66,7 @@
   --font-code: var(--font-google-sans-code);
   --font-ui: var(--font-inter);
 
-  /* Background dot grid — 2px dot on a 24px pitch, from the Figma component. */
+  /* Background dot grid - 2px dot on a 24px pitch, from the Figma component. */
   --dot-grid-size: 24px;
   --dot-grid-dot: 2px;
 
@@ -81,7 +81,7 @@
 }
 
 /* ==========================================================================
-   Layer 2 — Semantic tokens
+   Layer 2 - Semantic tokens
    What components actually consume. Renaming a role here re-themes the site
    without touching a single component.
    ========================================================================== */
@@ -178,7 +178,7 @@
 }
 
 /* Plain CSS, deliberately not a Motion initial/animate: Motion silently never
-   runs a mount animation on ANY descendant of a drag-enabled element — not
+   runs a mount animation on ANY descendant of a drag-enabled element - not
    just ones with their own drag props, any descendant at all, confirmed by
    testing a bare probe with no drag and no custom motion values. The folder
    canvas's pan layer has `drag`, so the folders' drop-in has to live outside

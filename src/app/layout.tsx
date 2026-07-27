@@ -57,7 +57,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
       className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
-        {/* Preloaded so the cursor images are already decoded by first paint —
+        {/* Preloaded so the cursor images are already decoded by first paint -
             without this, the browser may still show its default cursor for a
             beat until each image finishes loading. This doesn't fully
             eliminate the delay: most browsers only repaint a custom cursor on
@@ -69,7 +69,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
         <link rel="preload" as="image" href="/cursors/grab.svg" />
       </head>
       {/* h-full (not min-h-full) plus overflow-hidden locks the document to
-          exactly the viewport height — nothing on the page scrolls except the
+          exactly the viewport height - nothing on the page scrolls except the
           specific regions that opt in with their own overflow-y. */}
       <body className="flex h-full flex-col overflow-hidden">{children}</body>
     </html>

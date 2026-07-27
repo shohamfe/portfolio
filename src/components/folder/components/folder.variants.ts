@@ -46,7 +46,7 @@ export const sheetIcon = "size-4";
 /** 70px note with a colour-matched border and a shadow that lifts upward,
  *  since the sheet reads as sitting behind and above the folder body.
  *
- *  On hover it fans out — rotates further and lifts higher, revealing most of
+ *  On hover it fans out - rotates further and lifts higher, revealing most of
  *  the note from behind the folder body. Figma's prototype interactions
  *  aren't exposed by any available tool, so these values are a reasonable
  *  guess rather than a pulled spec; revise against the real prototype. */
