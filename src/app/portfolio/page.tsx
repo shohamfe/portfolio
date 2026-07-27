@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: `Portfolio — ${SITE.name}`,
+  title: `Portfolio - ${SITE.name}`,
 };
 
 /** Placeholder route. The Portfolio page is still to be designed, but the nav

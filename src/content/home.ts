@@ -12,7 +12,7 @@ export const HOME_CONTENT = {
     title: "How I Work",
     bullets: [
       "See the full picture",
-      "Plan the architecture first — a stable base beats a fast start",
+      "Plan the architecture before building",
       "Read the codebase before adding to it",
     ],
   },

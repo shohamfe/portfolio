@@ -99,7 +99,7 @@ const DraggableFolder: React.FC<DraggableFolderProps> = ({
         }}
         tabIndex={0}
         role="group"
-        aria-label={`${folder.label} — drag, or move with the arrow keys`}
+        aria-label={`${folder.label} - drag, or move with the arrow keys`}
         onKeyDown={handleKeyDown}
       >
         <Folder folder={folder} />

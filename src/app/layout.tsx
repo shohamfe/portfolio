@@ -41,10 +41,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.role}`,
+  title: `${SITE.name} - ${SITE.role}`,
   description: SITE.description,
   openGraph: {
-    title: `${SITE.name} — ${SITE.role}`,
+    title: `${SITE.name} - ${SITE.role}`,
     description: SITE.description,
     type: "website",
   },
