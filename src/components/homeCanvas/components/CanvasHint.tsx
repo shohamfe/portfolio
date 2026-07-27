@@ -9,7 +9,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import type { CanvasHintProps } from "../types/homeCanvas.types";
 
 const HINT_DURATION_MS = 10000;
@@ -19,15 +19,23 @@ const HINT_DURATION_MS = 10000;
  *  else on the page signals that the folders (and the canvas itself) are
  *  draggable, so this nudges first-time visitors toward finding out.
  *
+ *  Sits below and to the right of the cursor: the offset middleware's
+ *  crossAxis value pushes it sideways from the default bottom placement.
+ *
  *  Positioning and the grow/shrink animation are deliberately on two
  *  different elements. floating-ui writes its own `transform` into
  *  floatingStyles for positioning; Motion's `animate` also wants to own
- *  `transform` for scale. Putting both on the same element means one
- *  silently overwrites the other. The outer div (floating-ui's ref target)
- *  stays mounted for the component's whole lifetime so AnimatePresence can
- *  actually see the inner content leave and animate the shrink-out before
- *  removing it — conditionally rendering the outer too would unmount both
- *  in the same tick and skip the exit animation entirely. */
+ *  `transform` for scale — same element, same property, one wins silently.
+ *
+ *  The pill is always mounted; only its opacity/scale target changes. An
+ *  AnimatePresence-based mount/unmount was tried first and would freeze on
+ *  screen after the timeout instead of shrinking away, only recovering once
+ *  a click forced an unrelated re-render — conditionally mounting depends on
+ *  AnimatePresence correctly noticing the child disappear, and something
+ *  about this tree wasn't triggering that reliably. Flipping a persistent
+ *  element's `animate` target has no such dependency: Motion re-runs the
+ *  transition whenever the target values differ from before, mount state
+ *  aside, so there's nothing to fail to notice. */
 const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   const [timeElapsed, setTimeElapsed] = useState(false);
 
@@ -40,7 +48,8 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
 
   const { refs, floatingStyles, context } = useFloating({
     open,
-    middleware: [offsetMiddleware(20)],
+    placement: "bottom",
+    middleware: [offsetMiddleware({ mainAxis: 16, crossAxis: 16 })],
   });
 
   const clientPoint = useClientPoint(context, { enabled: open });
@@ -54,19 +63,13 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   return (
     <FloatingPortal>
       <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 22 }}
-              className="pointer-events-none z-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground shadow-folder"
-            >
-              Try moving things around
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          animate={{ opacity: open ? 1 : 0, scale: open ? 1 : 0.4 }}
+          transition={{ type: "spring", stiffness: 300, damping: 22 }}
+          className="pointer-events-none z-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground shadow-folder"
+        >
+          Try moving things around
+        </motion.div>
       </div>
     </FloatingPortal>
   );
