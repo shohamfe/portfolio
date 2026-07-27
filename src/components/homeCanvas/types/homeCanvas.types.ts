@@ -23,6 +23,9 @@ export interface HomeCanvasProps {
   className?: string;
 }
 
+/** visible → leaving (fading out) → gone (unmounted). */
+export type HintPhase = "visible" | "leaving" | "gone";
+
 export interface CanvasHintProps {
   /** The element the cursor is tracked over. */
   boundaryRef: React.RefObject<HTMLElement | null>;

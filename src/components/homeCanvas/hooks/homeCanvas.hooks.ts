@@ -11,6 +11,37 @@ import {
 } from "@/constants/canvas";
 import type { Offset, OffsetMap } from "../types/homeCanvas.types";
 
+/** setTimeout, but resolved on an animation frame.
+ *
+ *  A plain setTimeout fires on its own schedule with no relationship to the
+ *  browser's paint cycle, so a state change made from one is not guaranteed
+ *  to be painted — it can sit applied-but-invisible until some unrelated
+ *  input event (a click, a mousemove) forces a repaint. requestAnimationFrame
+ *  only runs as part of producing a frame, so anything scheduled from it is
+ *  painted by construction.
+ *
+ *  Pass null to disable. */
+export const useAnimationFrameTimeout = (callback: () => void, delayMs: number | null): void => {
+  const saved = useRef(callback);
+  saved.current = callback;
+
+  useEffect(() => {
+    if (delayMs === null) return;
+
+    const start = performance.now();
+    let frame = requestAnimationFrame(function tick(now) {
+      if (now - start >= delayMs) {
+        saved.current();
+        return;
+      }
+
+      frame = requestAnimationFrame(tick);
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [delayMs]);
+};
+
 /** Grid slot for a folder before the user moves it, inset by CANVAS_MARGIN so
  *  the grid sits away from the edges of the (larger) pan layer. */
 export const originForIndex = (index: number): Offset => ({
