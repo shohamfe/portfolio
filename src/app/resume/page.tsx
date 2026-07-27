@@ -17,18 +17,26 @@ const downloadButton = cn(
   PRESSABLE
 );
 
+/** min-h + justify-between: the title anchors to the top of the header box
+ *  and the nav/download row anchors to the bottom, rather than everything
+ *  centring together in a single row. */
 const ResumePage: React.FC = () => {
   return (
     <main id="resume" className="dot-grid flex min-h-0 flex-1 flex-col overflow-hidden">
-      <header id="resume-header" className="flex shrink-0 flex-wrap items-center gap-x-8 gap-y-4 px-10 pb-8 pt-12">
+      <header
+        id="resume-header"
+        className="flex min-h-40 shrink-0 flex-col justify-between gap-4 px-10 pb-8 pt-12"
+      >
         <h1 className="font-display text-h2 font-bold text-text-strong">{SITE.name}</h1>
 
-        <SiteNav />
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+          <SiteNav />
 
-        <a href={SITE.cvPath} download className={downloadButton}>
-          <PiDownloadSimple aria-hidden />
-          Download CV
-        </a>
+          <a href={SITE.cvPath} download className={downloadButton}>
+            <PiDownloadSimple aria-hidden />
+            Download CV
+          </a>
+        </div>
       </header>
 
       <ResumeStage />

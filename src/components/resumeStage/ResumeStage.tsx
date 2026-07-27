@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import ResumeCardField from "./components/ResumeCardField";
 import {
   stageContent,
+  stageHeaderMask,
   stageRoot,
   stageRuler,
   stageScroller,
@@ -45,6 +46,8 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
           <ResumeCardField />
         </div>
       </div>
+
+      <div id="resume-header-mask" aria-hidden className={stageHeaderMask} />
     </div>
   );
 };
