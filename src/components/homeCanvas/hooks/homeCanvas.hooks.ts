@@ -1,7 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CANVAS_MARGIN, COLUMNS, COLUMN_STEP, ROW_STEP, STORAGE_KEY } from "@/constants/canvas";
+import {
+  CANVAS_MARGIN,
+  COLUMNS,
+  COLUMN_STEP,
+  DEFAULT_FOLDER_OFFSETS,
+  ROW_STEP,
+  STORAGE_KEY,
+} from "@/constants/canvas";
 import type { Offset, OffsetMap } from "../types/homeCanvas.types";
 
 /** Grid slot for a folder before the user moves it, inset by CANVAS_MARGIN so
@@ -29,6 +36,14 @@ const parseStored = (raw: string): OffsetMap => {
 
 /** Folder positions survive reloads and route changes.
  *
+ *  Starts from DEFAULT_FOLDER_OFFSETS (a hand-arranged layout) rather than an
+ *  empty grid, so a first-time visitor sees that arrangement from the very
+ *  first paint instead of the neat grid snapping into it after hydration —
+ *  the default is a static constant, identical on server and client, so
+ *  seeding useState with it directly is hydration-safe. A visitor's own
+ *  stored drags are layered on top per folder id, not swapped in wholesale,
+ *  so moving one folder doesn't discard the curated position of the rest.
+ *
  *  Moves are applied as deltas resolved inside the state updater. Taking an
  *  absolute position from props instead loses every move but the last when
  *  several land in the same tick, which is what holding an arrow key does. */
@@ -36,7 +51,7 @@ export const usePersistedOffsets = (): {
   offsets: OffsetMap;
   moveBy: (id: string, delta: Offset) => void;
 } => {
-  const [offsets, setOffsets] = useState<OffsetMap>({});
+  const [offsets, setOffsets] = useState<OffsetMap>(DEFAULT_FOLDER_OFFSETS);
   const hydrated = useRef(false);
 
   useEffect(() => {
@@ -44,7 +59,7 @@ export const usePersistedOffsets = (): {
 
     if (raw) {
       try {
-        setOffsets(parseStored(raw));
+        setOffsets({ ...DEFAULT_FOLDER_OFFSETS, ...parseStored(raw) });
       } catch {
         // Corrupt or hand-edited storage should not break the canvas.
         window.localStorage.removeItem(STORAGE_KEY);
