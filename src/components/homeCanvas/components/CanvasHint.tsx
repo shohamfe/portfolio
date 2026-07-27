@@ -9,7 +9,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { motion } from "motion/react";
+import { cn } from "@/lib/cn";
 import type { CanvasHintProps } from "../types/homeCanvas.types";
 
 const HINT_DURATION_MS = 10000;
@@ -19,23 +19,21 @@ const HINT_DURATION_MS = 10000;
  *  else on the page signals that the folders (and the canvas itself) are
  *  draggable, so this nudges first-time visitors toward finding out.
  *
- *  Sits below and to the right of the cursor: the offset middleware's
- *  crossAxis value pushes it sideways from the default bottom placement.
+ *  Plain CSS transition, deliberately not Motion. Two different Motion
+ *  approaches were tried here (AnimatePresence mount/unmount, then a
+ *  persistent element with an animate target flip) and both ended up frozen
+ *  on screen after the timeout, only recovering once a click forced an
+ *  unrelated re-render elsewhere. Whatever the exact cause, a plain CSS
+ *  transition toggled by a class has no dependency on Motion's internal
+ *  state machine at all, so there is nothing left for that to interfere
+ *  with.
  *
- *  Positioning and the grow/shrink animation are deliberately on two
- *  different elements. floating-ui writes its own `transform` into
- *  floatingStyles for positioning; Motion's `animate` also wants to own
- *  `transform` for scale — same element, same property, one wins silently.
- *
- *  The pill is always mounted; only its opacity/scale target changes. An
- *  AnimatePresence-based mount/unmount was tried first and would freeze on
- *  screen after the timeout instead of shrinking away, only recovering once
- *  a click forced an unrelated re-render — conditionally mounting depends on
- *  AnimatePresence correctly noticing the child disappear, and something
- *  about this tree wasn't triggering that reliably. Flipping a persistent
- *  element's `animate` target has no such dependency: Motion re-runs the
- *  transition whenever the target values differ from before, mount state
- *  aside, so there's nothing to fail to notice. */
+ *  Position is a flat CSS translate rather than floating-ui's offset
+ *  middleware: useClientPoint tracks a zero-size virtual point, and
+ *  crossAxis alignment (meant to shift along the side of a real, sized
+ *  reference) has no reliable meaning against a point with no size to
+ *  offset from. mainAxis offset still supplies the vertical gap below the
+ *  cursor; translate-x-3 supplies the rightward one directly. */
 const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   const [timeElapsed, setTimeElapsed] = useState(false);
 
@@ -49,7 +47,7 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   const { refs, floatingStyles, context } = useFloating({
     open,
     placement: "bottom",
-    middleware: [offsetMiddleware({ mainAxis: 16, crossAxis: 16 })],
+    middleware: [offsetMiddleware(16)],
   });
 
   const clientPoint = useClientPoint(context, { enabled: open });
@@ -63,13 +61,14 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   return (
     <FloatingPortal>
       <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-        <motion.div
-          animate={{ opacity: open ? 1 : 0, scale: open ? 1 : 0.4 }}
-          transition={{ type: "spring", stiffness: 300, damping: 22 }}
-          className="pointer-events-none z-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground shadow-folder"
+        <div
+          className={cn(
+            "pointer-events-none z-50 translate-x-3 origin-top-left scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,transform] duration-300 ease-out",
+            open && "scale-100 opacity-100"
+          )}
         >
           Try moving things around
-        </motion.div>
+        </div>
       </div>
     </FloatingPortal>
   );
