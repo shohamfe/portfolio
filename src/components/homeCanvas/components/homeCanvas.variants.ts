@@ -2,18 +2,24 @@
  *  grab cursor, since dragging empty space pans. */
 export const canvasViewport = "relative flex-1 overflow-hidden";
 
-/** The layer that actually moves. Sized to the content so motion can derive
- *  drag constraints from the viewport it sits in.
+/** The layer that actually moves. Carries the dot pattern too (rather than a
+ *  static background on `main`), so the dots pan together with the folders
+ *  and read as one continuous surface — which is also what puts them inside
+ *  the intro mask's blur, since backdrop-filter picks up whatever is
+ *  compositely rendered behind it regardless of which element paints it.
  *
  *  Below lg, 0,0 is correct as-is — the canvas is a normal flex item to the
  *  right of the intro, so no extra inset is needed. At lg, the canvas becomes
  *  a full-bleed layer spanning behind the intro too, so the pan layer needs
- *  its own explicit offset to keep the folders' visual start where it was.
- *  A parent's padding will NOT do this: an absolutely positioned child's
- *  left:0/top:0 resolves against the padding box's own edge (just inside the
- *  border), not against the content edge on the far side of the padding, so
- *  padding on the viewport never actually moved this layer. */
-export const canvasPanLayer = "absolute left-0 top-0 lg:left-[672px] lg:top-12";
+ *  its own explicit offset to keep the folders' visual start where it was:
+ *  672px/48px (the original offset) minus CANVAS_MARGIN (600px, see
+ *  constants/canvas.ts), since the grid itself is now inset by that same
+ *  margin on every side to make room to pan. A parent's padding will NOT
+ *  substitute for this: an absolutely positioned child's left:0/top:0
+ *  resolves against the padding box's own edge (just inside the border), not
+ *  against the content edge on the far side of the padding. */
+export const canvasPanLayer =
+  "dot-grid absolute left-0 top-0 lg:left-[72px] lg:top-[-552px]";
 
 /** Sits between the canvas (z-0) and the intro text (z-20), matching the
  *  intro's own footprint (592px box) with extra width for the gradient to

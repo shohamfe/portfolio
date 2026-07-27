@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
   return (
     <main
       id="home"
-      className="dot-grid relative flex flex-1 flex-col gap-16 overflow-hidden lg:block"
+      className="relative flex min-h-0 flex-1 flex-col gap-16 overflow-hidden lg:block"
     >
       <HomeIntro className="lg:relative lg:z-20" />
 

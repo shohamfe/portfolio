@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useDragControls, useReducedMotion } from "motion/react";
 import {
+  CANVAS_MARGIN,
   COLUMNS,
   COLUMN_STEP,
   DRAG_ELASTIC,
@@ -18,8 +19,8 @@ import { originForIndex, usePersistedOffsets } from "./hooks/homeCanvas.hooks";
 import type { HomeCanvasProps } from "./types/homeCanvas.types";
 
 const ROWS = Math.ceil(TECH_FOLDERS.length / COLUMNS);
-const CONTENT_WIDTH = (COLUMNS - 1) * COLUMN_STEP + FOLDER_WIDTH;
-const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT;
+const CONTENT_WIDTH = (COLUMNS - 1) * COLUMN_STEP + FOLDER_WIDTH + 2 * CANVAS_MARGIN;
+const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT + 2 * CANVAS_MARGIN;
 
 /** Pannable canvas of technology folders.
  *

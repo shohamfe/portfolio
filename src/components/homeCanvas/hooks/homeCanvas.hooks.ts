@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { COLUMNS, COLUMN_STEP, ROW_STEP, STORAGE_KEY } from "@/constants/canvas";
+import { CANVAS_MARGIN, COLUMNS, COLUMN_STEP, ROW_STEP, STORAGE_KEY } from "@/constants/canvas";
 import type { Offset, OffsetMap } from "../types/homeCanvas.types";
 
-/** Grid slot for a folder before the user moves it. */
+/** Grid slot for a folder before the user moves it, inset by CANVAS_MARGIN so
+ *  the grid sits away from the edges of the (larger) pan layer. */
 export const originForIndex = (index: number): Offset => ({
-  x: (index % COLUMNS) * COLUMN_STEP,
-  y: Math.floor(index / COLUMNS) * ROW_STEP,
+  x: CANVAS_MARGIN + (index % COLUMNS) * COLUMN_STEP,
+  y: CANVAS_MARGIN + Math.floor(index / COLUMNS) * ROW_STEP,
 });
 
 const isOffset = (value: unknown): value is Offset =>

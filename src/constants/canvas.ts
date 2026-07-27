@@ -9,6 +9,11 @@ export const COLUMNS = 5;
 export const COLUMN_STEP = FOLDER_WIDTH + GUTTER;
 export const ROW_STEP = FOLDER_HEIGHT + GUTTER;
 
+/** Empty, draggable margin added around the folder grid on every side, so
+ *  there's real room to pan beyond just the tight bounding box of the
+ *  folders themselves. */
+export const CANVAS_MARGIN = 600;
+
 /** How far one arrow-key press nudges a focused folder. */
 export const KEYBOARD_NUDGE = 16;
 
