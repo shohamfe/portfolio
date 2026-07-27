@@ -37,6 +37,13 @@ const FADE_MS = 300;
  *  then an animate-target flip — and swapping both out for a plain CSS
  *  transition changed nothing, which is what ruled Motion out entirely.)
  *
+ *  The transition lists `scale`, not `transform`. Tailwind v4 compiles the
+ *  scale, translate and rotate utilities to the standalone CSS properties of
+ *  those names rather than into a combined `transform`, so transitioning
+ *  `transform` animates nothing and the size snaps instead of easing.
+ *  (transform-origin still applies to those individual properties, so
+ *  origin-top-left keeps working.)
+ *
  *  pointer-events-none belongs on the positioned wrapper, not just the pill
  *  inside it. Without it the wrapper is a hit-testable box sitting right
  *  under the cursor, so moving fast enough to catch up to the pill put the
@@ -99,7 +106,7 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
       >
         <div
           className={cn(
-            "pointer-events-none z-50 origin-top-left translate-x-3 scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,transform] duration-300 ease-out",
+            "pointer-events-none z-50 origin-top-left translate-x-3 scale-50 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 font-ui text-small text-accent-foreground opacity-0 shadow-folder transition-[opacity,scale] duration-300 ease-out",
             isOpen && "scale-100 opacity-100",
           )}
         >
