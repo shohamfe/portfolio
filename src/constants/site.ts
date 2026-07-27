@@ -14,8 +14,8 @@ export const LINKS = {
   phone: "tel:+972508882689",
   linkedin: "https://www.linkedin.com/in/shoham-fe",
   github: "https://github.com/ShohamFe",
-  // TODO(shoham): confirm the Figma profile handle.
-  figma: "https://www.figma.com/@shohamfellner",
+  figma:
+    "https://www.figma.com/design/l5phLfD82JdpZIZ2up9XPr/Shoham-Fellner-Resume?node-id=49-1160&t=IqXtCEdOPYhCn5Th-1",
 } as const;
 
 /** Display strings for the contact line — LINKS carries the href-formatted
