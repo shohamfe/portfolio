@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter, Heebo } from "next/font/google";
-import { SITE, SITE_URL } from "@/constants/site";
+import GAClickTracker from "@/components/analytics/GAClickTracker";
+import { GA_MEASUREMENT_ID, SITE, SITE_URL } from "@/constants/site";
 import "./globals.css";
 
 /* Only the weights the Figma styles actually use are requested. Syne needs
@@ -104,7 +106,11 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
       {/* h-full (not min-h-full) plus overflow-hidden locks the document to
           exactly the viewport height - nothing on the page scrolls except the
           specific regions that opt in with their own overflow-y. */}
-      <body className="flex h-full flex-col overflow-hidden">{children}</body>
+      <body className="flex h-full flex-col overflow-hidden">
+        {children}
+        <GAClickTracker />
+      </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 };

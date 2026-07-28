@@ -40,9 +40,13 @@ export const CONTACT = {
   phone: "050-8882689",
 } as const;
 
-/** Nav order matches the Figma header. Portfolio is a stub until designed. */
+/** Public GA4 measurement ID - not a secret, safe to ship in client code. */
+export const GA_MEASUREMENT_ID = "G-Q2MY5GERZT";
+
+/** Nav order matches the Figma header. Portfolio is intentionally absent
+ *  while it is still a stub - the route and its page are left in place, so
+ *  restoring it is a matter of adding the entry back here. */
 export const ROUTES = [
   { href: "/", label: "Home" },
   { href: "/resume", label: "Resume" },
-  { href: "/portfolio", label: "Portfolio" },
 ] as const;
