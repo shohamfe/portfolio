@@ -4,11 +4,15 @@ import { cva } from "class-variance-authority";
  *  markup-only. `relative` is load-bearing, not decorative: z-index is inert
  *  on a static element, and whileDrag raises z-index while dragging.
  *
- *  No flex/gap here anymore - the perspective and tilt wrappers sit between
- *  this and its actual content, so the column layout moved to
- *  stickyCardTilt, the element that directly holds the chip/title/body. */
+ *  This is the grip itself - the same element that carries drag AND the
+ *  cursor tilt (see useStickyCardTilt) - not a separate inner wrapper. The
+ *  tilt has to land on the actual visible box (the one with the border,
+ *  background, shadow) or it reads as only the text inside a static card
+ *  shifting, rather than the card itself leaning. group + preserve-3d let
+ *  the translateZ'd chip/title/body below sit at their own depth on hover
+ *  instead of being flattened back onto this element's plane. */
 export const stickyCardVariants = cva(
-  "relative w-[190px] rounded-2xl border border-solid p-4 shadow-note",
+  "group relative flex w-[190px] flex-col gap-2 rounded-2xl border border-solid p-4 shadow-note [transform-style:preserve-3d]",
   {
     variants: {
       color: {
@@ -28,14 +32,6 @@ export const stickyCardVariants = cva(
  *  tilted element itself, or the rotation reads as a flat skew instead of
  *  a card leaning in space. */
 export const stickyCardPerspective = "[perspective:1000px]";
-
-/** The element useCard3DTilt rotates directly via ref, in sync with the
- *  cursor. preserve-3d lets the translateZ'd items below actually sit at
- *  their own depth instead of being flattened back onto this element's
- *  plane; the transition is what smooths the reset back to flat on
- *  mouse-leave (mouse-move updates are immediate, matching the cursor). */
-export const stickyCardTilt =
-  "group relative flex flex-col gap-2 [transform-style:preserve-3d] transition-transform duration-200 ease-linear";
 
 /** Shared by every element that pops toward the viewer on hover - only the
  *  translateZ distance differs per item. group-hover (not a JS-driven state)
