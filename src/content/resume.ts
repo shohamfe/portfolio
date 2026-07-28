@@ -113,6 +113,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
         id: "aura-cloud",
         year: "2026",
         title: "Aura Cloud - Cloud Monitoring System",
+        href: "https://github.com/giladyavneh/AuraCloud",
         subtitle: "Academic Project",
         bullets: [
           "Led UX/UI and full-stack development (React, Node.js) of a dashboard mapping AWS resource connectivity and surfacing permission mismatches, significantly reducing DevOps investigation time.",
@@ -121,6 +122,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       },
       {
         id: "service-year",
+        year: "2016 2017",
         title: "Service Year (שנת שירות)",
         subtitle: "The Hebrew Scouts Movement in Israel",
         bullets: [],
@@ -134,12 +136,13 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       {
         id: "bsc",
         title: "B.Sc. Computer Science",
-        subtitle: "The Academic College of Tel Aviv-Yaffo - Expected October 2026 (final course)",
+        subtitle:
+          "The Academic College of Tel Aviv-Yaffo - Expected October 2026 (final course)",
         bullets: [],
       },
       {
         id: "drone-commander",
-        year: "2017 - 2020",
+        year: "2017 2020",
         title: "Drone Team Commander",
         subtitle: "Combat Intelligence Collection Corps (869)",
         bullets: [

@@ -22,11 +22,17 @@ const ResumeEntry: React.FC<ResumeEntryProps> = ({ entry }) => {
       <div className={timelineContent}>
         <h3 className={entryTitle}>
           {entry.href ? (
-            <a href={entry.href} target="_blank" rel="noreferrer" className={entryTitleLink}>
-              {entry.title}
+            <a
+              href={entry.href}
+              target="_blank"
+              rel="noreferrer"
+              className={entryTitleLink}
+            >
               <span aria-hidden className={entryLinkIcon}>
                 🔗
               </span>
+
+              {entry.title}
             </a>
           ) : (
             entry.title

@@ -5,7 +5,7 @@ export const SITE = {
   role: "Software Developer++",
   tagline: "From concept to experience",
   description:
-    "Software Developer with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.",
+    "Software Developer (Frontend Oriented) with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.",
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
 
