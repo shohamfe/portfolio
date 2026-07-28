@@ -21,7 +21,7 @@ const CONTACT_ITEMS = [
 ];
 
 /** Route pills plus the external profile links. Shared by Home and Resume. */
-const SiteNav: React.FC<SiteNavProps> = ({ className }) => {
+const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
   const pathname = usePathname();
 
   return (
@@ -68,6 +68,8 @@ const SiteNav: React.FC<SiteNavProps> = ({ className }) => {
               </Magnetic>
             </li>
           ))}
+
+          {trailing && <li>{trailing}</li>}
         </ul>
       </nav>
     </div>

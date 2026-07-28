@@ -28,8 +28,9 @@ const downloadButton = cn(
  *  because no mask is applied to it.
  *
  *  min-h + justify-between: the title anchors to the top of the header box
- *  and the nav/download row anchors to the bottom, rather than everything
- *  centring together in a single row. */
+ *  and the nav row anchors to the bottom. Download CV rides inside SiteNav's
+ *  own icon row via its trailing slot, right after the Figma icon, rather
+ *  than sitting off on its own at the row's far end. */
 const ResumePage: React.FC = () => {
   return (
     <main id="resume" className="dot-grid relative flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -41,14 +42,14 @@ const ResumePage: React.FC = () => {
       >
         <h1 className="font-display text-h2 font-bold text-text-strong">{SITE.name}</h1>
 
-        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-          <SiteNav />
-
-          <a href={SITE.cvPath} download className={downloadButton}>
-            <PiDownloadSimple aria-hidden />
-            Download CV
-          </a>
-        </div>
+        <SiteNav
+          trailing={
+            <a href={SITE.cvPath} download className={downloadButton}>
+              <PiDownloadSimple aria-hidden />
+              Download CV
+            </a>
+          }
+        />
       </header>
 
       <ResumeStage />
