@@ -16,25 +16,33 @@ export const sectionRule = "border-border-subtle";
 
 export const entryTitle = "font-body text-body font-semibold text-text-strong";
 
-/** Always accent-coloured and underlined, not just on hover - a link needs to
- *  read as a link before you touch it, not only after. The underline starts
- *  faint (accent/40) and solidifies on hover, so hovering still gives a
- *  visible response without the rest state needing to be silent. */
-export const entryTitleLink =
-  "inline-flex items-center gap-1.5 text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent";
+/** Accent-coloured, not just on hover - a link needs to read as a link before
+ *  you touch it, not only after.
+ *
+ *  No underline here: the underline lives on entryTitleLinkText instead, on a
+ *  span around just the title. Chrome paints a flex container's own
+ *  text-decoration as one continuous line across its whole box, ignoring any
+ *  child's text-decoration-line: none - putting the decoration on this
+ *  flex container (to cover both the emoji and the title) drew a line under
+ *  the emoji no matter what the emoji's own class said. Scoping the
+ *  decoration to a non-flex span that only wraps the title sidesteps that
+ *  entirely, since the emoji is never a descendant of the underlined box. */
+export const entryTitleLink = "group inline-flex items-center gap-1.5 text-accent transition-colors";
+
+/** The underline itself - accent/40 at rest, solidifying to accent on hover
+ *  (hover is on the parent link via `group`, not this span, so the whole row
+ *  triggers it). See entryTitleLink for why the decoration lives here and not
+ *  there. */
+export const entryTitleLinkText =
+  "underline decoration-accent/40 underline-offset-4 transition-colors group-hover:decoration-accent";
 
 /** Sized for the emoji glyph, not an icon component - size-4 (which the
  *  previous PiLink icon used) is a fixed pixel box meant for an SVG and would
  *  just clip or misalign a character. text-code (24px), noticeably larger
  *  than the 14px it replaced: the emoji is the visual cue that a title is a
  *  link, so it needs to read as one at a glance, not blend in as a small
- *  trailing mark.
- *
- *  no-underline: text-decoration on an inline ancestor (entryTitleLink's
- *  underline) still paints under every descendant unless that descendant sets
- *  its own text-decoration-line - without this the emoji got a line drawn
- *  under it too, which reads oddly under a glyph rather than text. */
-export const entryLinkIcon = "text-code no-underline";
+ *  trailing mark. */
+export const entryLinkIcon = "text-code";
 
 export const entrySubtitle = "font-body text-small text-text-muted";
 

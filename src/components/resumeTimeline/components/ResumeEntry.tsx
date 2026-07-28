@@ -6,6 +6,7 @@ import {
   entrySubtitle,
   entryTitle,
   entryTitleLink,
+  entryTitleLinkText,
   timelineContent,
   timelineGutter,
   timelineRow,
@@ -32,7 +33,7 @@ const ResumeEntry: React.FC<ResumeEntryProps> = ({ entry }) => {
                 🔗
               </span>
 
-              {entry.title}
+              <span className={entryTitleLinkText}>{entry.title}</span>
             </a>
           ) : (
             entry.title
