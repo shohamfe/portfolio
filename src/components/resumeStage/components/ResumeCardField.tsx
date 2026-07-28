@@ -32,7 +32,7 @@ const ResumeCardField: React.FC<ResumeCardFieldProps> = ({ boundaryRef, classNam
           <div
             key={placement.id}
             className={cardFieldItem}
-            style={{ top: placement.top, left: placement.left }}
+            style={{ top: `${placement.topPercent}%`, left: placement.left }}
           >
             <StickyCard
               card={card}
