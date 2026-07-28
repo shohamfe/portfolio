@@ -18,7 +18,10 @@ export const entryTitle = "font-body text-body font-semibold text-text-strong";
 
 export const entryTitleLink = "inline-flex items-center gap-1.5 hover:text-accent";
 
-export const entryLinkIcon = "size-4 text-text-muted";
+/** Sized for the emoji glyph, not an icon component - size-4 (which the
+ *  previous PiLink icon used) is a fixed pixel box meant for an SVG and would
+ *  just clip or misalign a character. */
+export const entryLinkIcon = "text-small";
 
 export const entrySubtitle = "font-body text-small text-text-muted";
 

@@ -1,4 +1,3 @@
-import { PiLink } from "react-icons/pi";
 import Typewriter from "@/components/typewriter/Typewriter";
 import type { ResumeEntryProps } from "../types/resumeTimeline.types";
 import {
@@ -25,7 +24,9 @@ const ResumeEntry: React.FC<ResumeEntryProps> = ({ entry }) => {
           {entry.href ? (
             <a href={entry.href} target="_blank" rel="noreferrer" className={entryTitleLink}>
               {entry.title}
-              <PiLink aria-hidden className={entryLinkIcon} />
+              <span aria-hidden className={entryLinkIcon}>
+                🔗
+              </span>
             </a>
           ) : (
             entry.title

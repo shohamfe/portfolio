@@ -100,6 +100,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
     entries: [
       {
         id: "octseven",
+        year: "2023",
         title: "OctSeven.com - October 7 Memorial Site",
         subtitle: "Volunteer Project",
         href: "https://octseven.com",
@@ -110,6 +111,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       },
       {
         id: "aura-cloud",
+        year: "2026",
         title: "Aura Cloud - Cloud Monitoring System",
         subtitle: "Academic Project",
         bullets: [
@@ -137,6 +139,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       },
       {
         id: "drone-commander",
+        year: "2017 - 2020",
         title: "Drone Team Commander",
         subtitle: "Combat Intelligence Collection Corps (869)",
         bullets: [
