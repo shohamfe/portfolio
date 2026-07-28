@@ -39,8 +39,13 @@ export const useStickyCardTilt = (depth: number) => {
       rotateXValue.set(-ny * 2 * TILT_RANGE_DEG * depth);
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
-    return () => window.removeEventListener("pointermove", handlePointerMove);
+    // Capture phase, not bubble: each card's own drag-enabled element stops
+    // propagation on pointermove for its drag-gesture handling, which would
+    // otherwise swallow the event before a bubble-phase window listener ever
+    // saw it - exactly while the cursor is over a card, which is the one
+    // place this effect most needs to fire.
+    window.addEventListener("pointermove", handlePointerMove, { capture: true });
+    return () => window.removeEventListener("pointermove", handlePointerMove, { capture: true });
   }, [depth, prefersReducedMotion, rotateXValue, rotateYValue]);
 
   return { rotateX, rotateY, prefersReducedMotion };
