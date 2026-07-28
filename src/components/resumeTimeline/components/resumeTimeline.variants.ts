@@ -16,12 +16,20 @@ export const sectionRule = "border-border-subtle";
 
 export const entryTitle = "font-body text-body font-semibold text-text-strong";
 
-export const entryTitleLink = "inline-flex items-center gap-1.5 hover:text-accent";
+/** Always accent-coloured and underlined, not just on hover - a link needs to
+ *  read as a link before you touch it, not only after. The underline starts
+ *  faint (accent/40) and solidifies on hover, so hovering still gives a
+ *  visible response without the rest state needing to be silent. */
+export const entryTitleLink =
+  "inline-flex items-center gap-1.5 text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent";
 
 /** Sized for the emoji glyph, not an icon component - size-4 (which the
  *  previous PiLink icon used) is a fixed pixel box meant for an SVG and would
- *  just clip or misalign a character. */
-export const entryLinkIcon = "text-small";
+ *  just clip or misalign a character. text-code (24px), noticeably larger
+ *  than the 14px it replaced: the emoji is the visual cue that a title is a
+ *  link, so it needs to read as one at a glance, not blend in as a small
+ *  trailing mark. */
+export const entryLinkIcon = "text-code";
 
 export const entrySubtitle = "font-body text-small text-text-muted";
 
