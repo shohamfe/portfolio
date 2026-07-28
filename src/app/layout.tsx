@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter, Heebo } from "next/font/google";
-import { SITE } from "@/constants/site";
+import { SITE, SITE_URL } from "@/constants/site";
 import "./globals.css";
 
 /* Only the weights the Figma styles actually use are requested. Syne needs
@@ -55,13 +55,31 @@ const heebo = Heebo({
   display: "swap",
 });
 
+/* The og:image, favicon and Apple icon are not declared here - Next picks up
+   opengraph-image.jpg, icon.svg, favicon.ico and apple-icon.png from this
+   directory by filename and emits the tags itself, reading each image's real
+   dimensions rather than trusting a hand-written width/height.
+
+   metadataBase is what makes those generated URLs absolute; scrapers fetch
+   them with no page context, so a relative path would simply fail to
+   resolve. */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: `${SITE.name} - ${SITE.role}`,
   description: SITE.description,
   openGraph: {
     title: `${SITE.name} - ${SITE.role}`,
     description: SITE.description,
+    siteName: SITE.name,
     type: "website",
+  },
+  /* summary_large_image, not the default summary: without it the card renders
+     the image as a small square thumbnail beside the text rather than the
+     full-bleed 1200x630 banner it was designed as. */
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} - ${SITE.role}`,
+    description: SITE.description,
   },
 };
 

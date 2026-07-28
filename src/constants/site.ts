@@ -9,6 +9,21 @@ export const SITE = {
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
 
+/** Absolute base for generated metadata URLs. og:image and twitter:image are
+ *  fetched by scrapers that have no page context, so they must be absolute -
+ *  Next resolves them against this.
+ *
+ *  Read from the environment rather than hardcoded: Vercel injects the
+ *  production host itself, so this is correct on a deploy without anyone
+ *  maintaining it. Set NEXT_PUBLIC_SITE_URL to override once a custom domain
+ *  is pointed at the site. The localhost fallback only ever applies to local
+ *  dev, where nothing is scraping the page anyway. */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const LINKS = {
   email: "mailto:shoham.fe@gmail.com",
   phone: "tel:+972508882689",
