@@ -15,8 +15,16 @@ export const stageRoot = "relative flex min-h-0 flex-1 gap-4";
  *  content area. A margin puts the inset outside the box instead.
  *
  *  self-stretch so it spans the scroller's full height rather than sitting
- *  centred at its own natural height. */
-export const stageRuler = "ml-10 hidden shrink-0 self-stretch lg:flex";
+ *  centred at its own natural height, then pt-64 pulls the ticks clear of the
+ *  header blur (same 64 as stageHeaderBlur's height) so the ruler starts
+ *  below the blurred band instead of running up underneath it.
+ *
+ *  Padding, not margin. rulerRoot sets h-full, and an explicit height beats
+ *  stretch sizing - so a top margin pushed the full-height box down past the
+ *  scroller's bottom edge instead of shortening it. Under border-box, top
+ *  padding shrinks the content area within that same height, which leaves the
+ *  ruler ending exactly where the scroller does while starting lower. */
+export const stageRuler = "ml-10 pt-64 hidden shrink-0 self-stretch lg:flex";
 
 /** The scroll container. Lenis drives this element's scrollTop, so it - not
  *  the page - is what actually scrolls. overflow-x-hidden is a backstop
@@ -37,7 +45,11 @@ export const stageScroller = "min-h-0 flex-1 overflow-x-hidden overflow-y-auto";
  *  true screen edge. No bottom padding. */
 export const stageContent = "relative flex gap-10 pl-6 pt-52";
 
-export const stageTimeline = "min-w-0 flex-1";
+/** Capped rather than left to fill: on a wide screen flex-1 alone stretched
+ *  the measure past comfortable reading length. 3xl keeps the longest bullet
+ *  lines near a sane character count while still letting the column shrink
+ *  on narrower viewports. */
+export const stageTimeline = "min-w-0 max-w-3xl flex-1";
 
 /** Reserves the width the scattered cards rest in. They are absolutely
  *  positioned inside it, so it needs an explicit size to hold the column
@@ -56,13 +68,15 @@ export const cardFieldItem = "absolute";
  *  along with the blur - a mask applies to an element's content, not just its
  *  backdrop.
  *
- *  Because it blurs whatever is painted behind it, and the dot-grid lives on
- *  `main` behind this, the dots blur along with any scrolled content - which
- *  is what makes the pattern read as continuing up under the header instead
- *  of being clipped at its edge.
+ *  It paints its own dot-grid rather than relying on the one behind it. The
+ *  dots are default-300 on default-50 - low contrast by design - and blurring
+ *  a low-contrast pattern erases it into a flat wash rather than softening
+ *  it, which is exactly what happened on Home before its mask was given a
+ *  crisp layer of its own. Both this and `main` anchor their grid at the same
+ *  origin (main's padding box), so the two tile in phase and the pattern
+ *  reads as continuous across the boundary.
  *
- *  12px, not a heavier radius: a stronger blur was tried against Home's dot
- *  pattern first and erased it into a flat wash rather than softening it.
- *  Legibility comes mostly from the translucent tint layered with it. */
+ *  12px, not a heavier radius, for the same low-contrast reason. Legibility
+ *  comes mostly from the translucent tint layered with it. */
 export const stageHeaderBlur =
-  "pointer-events-none absolute inset-x-0 top-0 z-10 h-64 bg-surface-page/70 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black,black_65%,transparent)]";
+  "dot-grid pointer-events-none absolute inset-x-0 top-0 z-10 h-64 bg-surface-page/70 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black,black_65%,transparent)]";
