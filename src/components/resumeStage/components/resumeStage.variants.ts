@@ -15,16 +15,18 @@ export const stageRoot = "relative flex min-h-0 flex-1 gap-4";
  *  content area. A margin puts the inset outside the box instead.
  *
  *  self-stretch so it spans the scroller's full height rather than sitting
- *  centred at its own natural height, then pt-64 pulls the ticks clear of the
- *  header blur (same 64 as stageHeaderBlur's height) so the ruler starts
- *  below the blurred band instead of running up underneath it.
+ *  centred at its own natural height, then pt-56/pb-8 pull the ticks in from
+ *  both ends - clear of the header blur at the top (pt-56 is a touch less
+ *  than stageHeaderBlur's h-64, by design: the ruler can start slightly
+ *  inside the blur's fade-out region, not just below it entirely) and short
+ *  of the very last pixel at the bottom, so the last tick does not read as
+ *  flush against the scroller's edge.
  *
  *  Padding, not margin. rulerRoot sets h-full, and an explicit height beats
  *  stretch sizing - so a top margin pushed the full-height box down past the
- *  scroller's bottom edge instead of shortening it. Under border-box, top
- *  padding shrinks the content area within that same height, which leaves the
- *  ruler ending exactly where the scroller does while starting lower. */
-export const stageRuler = "ml-10 pt-64 hidden shrink-0 self-stretch lg:flex";
+ *  scroller's bottom edge instead of shortening it. Under border-box, padding
+ *  shrinks the content area within that same height instead. */
+export const stageRuler = "ml-10 pt-56 pb-8 hidden shrink-0 self-stretch lg:flex";
 
 /** The scroll container. Lenis drives this element's scrollTop, so it - not
  *  the page - is what actually scrolls. overflow-x-hidden is a backstop
