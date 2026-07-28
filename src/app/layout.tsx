@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter } from "next/font/google";
+import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter, Heebo } from "next/font/google";
 import { SITE } from "@/constants/site";
 import "./globals.css";
 
@@ -40,6 +40,21 @@ const inter = Inter({
   display: "swap",
 });
 
+/* Google Sans Flex has no Hebrew glyphs, so Hebrew text in body copy (the
+   resume's "שנת שירות") fell through to whatever generic Hebrew face the
+   browser happened to substitute - visibly mismatched against the Latin text
+   around it. Heebo is appended as a fallback in --font-body rather than
+   applied to any specific element: the browser resolves per character, using
+   the first font in the stack that actually has a glyph for it, so Latin
+   text keeps rendering in Google Sans Flex and only the Hebrew characters
+   fall through to Heebo - no need to split the string into separate spans. */
+const heebo = Heebo({
+  variable: "--font-heebo",
+  subsets: ["hebrew", "latin"],
+  weight: ["400", "600"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: `${SITE.name} - ${SITE.role}`,
   description: SITE.description,
@@ -54,7 +69,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} h-full antialiased`}
+      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-full antialiased`}
     >
       <head>
         {/* Preloaded so the cursor images are already decoded by first paint -

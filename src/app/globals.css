@@ -62,7 +62,10 @@
   --text-tiny--line-height: 1.3333;
 
   --font-display: var(--font-syne);
-  --font-body: var(--font-google-sans-flex);
+  /* Heebo as a fallback, not the primary: Google Sans Flex has no Hebrew
+     glyphs, so the browser falls through to Heebo per-character for any
+     Hebrew text, while Latin text keeps rendering in Google Sans Flex. */
+  --font-body: var(--font-google-sans-flex), var(--font-heebo);
   --font-code: var(--font-google-sans-code);
   --font-ui: var(--font-inter);
 
