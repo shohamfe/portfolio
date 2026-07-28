@@ -9,15 +9,17 @@ import {
   stickyCardTitle,
   stickyCardVariants,
 } from "./components/stickyCard.variants";
-import { useDragReset, useStickyCardParallax } from "./hooks/stickyCard.hooks";
+import { useDragReset, useStickyCardTilt } from "./hooks/stickyCard.hooks";
 import type { StickyCardProps } from "./types/stickyCard.types";
 
 /** A sticky-note style card scattered down the Resume page: freely
- *  draggable, and drifting a few pixels with the cursor.
+ *  draggable, and leaning in 3D toward wherever the cursor currently is.
  *
- *  Two nested motion elements, not one - Motion only manages one x/y pair
- *  per element, so the cursor-parallax offset (outer) and the drag offset
- *  (inner, Motion's own internal x/y) have to live on separate elements.
+ *  Two nested motion elements, not one - the outer carries the cursor tilt
+ *  (rotateX/rotateY plus the perspective that makes them readable) and the
+ *  inner carries drag and its own resting 2D rotate. Combining both on one
+ *  element would mean the drag gesture also had to fight the constantly
+ *  shifting 3D tilt for the same transform.
  *
  *  dragElastic is 0, not just a small value with a snap-back: paired with
  *  dragConstraints, elastic 0 means the position is clamped to the boundary
@@ -38,12 +40,12 @@ const StickyCard: React.FC<StickyCardProps> = ({
   boundaryRef,
   className,
 }) => {
-  const { x, y, prefersReducedMotion } = useStickyCardParallax(parallaxDepth);
+  const { rotateX, rotateY, prefersReducedMotion } = useStickyCardTilt(parallaxDepth);
   const drag = useDragReset();
   const id = `sticky-card-${card.id}`;
 
   return (
-    <motion.div id={id} style={{ x, y }}>
+    <motion.div id={id} style={{ rotateX, rotateY, transformPerspective: 800 }}>
       <motion.div
         id={`${id}-grip`}
         data-grabbable

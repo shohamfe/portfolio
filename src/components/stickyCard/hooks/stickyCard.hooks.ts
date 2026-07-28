@@ -3,22 +3,28 @@
 import { useEffect } from "react";
 import { useMotionValue, useReducedMotion, useSpring, type MotionValue } from "motion/react";
 
-/** Max drift in pixels at full cursor travel and depth 1. */
-const PARALLAX_RANGE_PX = 14;
+/** Max tilt in degrees at full cursor travel and depth 1. */
+const TILT_RANGE_DEG = 10;
 
-const PARALLAX_SPRING = { stiffness: 60, damping: 20, mass: 0.5 };
+const TILT_SPRING = { stiffness: 60, damping: 20, mass: 0.5 };
 
-/** Drifts a card a few pixels with the cursor, scaled by depth (0 = still,
- *  1 = full drift). Cursor position is tracked window-wide via pointermove
- *  rather than per-element hover, so every card on the page drifts together
- *  as the cursor moves anywhere on screen. Skipped entirely under
- *  prefers-reduced-motion. */
-export const useStickyCardParallax = (depth: number) => {
+/** Leans a card in 3D toward wherever the cursor currently is, scaled by
+ *  depth (0 = still, 1 = full tilt) - rotation only, no change in position.
+ *  An earlier version translated the card a few pixels toward the cursor
+ *  instead; in practice that read as the whole card nervously wiggling
+ *  around rather than reacting to the cursor, since its location kept
+ *  shifting on every pointermove. Tilting the orientation while the card
+ *  stays anchored in place reads as a calmer, more deliberate response.
+ *
+ *  Cursor position is tracked window-wide via pointermove rather than
+ *  per-element hover, so every card leans together as the cursor moves
+ *  anywhere on screen. Skipped entirely under prefers-reduced-motion. */
+export const useStickyCardTilt = (depth: number) => {
   const prefersReducedMotion = useReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, PARALLAX_SPRING);
-  const springY = useSpring(y, PARALLAX_SPRING);
+  const rotateXValue = useMotionValue(0);
+  const rotateYValue = useMotionValue(0);
+  const rotateX = useSpring(rotateXValue, TILT_SPRING);
+  const rotateY = useSpring(rotateYValue, TILT_SPRING);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
@@ -26,15 +32,18 @@ export const useStickyCardParallax = (depth: number) => {
     const handlePointerMove = (event: PointerEvent) => {
       const nx = event.clientX / window.innerWidth - 0.5;
       const ny = event.clientY / window.innerHeight - 0.5;
-      x.set(nx * 2 * PARALLAX_RANGE_PX * depth);
-      y.set(ny * 2 * PARALLAX_RANGE_PX * depth);
+      // Cursor to the right tilts the card's right edge back (positive
+      // rotateY); cursor above tilts the top edge back (negative rotateX) -
+      // both read as the card leaning toward the cursor's side.
+      rotateYValue.set(nx * 2 * TILT_RANGE_DEG * depth);
+      rotateXValue.set(-ny * 2 * TILT_RANGE_DEG * depth);
     };
 
     window.addEventListener("pointermove", handlePointerMove);
     return () => window.removeEventListener("pointermove", handlePointerMove);
-  }, [depth, prefersReducedMotion, x, y]);
+  }, [depth, prefersReducedMotion, rotateXValue, rotateYValue]);
 
-  return { x: springX, y: springY, prefersReducedMotion };
+  return { rotateX, rotateY, prefersReducedMotion };
 };
 
 /** The grip's drag offset, reset to 0 on every window resize.
