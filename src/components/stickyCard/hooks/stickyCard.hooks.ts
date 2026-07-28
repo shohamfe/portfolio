@@ -1,54 +1,56 @@
 "use client";
 
-import { useEffect } from "react";
-import { useMotionValue, useReducedMotion, useSpring, type MotionValue } from "motion/react";
+import { useEffect, useMemo, useRef } from "react";
+import { useMotionValue, useReducedMotion, type MotionValue } from "motion/react";
 
-/** Max tilt in degrees at full cursor travel and depth 1. */
-const TILT_RANGE_DEG = 10;
+/** Max tilt in degrees at the card's own edge, scaled by depth (0 = still,
+ *  1 = full tilt) - matches Aceternity's 3D Card Effect: local per-card mouse
+ *  tracking rather than a window-wide cursor, so the tilt only reacts while
+ *  the cursor is actually over that card, and resets the moment it leaves. */
+const MAX_TILT_DEG = 14;
 
-const TILT_SPRING = { stiffness: 60, damping: 20, mass: 0.5 };
-
-/** Leans a card in 3D toward wherever the cursor currently is, scaled by
- *  depth (0 = still, 1 = full tilt) - rotation only, no change in position.
- *  An earlier version translated the card a few pixels toward the cursor
- *  instead; in practice that read as the whole card nervously wiggling
- *  around rather than reacting to the cursor, since its location kept
- *  shifting on every pointermove. Tilting the orientation while the card
- *  stays anchored in place reads as a calmer, more deliberate response.
+/** Local, hover-driven 3D tilt for one card - a straight port of Aceternity's
+ *  3D Card Effect (https://ui.aceternity.com/components/3d-card-effect):
+ *  rotateX/rotateY are computed from the cursor's position relative to this
+ *  card's own bounding box, not the window, so every card tilts
+ *  independently and only while actually hovered. Applied to a ref directly
+ *  (not React state) so tilting doesn't trigger a re-render on every
+ *  mousemove - the reference implementation does the same for the same
+ *  reason.
  *
- *  Cursor position is tracked window-wide via pointermove rather than
- *  per-element hover, so every card leans together as the cursor moves
- *  anywhere on screen. Skipped entirely under prefers-reduced-motion. */
-export const useStickyCardTilt = (depth: number) => {
+ *  Deliberately mouse events, not pointer events: the drag gesture on this
+ *  same card listens for pointermove and stops its propagation, which would
+ *  otherwise reach a shared ancestor listener before it saw this one. Mouse
+ *  and pointer events are independent dispatch chains, so this tilt handler
+ *  is never at risk of being swallowed by the drag gesture. */
+export const useCard3DTilt = (depth: number) => {
   const prefersReducedMotion = useReducedMotion();
-  const rotateXValue = useMotionValue(0);
-  const rotateYValue = useMotionValue(0);
-  const rotateX = useSpring(rotateXValue, TILT_SPRING);
-  const rotateY = useSpring(rotateYValue, TILT_SPRING);
+  const tiltRef = useRef<HTMLDivElement>(null);
+  const maxTilt = MAX_TILT_DEG * depth;
 
-  useEffect(() => {
-    if (prefersReducedMotion) return;
+  const handlers = useMemo(() => {
+    if (prefersReducedMotion) return {};
 
-    const handlePointerMove = (event: PointerEvent) => {
-      const nx = event.clientX / window.innerWidth - 0.5;
-      const ny = event.clientY / window.innerHeight - 0.5;
-      // Cursor to the right tilts the card's right edge back (positive
-      // rotateY); cursor above tilts the top edge back (negative rotateX) -
-      // both read as the card leaning toward the cursor's side.
-      rotateYValue.set(nx * 2 * TILT_RANGE_DEG * depth);
-      rotateXValue.set(-ny * 2 * TILT_RANGE_DEG * depth);
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+      const el = tiltRef.current;
+      if (!el) return;
+
+      const { left, top, width, height } = el.getBoundingClientRect();
+      const nx = (event.clientX - left - width / 2) / (width / 2);
+      const ny = (event.clientY - top - height / 2) / (height / 2);
+      el.style.transform = `rotateY(${nx * maxTilt}deg) rotateX(${-ny * maxTilt}deg)`;
     };
 
-    // Capture phase, not bubble: each card's own drag-enabled element stops
-    // propagation on pointermove for its drag-gesture handling, which would
-    // otherwise swallow the event before a bubble-phase window listener ever
-    // saw it - exactly while the cursor is over a card, which is the one
-    // place this effect most needs to fire.
-    window.addEventListener("pointermove", handlePointerMove, { capture: true });
-    return () => window.removeEventListener("pointermove", handlePointerMove, { capture: true });
-  }, [depth, prefersReducedMotion, rotateXValue, rotateYValue]);
+    const handleMouseLeave = () => {
+      const el = tiltRef.current;
+      if (!el) return;
+      el.style.transform = "rotateY(0deg) rotateX(0deg)";
+    };
 
-  return { rotateX, rotateY, prefersReducedMotion };
+    return { onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave };
+  }, [maxTilt, prefersReducedMotion]);
+
+  return { tiltRef, prefersReducedMotion, ...handlers };
 };
 
 /** The grip's drag offset, reset to 0 on every window resize.

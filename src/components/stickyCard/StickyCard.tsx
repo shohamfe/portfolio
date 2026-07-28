@@ -6,20 +6,27 @@ import { cn } from "@/lib/cn";
 import {
   stickyCardBody,
   stickyCardChip,
+  stickyCardPerspective,
+  stickyCardTilt,
   stickyCardTitle,
   stickyCardVariants,
 } from "./components/stickyCard.variants";
-import { useDragReset, useStickyCardTilt } from "./hooks/stickyCard.hooks";
+import { useCard3DTilt, useDragReset } from "./hooks/stickyCard.hooks";
 import type { StickyCardProps } from "./types/stickyCard.types";
 
 /** A sticky-note style card scattered down the Resume page: freely
- *  draggable, and leaning in 3D toward wherever the cursor currently is.
+ *  draggable, and leaning in 3D toward the cursor while hovered - Aceternity's
+ *  3D Card Effect (https://ui.aceternity.com/components/3d-card-effect),
+ *  adapted onto a draggable note instead of a static card.
  *
- *  Two nested motion elements, not one - the outer carries the cursor tilt
- *  (rotateX/rotateY plus the perspective that makes them readable) and the
- *  inner carries drag and its own resting 2D rotate. Combining both on one
- *  element would mean the drag gesture also had to fight the constantly
- *  shifting 3D tilt for the same transform.
+ *  Three nested layers, not one, because each needs its own untouched
+ *  transform: the grip carries drag and its own resting 2D rotate; the
+ *  perspective layer establishes the 3D viewing volume the tilt renders
+ *  into (perspective must live on a parent of the tilted element); the tilt
+ *  layer is what useCard3DTilt actually rotates, and its children (chip,
+ *  title, body) pop toward the viewer on hover via their own translateZ.
+ *  Putting tilt and drag on the same element would mean the drag gesture
+ *  fighting the constantly-changing 3D rotation for one shared transform.
  *
  *  dragElastic is 0, not just a small value with a snap-back: paired with
  *  dragConstraints, elastic 0 means the position is clamped to the boundary
@@ -40,39 +47,41 @@ const StickyCard: React.FC<StickyCardProps> = ({
   boundaryRef,
   className,
 }) => {
-  const { rotateX, rotateY, prefersReducedMotion } = useStickyCardTilt(parallaxDepth);
+  const { tiltRef, onMouseMove, onMouseLeave, prefersReducedMotion } = useCard3DTilt(parallaxDepth);
   const drag = useDragReset();
   const id = `sticky-card-${card.id}`;
 
   return (
-    <motion.div id={id} style={{ rotateX, rotateY, transformPerspective: 800 }}>
-      <motion.div
-        id={`${id}-grip`}
-        data-grabbable
-        className={cn(stickyCardVariants({ color: card.color }), className)}
-        style={{ x: drag.x, y: drag.y, rotate: `${rotation}deg` }}
-        drag
-        dragConstraints={boundaryRef}
-        dragMomentum={false}
-        dragElastic={0}
-        whileDrag={
-          prefersReducedMotion
-            ? { zIndex: 50 }
-            : { scale: 1.04, zIndex: 50, transition: { type: "spring", stiffness: 500, damping: 30 } }
-        }
-      >
-        <Chip color={card.color} variant="solid" className={stickyCardChip}>
-          {card.chip}
-        </Chip>
+    <motion.div
+      id={`${id}-grip`}
+      data-grabbable
+      className={cn(stickyCardVariants({ color: card.color }), className)}
+      style={{ x: drag.x, y: drag.y, rotate: `${rotation}deg` }}
+      drag
+      dragConstraints={boundaryRef}
+      dragMomentum={false}
+      dragElastic={0}
+      whileDrag={
+        prefersReducedMotion
+          ? { zIndex: 50 }
+          : { scale: 1.04, zIndex: 50, transition: { type: "spring", stiffness: 500, damping: 30 } }
+      }
+    >
+      <div className={stickyCardPerspective}>
+        <div id={id} ref={tiltRef} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} className={stickyCardTilt}>
+          <Chip color={card.color} variant="solid" className={stickyCardChip}>
+            {card.chip}
+          </Chip>
 
-        <p id={`${id}-title`} className={stickyCardTitle}>
-          {card.title}
-        </p>
+          <p id={`${id}-title`} className={stickyCardTitle}>
+            {card.title}
+          </p>
 
-        <p id={`${id}-body`} className={stickyCardBody}>
-          {card.body}
-        </p>
-      </motion.div>
+          <p id={`${id}-body`} className={stickyCardBody}>
+            {card.body}
+          </p>
+        </div>
+      </div>
     </motion.div>
   );
 };
