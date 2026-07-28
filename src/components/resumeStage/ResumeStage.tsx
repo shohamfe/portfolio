@@ -8,7 +8,6 @@ import { cn } from "@/lib/cn";
 import ResumeCardField from "./components/ResumeCardField";
 import {
   stageContent,
-  stageHeaderMask,
   stageRoot,
   stageRuler,
   stageScroller,
@@ -20,6 +19,12 @@ import type { ResumeStageProps } from "./types/resumeStage.types";
 /** Owns everything about the Resume page that depends on scrolling: the
  *  smooth-scroll container, the ruler that reports position, and the focus
  *  dimming that lifts whichever entry you are reading out of the greyed rest.
+ *
+ *  The header itself is the blur-glass surface now - it overlays this stage
+ *  rather than sitting above it in normal flow, so content genuinely passes
+ *  behind it while scrolling. That is set up one level up, in the Resume
+ *  page: this component only needs to leave enough top clearance for the
+ *  header's own height, which it does via stageContent's padding.
  *
  *  The timeline itself stays a server component - this only wraps it, so the
  *  resume text is rendered and readable regardless of whether any of this
@@ -43,11 +48,9 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
         <div id="resume-content" ref={contentRef} className={stageContent}>
           <ResumeTimeline className={stageTimeline} />
 
-          <ResumeCardField />
+          <ResumeCardField boundaryRef={contentRef} />
         </div>
       </div>
-
-      <div id="resume-header-mask" aria-hidden className={stageHeaderMask} />
     </div>
   );
 };
