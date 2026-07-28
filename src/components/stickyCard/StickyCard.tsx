@@ -9,7 +9,7 @@ import {
   stickyCardTitle,
   stickyCardVariants,
 } from "./components/stickyCard.variants";
-import { useStickyCardParallax } from "./hooks/stickyCard.hooks";
+import { useDragReset, useStickyCardParallax } from "./hooks/stickyCard.hooks";
 import type { StickyCardProps } from "./types/stickyCard.types";
 
 /** A sticky-note style card scattered down the Resume page: freely
@@ -22,7 +22,15 @@ import type { StickyCardProps } from "./types/stickyCard.types";
  *  dragElastic is 0, not just a small value with a snap-back: paired with
  *  dragConstraints, elastic 0 means the position is clamped to the boundary
  *  continuously while dragging, so the card cannot leave the given bounds
- *  even mid-gesture. There is nothing to snap back from. */
+ *  even mid-gesture. There is nothing to snap back from.
+ *
+ *  The grip's x/y are controlled motion values, not `drag`'s own uncontrolled
+ *  internal ones, so they can be reset on resize (see useDragReset). Left
+ *  uncontrolled, resizing the window alone - no drag, no interaction - drifts
+ *  the card by a couple of pixels every time: dragConstraints={boundaryRef}
+ *  makes Motion re-measure and re-clamp position against the boundary's new
+ *  box on every resize event, and that recalculation does not land back on
+ *  exactly zero. */
 const StickyCard: React.FC<StickyCardProps> = ({
   card,
   rotation = 0,
@@ -31,6 +39,7 @@ const StickyCard: React.FC<StickyCardProps> = ({
   className,
 }) => {
   const { x, y, prefersReducedMotion } = useStickyCardParallax(parallaxDepth);
+  const drag = useDragReset();
   const id = `sticky-card-${card.id}`;
 
   return (
@@ -39,7 +48,7 @@ const StickyCard: React.FC<StickyCardProps> = ({
         id={`${id}-grip`}
         data-grabbable
         className={cn(stickyCardVariants({ color: card.color }), className)}
-        style={{ rotate: `${rotation}deg` }}
+        style={{ x: drag.x, y: drag.y, rotate: `${rotation}deg` }}
         drag
         dragConstraints={boundaryRef}
         dragMomentum={false}

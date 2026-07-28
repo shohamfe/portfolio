@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { useMotionValue, useReducedMotion, useSpring, type MotionValue } from "motion/react";
 
 /** Max drift in pixels at full cursor travel and depth 1. */
 const PARALLAX_RANGE_PX = 14;
@@ -35,4 +35,36 @@ export const useStickyCardParallax = (depth: number) => {
   }, [depth, prefersReducedMotion, x, y]);
 
   return { x: springX, y: springY, prefersReducedMotion };
+};
+
+/** The grip's drag offset, reset to 0 on every window resize.
+ *
+ *  Left to `drag`'s own uncontrolled internal x/y, resizing the window alone -
+ *  no drag, no interaction - introduces a small but real and persistent
+ *  offset: dragConstraints={boundaryRef} makes Motion re-measure and re-clamp
+ *  the element's position against the boundary's new box on every resize
+ *  event, and that recalculation drifts by a couple of pixels each time
+ *  rather than landing back on exactly zero. Confirmed by reading the grip's
+ *  own inline transform before and after a single resize round-trip with no
+ *  interaction in between: 2.14px/-4.69px had appeared where there was
+ *  nothing before. Resizing the window already reflows the card's real
+ *  position correctly (top/left are set from percentages and a fixed
+ *  offset), so there is nothing for the drag delta to preserve across a
+ *  resize - zeroing it is a reset to the correct rest position, not a loss of
+ *  anything meaningful. */
+export const useDragReset = (): { x: MotionValue<number>; y: MotionValue<number> } => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [x, y]);
+
+  return { x, y };
 };
