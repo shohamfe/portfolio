@@ -28,8 +28,13 @@ export const entryTitleLink =
  *  just clip or misalign a character. text-code (24px), noticeably larger
  *  than the 14px it replaced: the emoji is the visual cue that a title is a
  *  link, so it needs to read as one at a glance, not blend in as a small
- *  trailing mark. */
-export const entryLinkIcon = "text-code";
+ *  trailing mark.
+ *
+ *  no-underline: text-decoration on an inline ancestor (entryTitleLink's
+ *  underline) still paints under every descendant unless that descendant sets
+ *  its own text-decoration-line - without this the emoji got a line drawn
+ *  under it too, which reads oddly under a glyph rather than text. */
+export const entryLinkIcon = "text-code no-underline";
 
 export const entrySubtitle = "font-body text-small text-text-muted";
 
