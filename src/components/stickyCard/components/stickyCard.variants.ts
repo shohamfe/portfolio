@@ -30,19 +30,31 @@ export const stickyCardVariants = cva(
 /** Establishes the 3D viewing volume the tilted card renders into -
  *  perspective has to live on a parent of the tilted element, not the
  *  tilted element itself, or the rotation reads as a flat skew instead of
- *  a card leaning in space. */
-export const stickyCardPerspective = "[perspective:1000px]";
+ *  a card leaning in space.
+ *
+ *  600px, not the 1000px this started at: perspective is the viewer's
+ *  distance from the plane, so a larger value flattens the effect. At
+ *  1000px against a 190px card, the tilt barely foreshortened at all.
+ *  Pulling the viewer closer makes the same rotation actually read as
+ *  depth. */
+export const stickyCardPerspective = "[perspective:600px]";
 
 /** Shared by every element that pops toward the viewer on hover - only the
  *  translateZ distance differs per item. group-hover (not a JS-driven state)
  *  is enough here since the effect is a static "how far forward" rather than
- *  anything cursor-position-dependent - that part is pure CSS. */
+ *  anything cursor-position-dependent - that part is pure CSS.
+ *
+ *  Distances are smaller than they look: how far these read as popping
+ *  depends on the perspective they sit in, and that tightened from 1000px
+ *  to 600px, which magnifies a given translateZ by roughly 1.7x. These were
+ *  scaled down to match so the children do not overpower the card's own
+ *  tilt - the card is the thing that should read as moving first. */
 const popOnHover = "transition-transform duration-200 ease-linear [transform:translateZ(0px)]";
 
 /** The card is a stretch-aligned flex column, so the chip would otherwise be
  *  pulled to the card's full width instead of hugging its own label. */
-export const stickyCardChip = `${popOnHover} self-start group-hover:[transform:translateZ(40px)]`;
+export const stickyCardChip = `${popOnHover} self-start group-hover:[transform:translateZ(24px)]`;
 
-export const stickyCardTitle = `${popOnHover} font-body text-base font-bold text-text-strong group-hover:[transform:translateZ(50px)]`;
+export const stickyCardTitle = `${popOnHover} font-body text-base font-bold text-text-strong group-hover:[transform:translateZ(30px)]`;
 
-export const stickyCardBody = `${popOnHover} font-ui text-small text-text-muted group-hover:[transform:translateZ(25px)]`;
+export const stickyCardBody = `${popOnHover} font-ui text-small text-text-muted group-hover:[transform:translateZ(15px)]`;

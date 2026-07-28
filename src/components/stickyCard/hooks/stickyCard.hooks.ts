@@ -3,10 +3,27 @@
 import { useEffect } from "react";
 import { useMotionValue, useReducedMotion, useSpring, type MotionValue } from "motion/react";
 
-/** Max tilt in degrees at full cursor travel and depth 1. */
-const TILT_RANGE_DEG = 14;
+/** Max tilt in degrees at full cursor travel and depth 1.
+ *
+ *  Large on purpose. An earlier pass used 14 and the tilt was effectively
+ *  invisible: combined with the depth scaling below, the further-back cards
+ *  topped out around 5deg, and 5deg of rotateX on a 190px card viewed
+ *  through a 1000px perspective moves its edges by roughly a pixel. The
+ *  hover translateZ on the card's children was the only thing that read as
+ *  motion, which made it look like the children tracked the cursor while
+ *  the card sat still. */
+const TILT_RANGE_DEG = 26;
 
-const TILT_SPRING = { stiffness: 60, damping: 20, mass: 0.5 };
+/** Depth still separates the cards front-to-back, but from a floor rather
+ *  than from zero - at the old raw multiplier a depth of 0.35 scaled the
+ *  tilt down to almost nothing, so the "further back" cards read as simply
+ *  broken rather than as subtler. Every card now tilts clearly; depth only
+ *  decides how much more the front ones do. */
+const depthScale = (depth: number) => 0.55 + 0.45 * depth;
+
+/** Responsive enough to feel attached to the cursor rather than lagging
+ *  behind it, still damped enough not to jitter on small movements. */
+const TILT_SPRING = { stiffness: 150, damping: 22, mass: 0.4 };
 
 /** Leans a card in 3D toward wherever the cursor currently is, anywhere on
  *  screen - not just while the cursor is over that particular card - scaled
@@ -33,8 +50,9 @@ export const useStickyCardTilt = (depth: number) => {
       // Cursor to the right tilts the card's right edge back (positive
       // rotateY); cursor above tilts the top edge back (negative rotateX) -
       // both read as the card leaning toward the cursor's side.
-      rotateYValue.set(nx * 2 * TILT_RANGE_DEG * depth);
-      rotateXValue.set(-ny * 2 * TILT_RANGE_DEG * depth);
+      const range = TILT_RANGE_DEG * depthScale(depth);
+      rotateYValue.set(nx * 2 * range);
+      rotateXValue.set(-ny * 2 * range);
     };
 
     // Capture phase, not bubble: this same card's own drag gesture stops
