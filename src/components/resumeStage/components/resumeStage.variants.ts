@@ -79,6 +79,27 @@ export const cardFieldItem = "absolute";
  *  reads as continuous across the boundary.
  *
  *  12px, not a heavier radius, for the same low-contrast reason. Legibility
- *  comes mostly from the translucent tint layered with it. */
+ *  comes mostly from the translucent tint layered with it.
+ *
+ *  It spans only the text column, not the full width: the scattered cards to
+ *  its right are meant to pass the header cleanly rather than swim through a
+ *  blurred band.
+ *
+ *  That width is derived, not guessed. Everything left of the timeline is
+ *  fixed: stageRoot's gap-4 plus stageRuler's ml-10 and w-10 (96px), then
+ *  stageContent's pl-6 (24px). The timeline itself is capped at max-w-3xl,
+ *  so --container-3xl is literally the same value stageTimeline resolves to -
+ *  if that cap changes, this follows it. The trailing 20px is half of
+ *  stageContent's gap-10, which lands the fade in the middle of the gutter
+ *  between the text and the cards rather than hard against either one.
+ *
+ *  right-auto is needed because inset-x-0 pins both edges; without releasing
+ *  the right one there is nothing for a width to do. Dropped below xl for the
+ *  same reason cardFieldRoot is - there is no card column at those widths, so
+ *  the text runs full width and the blur should too.
+ *
+ *  Two masks composited: the vertical one fades the blur out below the
+ *  header, the horizontal one softens its right edge so it dissolves into the
+ *  gutter instead of stopping on a visible vertical seam. */
 export const stageHeaderBlur =
-  "dot-grid pointer-events-none absolute inset-x-0 top-0 z-10 h-64 bg-surface-page/70 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black,black_65%,transparent)]";
+  "dot-grid pointer-events-none absolute inset-x-0 top-0 z-10 h-64 bg-surface-page/70 backdrop-blur-md xl:right-auto xl:w-[calc(120px+var(--container-3xl)+20px)] [mask-image:linear-gradient(to_bottom,black,black_65%,transparent),linear-gradient(to_right,black,black_88%,transparent)] [mask-composite:intersect]";
