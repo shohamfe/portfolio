@@ -30,7 +30,16 @@ const downloadButton = cn(
  *  min-h + justify-between: the title anchors to the top of the header box
  *  and the nav row anchors to the bottom. Download CV rides inside SiteNav's
  *  own icon row via its trailing slot, right after the Figma icon, rather
- *  than sitting off on its own at the row's far end. */
+ *  than sitting off on its own at the row's far end.
+ *
+ *  pointer-events-none on the header, with -auto and w-fit back on each of
+ *  its two children: the header is a full-width absolute overlay, so
+ *  everything it covers - including the sticky cards off to the right - was
+ *  unclickable, and a card dragged up under it could not be picked back up.
+ *  The -auto alone is not enough, since both children are block-level in a
+ *  stretch-aligned flex column and would still span the full width; w-fit
+ *  shrinks each to its own content so only the title and the nav row itself
+ *  actually take the cursor. */
 const ResumePage: React.FC = () => {
   return (
     <main id="resume" className="dot-grid relative flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -38,11 +47,12 @@ const ResumePage: React.FC = () => {
 
       <header
         id="resume-header"
-        className="absolute inset-x-0 top-0 z-20 flex min-h-40 flex-col justify-between gap-4 px-10 pb-8 pt-12"
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 flex min-h-40 flex-col justify-between gap-4 px-10 pb-8 pt-12"
       >
-        <h1 className="font-display text-h2 font-bold text-text-strong">{SITE.name}</h1>
+        <h1 className="pointer-events-auto w-fit font-display text-h2 font-bold text-text-strong">{SITE.name}</h1>
 
         <SiteNav
+          className="pointer-events-auto w-fit"
           trailing={
             <a href={SITE.cvPath} download className={downloadButton}>
               <PiDownloadSimple aria-hidden />
