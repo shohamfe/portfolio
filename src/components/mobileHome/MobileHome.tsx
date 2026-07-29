@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import BottomSheet from "@/components/bottomSheet/BottomSheet";
 import { sectionUnderline } from "@/components/bottomSheet/components/bottomSheet.variants";
 import { useSheetDrag } from "@/components/bottomSheet/hooks/bottomSheet.hooks";
@@ -9,8 +8,7 @@ import MobileNav from "@/components/mobileNav/MobileNav";
 import { MOBILE_CANVAS_ORIGIN } from "@/constants/mobile";
 import { getRoleTitle, getSiteDescription, SITE } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
-import { cn } from "@/lib/cn";
-import type { MobileHomeProps } from "./types/mobileHome.types";
+import { motion } from "motion/react";
 import {
   bioHeader,
   bioHeading,
@@ -27,26 +25,10 @@ import {
   mobileRoot,
   mobileScroll,
 } from "./components/mobileHome.variants";
+import type { MobileHomeProps } from "./types/mobileHome.types";
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
-/** Home below the lg breakpoint: a fixed hero header, then the intro's bio
- *  copy as a scrolling column, with the tech-stack folders moved into a
- *  pull-up sheet.
- *
- *  The canvas is the same component the desktop page uses, only re-anchored
- *  (panOrigin) so the tray opens on the folder cluster rather than on the
- *  empty margin around it. Contact details and the desktop nav are dropped
- *  here - the floating nav covers navigation, and the design gives the
- *  contact line no place on a phone.
- *
- *  The scroll region's own bottom padding tracks sheet.coverage - how many
- *  px of screen the sheet currently occupies - instead of a static number
- *  sized for its collapsed peek. Pulling the sheet open shrinks the visible
- *  reading area to match, rather than assuming the sheet is always sitting
- *  at rest: a static padding only cleared the collapsed case, so content
- *  near the bottom (About) was unreachable behind the sheet whenever it was
- *  pulled even partway open. */
 const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
   const sheet = useSheetDrag();
 
@@ -71,10 +53,10 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
 
       <motion.div
         id="mobile-home-scroll"
-        className={cn(mobileScroll, "pt-4")}
+        className={mobileScroll}
         style={{ paddingBottom: sheet.coverage }}
       >
-        <div className={bioSections}>
+        <div id="bio-secions-container" className={bioSections}>
           {sections.map((section) => (
             <section
               key={section.id}
@@ -123,7 +105,11 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
       </motion.div>
 
       <BottomSheet sheet={sheet} title="Tech Stack">
-        <HomeCanvas panOrigin={MOBILE_CANVAS_ORIGIN} showHint={false} paintDots={false} />
+        <HomeCanvas
+          panOrigin={MOBILE_CANVAS_ORIGIN}
+          showHint={false}
+          paintDots={false}
+        />
       </BottomSheet>
 
       <MobileNav />

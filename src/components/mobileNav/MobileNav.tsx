@@ -1,14 +1,18 @@
 "use client";
 
-import { Fragment } from "react";
+import { LINKS } from "@/constants/site";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PiFigmaLogo, PiGithubLogo, PiHouse, PiReadCvLogo } from "react-icons/pi";
-import { LINKS } from "@/constants/site";
+import { Fragment } from "react";
+import {
+  PiFigmaLogo,
+  PiGithubLogo,
+  PiHouse,
+  PiReadCvLogo,
+} from "react-icons/pi";
 import {
   navCard,
   navDivider,
-  navFade,
   navIconWrap,
   navItem,
   navLabel,
@@ -16,25 +20,24 @@ import {
 } from "./components/mobileNav.variants";
 import type { MobileNavItem } from "./types/mobileNav.types";
 
-/** Portfolio is deliberately absent, same as the desktop nav (see ROUTES in
- *  constants/site) - the route exists but is still a stub. */
 const NAV_ITEMS: readonly MobileNavItem[] = [
   { href: "/", label: "Home", icon: <PiHouse /> },
   { href: "/resume", label: "Resume", icon: <PiReadCvLogo /> },
-  { href: LINKS.github, label: "Github", icon: <PiGithubLogo />, external: true },
+  {
+    href: LINKS.github,
+    label: "Github",
+    icon: <PiGithubLogo />,
+    external: true,
+  },
   { href: LINKS.figma, label: "Figma", icon: <PiFigmaLogo />, external: true },
 ];
 
-/** The floating bar pinned to the bottom of both mobile pages: two route
- *  tabs, then the two outbound profile links behind a divider. */
 const MobileNav: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Main" className={navRoot}>
-      <div aria-hidden className={navFade} />
-
-      <div className={navCard}>
+    <nav aria-label="Main" id="mobile-nav" className={navRoot}>
+      <div className={navCard} id="mobile-nav-card">
         {NAV_ITEMS.map((item, index) => {
           const active = !item.external && pathname === item.href;
 

@@ -18,37 +18,37 @@ import {
 } from "./components/bottomSheet.variants";
 import type { BottomSheetProps } from "./types/bottomSheet.types";
 
-/** The pull-up tray both mobile pages end with. Two resting positions:
- *  peeking just above the floating nav, and pulled up to SHEET_EXPANDED.
- *
- *  The canvas (children) fills the sheet's entire remaining area, including
- *  behind the title - the title floats on top via sheetTitleMask and
- *  sheetTitleBlock, the same three-layer stack (content, blur+gradient
- *  mask, overlaid label) the desktop Home page uses for its canvas/intro
- *  overlap. Only the grip bar starts the sheet's own drag now; the canvas
- *  owns its own gestures for the rest of the sheet. See useSheetDrag for why
- *  the drag gesture is hand-rolled rather than Motion's `drag`, and why the
- *  snap-to-rest glide is a CSS transition rather than Motion's `animate()`.
- *
- *  The handle is a real button, not just a bar: dragging is the only other
- *  way to open the sheet, and a drag is not something a keyboard can do.
- *
- *  `sheet` comes from the parent page (useSheetDrag), not from a hook call
- *  in here - the page's own scroll region needs the same live coverage
- *  value this component uses for its own position, so the drag state has to
- *  be owned one level up and passed down to both. */
-const BottomSheet: React.FC<BottomSheetProps> = ({ sheet, title, children }) => {
-  const { ref, y, isExpanded, isSliding, toggle, onPointerDown, onPointerMove, onPointerUp } = sheet;
+/** Pull-up tray: two positions (peeking/expanded). Canvas fills entire area including behind title
+ *. Only grip bar initiates drag; canvas handles its own gestures. */
+const BottomSheet: React.FC<BottomSheetProps> = ({
+  sheet,
+  title,
+  children,
+}) => {
+  const {
+    ref,
+    y,
+    isExpanded,
+    isSliding,
+    toggle,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+  } = sheet;
 
   return (
     <motion.section
       id="mobile-sheet"
       ref={ref}
       aria-label={title}
-      className={cn(sheetRoot, isSliding && "transition-transform duration-300 ease-out")}
+      className={cn(
+        sheetRoot,
+        isSliding && "transition-transform duration-300 ease-out",
+      )}
       style={{ height: SHEET_EXPANDED, y }}
     >
       <div
+        id="mobile-sheet-grip"
         className={sheetGripBar}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -67,18 +67,18 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ sheet, title, children }) => 
 
           <span className={sheetHint}>{SHEET_HINT}</span>
         </button>
-      </div>
-
-      <div className={sheetCanvasArea}>
-        <div className={sheetCanvasLayer}>{children}</div>
-
-        <div aria-hidden className={sheetTitleMask} />
 
         <div className={sheetTitleBlock}>
           <h2 className={sheetTitle}>{title}</h2>
 
           <span aria-hidden className={sectionUnderline} />
         </div>
+      </div>
+
+      <div className={sheetCanvasArea} id="mobile-sheet-canvas">
+        <div className={sheetCanvasLayer}>{children}</div>
+
+        <div aria-hidden className={sheetTitleMask} />
       </div>
     </motion.section>
   );
