@@ -15,11 +15,17 @@ import { trayCard, trayPanLayer, trayViewport } from "./mobileResume.variants";
 const COLUMNS = 4;
 const STEP_X = 210;
 const STEP_Y = 150;
-/** Generous on purpose: the tray now fills the whole sheet (not just the
- *  leftover space below a header), so the pannable area needs real margin
- *  on every side or there is nowhere left to drag once the cards' own tight
- *  cluster already fills the visible box. */
-const MARGIN = 200;
+/** Generous on purpose, and specifically tall enough that CONTENT_HEIGHT
+ *  clears any real phone's viewport height: the tray now fills the whole
+ *  sheet (not just the leftover space below a header), and Motion's drag
+ *  constraints assume the draggable content is LARGER than the box it is
+ *  constrained to - the standard "pan reveals more content" case. A margin
+ *  too small left the pan layer's own content SHORTER than the viewport
+ *  (700px of content in a 733px-tall box, measured on a mid-size phone),
+ *  which is the inverted case Motion's constraint math does not handle
+ *  cleanly: cards jumped on drag start and the pan layer could only be
+ *  moved within whatever sliver of range that inversion left it. */
+const MARGIN = 400;
 /** Every other card drops slightly, so the row does not read as a ruler. */
 const STAGGER_Y = 20;
 
