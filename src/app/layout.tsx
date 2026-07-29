@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter, Heebo } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
-import MobileRedirect from "@/components/mobileRedirect/MobileRedirect";
 import { GA_MEASUREMENT_ID, SITE, SITE_URL } from "@/constants/site";
 import "./globals.css";
 
@@ -108,7 +107,6 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
           exactly the viewport height - nothing on the page scrolls except the
           specific regions that opt in with their own overflow-y. */}
       <body className="flex h-full flex-col overflow-hidden">
-        <MobileRedirect />
         {children}
         <GAClickTracker />
       </body>
