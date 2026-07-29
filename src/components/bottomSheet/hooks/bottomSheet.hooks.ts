@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValue } from "motion/react";
+import { NAV_FOOTPRINT, SHEET_PEEK_GAP } from "@/constants/mobile";
 
 /** A drag shorter than this is a tap, not a gesture - the handle is also a
  *  button, and settling on release would fight its own click handler. */
@@ -11,17 +12,32 @@ const TAP_SLOP = 4;
  *  the sheet without having to drag it more than halfway. */
 const INTENT_TRAVEL = 40;
 
-/** Drag-to-snap state for the bottom sheet: collapsed (only `peekHeight`
- *  showing) or expanded (flush with the top of the sheet's box).
+/** Numeric px value of env(safe-area-inset-bottom) on this device. There is
+ *  no JS API for it, so it is read the standard way: apply it to a real CSS
+ *  property on a throwaway probe element and let the browser resolve the
+ *  calc, then read the resolved value back out - getComputedStyle resolves
+ *  a real property like paddingBottom to pixels, unlike a custom property,
+ *  which would come back as the raw unresolved env() string. */
+const readSafeAreaBottom = (): number => {
+  const probe = document.createElement("div");
+  probe.style.cssText = "position:fixed;visibility:hidden;padding-bottom:env(safe-area-inset-bottom)";
+  document.body.appendChild(probe);
+  const value = parseFloat(getComputedStyle(probe).paddingBottom) || 0;
+  probe.remove();
+  return value;
+};
+
+/** Drag-to-snap state for the bottom sheet: collapsed (peeking just above
+ *  the floating nav) or expanded (flush with the top of the sheet's box).
  *
- *  y is 0 when expanded and `collapsedY` when collapsed, so the collapsed
- *  offset has to be measured from the rendered height - the sheet is sized in
- *  svh, which no constant here can predict.
+ *  y is 0 when expanded and `collapsed.current` when collapsed, so the
+ *  collapsed offset has to be measured from the rendered height - the sheet
+ *  is sized from SHEET_EXPANDED, which no constant here can predict.
  *
  *  The gesture is handled by hand rather than with Motion's `drag`: Motion's
  *  drag takes ownership of the x/y motion values it is given, which is the
  *  same trap DraggableFolder documents from the other side. Pointer capture
- *  keeps the gesture alive if the finger leaves the header mid-drag.
+ *  keeps the gesture alive if the finger leaves the grip bar mid-drag.
  *
  *  Releasing only sets y to the snap target - the glide there is a CSS
  *  transition applied while not dragging (again as DraggableFolder does with
@@ -31,7 +47,7 @@ const INTENT_TRAVEL = 40;
  *  hasSettled gates that transition until the first release or tap: applied
  *  from the start, it would animate the initial measurement too and the sheet
  *  would visibly slide down into its resting position on load. */
-export const useSheetDrag = (peekHeight: number) => {
+export const useSheetDrag = () => {
   const ref = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
   const collapsed = useRef(0);
@@ -52,7 +68,8 @@ export const useSheetDrag = (peekHeight: number) => {
   useEffect(() => {
     const measure = () => {
       const height = ref.current?.offsetHeight ?? 0;
-      collapsed.current = Math.max(height - peekHeight, 0);
+      const peek = NAV_FOOTPRINT + SHEET_PEEK_GAP + readSafeAreaBottom();
+      collapsed.current = Math.max(height - peek, 0);
 
       if (!isExpanded) y.set(collapsed.current);
     };
@@ -61,7 +78,7 @@ export const useSheetDrag = (peekHeight: number) => {
     window.addEventListener("resize", measure);
 
     return () => window.removeEventListener("resize", measure);
-  }, [peekHeight, isExpanded, y]);
+  }, [isExpanded, y]);
 
   const onPointerDown = (event: React.PointerEvent<HTMLElement>) => {
     gesture.current = { pointerY: event.clientY, startY: y.get(), active: true };

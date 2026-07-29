@@ -1,15 +1,30 @@
-/** Mobile layout geometry, from the Figma mobile frames (430x932).
- *
- *  The two sheets rest at different heights by design: Home's tech-stack
- *  folders are taller than Resume's note cards, so each peek is the height
- *  its own tray needs rather than one shared value. */
-export const HOME_SHEET_PEEK = 322;
-export const RESUME_SHEET_PEEK = 248;
+/** Mobile layout geometry, from the Figma mobile frames (430x932). */
 
-/** How much of the screen the sheet covers once pulled all the way up. svh,
- *  not vh: on iOS Safari vh counts the space behind the browser chrome, so a
- *  vh-sized sheet extends past what is actually visible. */
-export const SHEET_EXPANDED = "80svh";
+/** The floating nav's own fixed footprint - card height (88px) plus the gap
+ *  above it (16px), not counting the safe-area inset below it, which varies
+ *  by device and is measured separately wherever it matters. Keep this in
+ *  sync with navRoot/navCard's own hardcoded 88/16 in mobileNav.variants. */
+export const NAV_FOOTPRINT = 104;
+
+/** How far the sheet's collapsed peek should clear the nav by. */
+export const SHEET_PEEK_GAP = 40; // 2.5rem
+
+/** Gap kept above the sheet once fully expanded. */
+export const SHEET_TOP_GAP = 16; // 1rem
+
+/** Expanded height: the whole viewport, minus the top notch and
+ *  SHEET_TOP_GAP. dvh, not svh - on iOS Safari, svh/vh count the space
+ *  behind the browser's own toolbar chrome differently; dvh tracks what is
+ *  actually visible right now. */
+export const SHEET_EXPANDED = `calc(100dvh - env(safe-area-inset-top) - ${SHEET_TOP_GAP}px)`;
+
+/** How much bottom clearance a scroll region needs so its last line can
+ *  clear the sheet's collapsed peek, and the nav sitting on top of it. Built
+ *  from the same numbers useSheetDrag uses for the peek itself, so the two
+ *  can't drift apart. */
+export const SCROLL_BOTTOM_CLEARANCE = `calc(env(safe-area-inset-bottom) + ${
+  NAV_FOOTPRINT + SHEET_PEEK_GAP
+}px)`;
 
 export const SHEET_HINT = "Swipe up to explore • Drag cards to rearrange";
 
