@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
 import { SHEET_EXPANDED, SHEET_HINT } from "@/constants/mobile";
 import { cn } from "@/lib/cn";
+import { motion } from "motion/react";
 import {
   sectionUnderline,
   sheetCanvasArea,
@@ -14,7 +14,6 @@ import {
   sheetRoot,
   sheetTitle,
   sheetTitleBlock,
-  sheetTitleMask,
 } from "./components/bottomSheet.variants";
 import type { BottomSheetProps } from "./types/bottomSheet.types";
 
@@ -68,7 +67,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           <span className={sheetHint}>{SHEET_HINT}</span>
         </button>
 
-        <div className={sheetTitleBlock}>
+        <div id="mobile-sheet-title" className={sheetTitleBlock}>
           <h2 className={sheetTitle}>{title}</h2>
 
           <span aria-hidden className={sectionUnderline} />
@@ -77,8 +76,6 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 
       <div className={sheetCanvasArea} id="mobile-sheet-canvas">
         <div className={sheetCanvasLayer}>{children}</div>
-
-        <div aria-hidden className={sheetTitleMask} />
       </div>
     </motion.section>
   );

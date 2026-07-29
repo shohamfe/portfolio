@@ -193,14 +193,14 @@ export const RESUME_CARDS: readonly ResumeCard[] = [
   {
     id: "architecture",
     chip: "Architecture",
-    color: "purple",
+    color: "yellow",
     title: "System Design",
     body: "Designing modular, scalable foundations that grow seamlessly with evolving business requirements.",
   },
   {
     id: "performance",
     chip: "Performance",
-    color: "yellow",
+    color: "purple",
     title: "Heavy Data Handling",
     body: "Optimising memory management and caching to keep massive datasets feeling instantly responsive.",
   },

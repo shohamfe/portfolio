@@ -34,7 +34,7 @@ const MobileResume: React.FC = () => {
       </motion.div>
 
       <BottomSheet sheet={sheet} title="Notes">
-        <MobileNoteCanvas />
+        <MobileNoteCanvas isExpanded={sheet.isExpanded} />
       </BottomSheet>
 
       <MobileNav />
