@@ -5,7 +5,7 @@ import { PiShareNetwork } from "react-icons/pi";
 import FolderBody from "@/components/folder/components/FolderBody";
 import FolderSheet from "@/components/folder/components/FolderSheet";
 import { folderRoot, folderStack, sheetRow } from "@/components/folder/components/folder.variants";
-import { SITE } from "@/constants/site";
+import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
 import { TECH_FOLDERS } from "@/constants/tech";
 
 const [reactFolder] = TECH_FOLDERS;
@@ -17,9 +17,13 @@ const [leftSheet, rightSheet] = reactFolder.sheets;
  *  is reused as-is rather than drawn again for a page with no other art. */
 const MobilePage: React.FC = () => {
   const [url, setUrl] = useState("");
+  const [roleLabel, setRoleLabel] = useState(resolveRoleLabel(undefined));
 
   useEffect(() => {
     setUrl(window.location.origin);
+    setRoleLabel(
+      resolveRoleLabel(new URLSearchParams(window.location.search).get(ROLE_QUERY_PARAM) ?? undefined)
+    );
   }, []);
 
   const handleShare = async () => {
@@ -55,9 +59,13 @@ const MobilePage: React.FC = () => {
         </div>
 
         <figcaption className="text-center font-body text-[16px] font-medium text-black">
-          Software Developer
-          <br />
-          <span className="text-text-muted">Frontend Oriented</span>
+          {roleLabel.primary}
+          {roleLabel.secondary && (
+            <>
+              <br />
+              <span className="text-text-muted">{roleLabel.secondary}</span>
+            </>
+          )}
         </figcaption>
       </figure>
 

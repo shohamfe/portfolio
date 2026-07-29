@@ -61,10 +61,10 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       {
         id: "teleprocessing",
         year: "2024",
-        title: "Lead Front-End Developer & UX/UI Designer",
+        title: "Lead Frontend Developer & UX/UI Designer",
         subtitle: "Teleprocessing Corps - IDF (Via Inford-Team)",
         bullets: [
-          "Led front-end development within an Agile team, building a mission-critical system that dictates the annual procurement for the IDF Ground Forces.",
+          "Led frontend development within an Agile team, building a mission-critical system that dictates the annual procurement for the IDF Ground Forces.",
           "Architected a multi-source data visualization dashboard where each widget independently fetches, caches, and parses its data (TanStack Query), enabling isolated loading and error states.",
           "Built data tables rendering tens of thousands of rows with list virtualization and server-side pagination.",
           "Engineered dynamic, schema-driven forms with React Hook Form for complex procurement logic.",
@@ -75,7 +75,7 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
       {
         id: "nando-frontend",
         year: "2022",
-        title: "Front-End Developer & UX/UI Designer",
+        title: "Frontend Developer & UX/UI Designer",
         subtitle: "Nando",
         bullets: [
           "Designed and built a React app giving field guards real-time awareness from patrol drones: live video, telemetry (velocity, battery), and drone position with a field-of-view polygon on a Leaflet map.",
@@ -105,8 +105,8 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
         subtitle: "Volunteer Project",
         href: "https://octseven.com",
         bullets: [
-          "Core front-end developer from two weeks after October 7 through post-launch development of a public memorial site where families create and share memorial pages for their loved ones.",
-          "Built the home page, main search, and the user and memorial creation forms, writing the largest share of front-end code (React, Redux, MUI, Uppy, JWT, i18n multilingual support).",
+          "Core frontend developer from two weeks after October 7 through post-launch development of a public memorial site where families create and share memorial pages for their loved ones.",
+          "Built the home page, main search, and the user and memorial creation forms, writing the largest share of frontend code (React, Redux, MUI, Uppy, JWT, i18n multilingual support).",
         ],
       },
       {
