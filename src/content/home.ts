@@ -19,8 +19,7 @@ export const HOME_CONTENT = {
   about: {
     title: "About",
     paragraphs: [
-      "Software Developer (Frontend Oriented) with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.",
-      "Currently lead front-end developer on a mission-critical React-SAP system replacing a legacy platform.",
+      "Led frontend development on a mission-critical React-SAP system replacing a legacy platform.",
       "Experienced in AI-assisted engineering and utilizing autonomous agents (Claude Code, MCP, Agentic Workflows).",
     ],
   },

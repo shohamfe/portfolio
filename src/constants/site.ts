@@ -1,11 +1,32 @@
+/** Query param that swaps the role copy below - visit any page with
+ *  `?role=frontend` to get the "Frontend Developer" phrasing instead of the
+ *  default "Software Developer (Frontend Oriented)" one, in both the meta
+ *  description and the on-page copy. Lets one link go to a general audience
+ *  and another, narrower one go to frontend-focused recruiters. */
+export const ROLE_QUERY_PARAM = "role";
+export const ROLE_QUERY_VALUE = "frontend";
+
+export const ROLE_LABELS = {
+  default: { primary: "Software Developer", secondary: "Frontend Oriented" },
+  frontend: { primary: "Frontend Developer", secondary: null },
+} as const;
+
+export const resolveRoleLabel = (roleParam: string | string[] | undefined) =>
+  roleParam === ROLE_QUERY_VALUE ? ROLE_LABELS.frontend : ROLE_LABELS.default;
+
+export const getSiteDescription = (roleLabel: { primary: string; secondary: string | null }) =>
+  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
+
+export const getRoleTitle = (roleLabel: { primary: string; secondary: string | null }) =>
+  `${roleLabel.primary}++`;
+
 /** Identity and outbound links. Single source for anything that appears in
  *  metadata, the header, and the footer. */
 export const SITE = {
   name: "Shoham Fellner",
-  role: "Software Developer++",
+  role: getRoleTitle(ROLE_LABELS.default),
   tagline: "From concept to experience",
-  description:
-    "Software Developer (Frontend Oriented) with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.",
+  description: getSiteDescription(ROLE_LABELS.default),
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
 

@@ -1,5 +1,5 @@
 import SiteNav from "@/components/siteNav/SiteNav";
-import { SITE } from "@/constants/site";
+import { getRoleTitle, getSiteDescription, SITE } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
 import { cn } from "@/lib/cn";
 import type { HomeIntroProps } from "./types/homeIntro.types";
@@ -27,7 +27,7 @@ const { passion, howIWork, about } = HOME_CONTENT;
  *  page itself never scrolls (see body's h-full/overflow-hidden in layout).
  *  Each section is labelled by its heading so it announces as a named
  *  landmark rather than an anonymous region. */
-const HomeIntro: React.FC<HomeIntroProps> = ({ className }) => {
+const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
   return (
     <div id="home-intro" className={cn(introRoot, className)}>
       <div id="home-intro-fixed" className={introFixed}>
@@ -37,7 +37,7 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className }) => {
           </h1>
 
           <p id="home-intro-role" className={introRole}>
-            {SITE.role}
+            {getRoleTitle(roleLabel)}
           </p>
 
           <p id="home-intro-tagline" className={introTagline}>
@@ -79,6 +79,8 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className }) => {
           <h2 id="about-heading" className={introHeading}>
             {about.title}
           </h2>
+
+          <p className={introParagraph}>{getSiteDescription(roleLabel)}</p>
 
           {about.paragraphs.map((paragraph) => (
             <p key={paragraph} className={introParagraph}>

@@ -3,13 +3,21 @@ import { PiDownloadSimple } from "react-icons/pi";
 import ResumeStage from "@/components/resumeStage/ResumeStage";
 import { stageHeaderBlur } from "@/components/resumeStage/components/resumeStage.variants";
 import SiteNav from "@/components/siteNav/SiteNav";
-import { SITE } from "@/constants/site";
+import { getSiteDescription, resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
 import { ACCENT_SURFACE, PRESSABLE } from "@/lib/variants";
 import { cn } from "@/lib/cn";
 
-export const metadata: Metadata = {
-  title: `Resume - ${SITE.name}`,
-  description: SITE.description,
+type ResumePageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+/** See the matching generateMetadata in @/app/page.tsx - same `?role=frontend`
+ *  swap, kept in sync so a shared link behaves the same on either page. */
+export const generateMetadata = async ({ searchParams }: ResumePageProps): Promise<Metadata> => {
+  const params = await searchParams;
+  const description = getSiteDescription(resolveRoleLabel(params[ROLE_QUERY_PARAM]));
+
+  return { title: `Resume - ${SITE.name}`, description };
 };
 
 const downloadButton = cn(
