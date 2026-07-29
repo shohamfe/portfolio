@@ -2,9 +2,10 @@ import BottomSheet from "@/components/bottomSheet/BottomSheet";
 import { sectionUnderline } from "@/components/bottomSheet/components/bottomSheet.variants";
 import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
 import MobileNav from "@/components/mobileNav/MobileNav";
-import { HOME_SHEET_PEEK, MOBILE_CANVAS_ORIGIN } from "@/constants/mobile";
+import { MOBILE_CANVAS_ORIGIN, SCROLL_BOTTOM_CLEARANCE } from "@/constants/mobile";
 import { getRoleTitle, getSiteDescription, SITE } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
+import { cn } from "@/lib/cn";
 import type { MobileHomeProps } from "./types/mobileHome.types";
 import {
   bioHeader,
@@ -14,9 +15,10 @@ import {
   bioSection,
   bioSections,
   heroDivider,
+  heroFixed,
+  heroHeader,
   heroName,
   heroRole,
-  heroRoot,
   heroTagline,
   mobileRoot,
   mobileScroll,
@@ -24,8 +26,9 @@ import {
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
-/** Home below the lg breakpoint: the intro copy as one scrolling column,
- *  with the tech-stack folders moved into a pull-up sheet.
+/** Home below the lg breakpoint: a fixed hero header, then the intro's bio
+ *  copy as a scrolling column, with the tech-stack folders moved into a
+ *  pull-up sheet.
  *
  *  The canvas is the same component the desktop page uses, only re-anchored
  *  (panOrigin) so the tray opens on the folder cluster rather than on the
@@ -40,12 +43,8 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
 
   return (
     <main id="home" className={mobileRoot}>
-      <div
-        id="mobile-home-scroll"
-        className={mobileScroll}
-        style={{ paddingBottom: HOME_SHEET_PEEK }}
-      >
-        <header className={heroRoot}>
+      <div className={heroFixed}>
+        <header className={heroHeader}>
           <h1 className={heroName}>{SITE.name}</h1>
 
           <p className={heroRole}>{getRoleTitle(roleLabel)}</p>
@@ -54,7 +53,13 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
         </header>
 
         <hr className={heroDivider} />
+      </div>
 
+      <div
+        id="mobile-home-scroll"
+        className={cn(mobileScroll, "pt-4")}
+        style={{ paddingBottom: SCROLL_BOTTOM_CLEARANCE }}
+      >
         <div className={bioSections}>
           {sections.map((section) => (
             <section
@@ -103,7 +108,7 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
         </div>
       </div>
 
-      <BottomSheet peekHeight={HOME_SHEET_PEEK} title="Tech Stack">
+      <BottomSheet title="Tech Stack">
         <HomeCanvas panOrigin={MOBILE_CANVAS_ORIGIN} showHint={false} paintDots={false} />
       </BottomSheet>
 
