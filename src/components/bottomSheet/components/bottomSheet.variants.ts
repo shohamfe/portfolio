@@ -5,11 +5,17 @@
  *
  *  Height comes from an inline style (SHEET_EXPANDED), since the value is
  *  shared with the scroll clearance the pages compute. */
-/* Bottom padding clears env(safe-area-inset-bottom) - see mobileNav.variants
+/* dot-grid, not the page's plain white - the sheet carries the pattern
+ * instead, per the Figma update. bg-surface-raised is the base colour dots
+ * render against (dot-grid itself only paints the dot layer); it needs to
+ * stay opaque white ON THIS ELEMENT, not just the page behind it, since the
+ * sheet is a solid card that fully covers whatever is under it.
+ *
+ * Bottom padding clears env(safe-area-inset-bottom) - see mobileNav.variants
  * for why: without it, the tray's own content would render flush against
  * the home-indicator's gesture zone once the sheet is pulled open. */
 export const sheetRoot =
-  "fixed inset-x-0 bottom-0 z-20 flex flex-col gap-3 overflow-clip rounded-t-3xl border-t border-solid border-default-300 bg-surface-raised pt-3 shadow-nav [padding-bottom:calc(env(safe-area-inset-bottom)+16px)]";
+  "dot-grid fixed inset-x-0 bottom-0 z-20 flex flex-col gap-3 overflow-clip rounded-t-3xl border-t border-solid border-default-300 bg-surface-raised pt-3 shadow-nav [padding-bottom:calc(env(safe-area-inset-bottom)+16px)]";
 
 /** Everything above the tray, and the only part that starts a drag - the
  *  canvas below owns its own gestures. touch-none stops the browser claiming

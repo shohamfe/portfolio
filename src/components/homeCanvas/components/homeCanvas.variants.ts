@@ -9,6 +9,14 @@
  *  any extra alignment work). */
 export const canvasViewport = "dot-grid relative flex-1 overflow-hidden";
 
+/** Same viewport, no dot layer of its own - for the mobile embed, where the
+ *  bottom sheet around it already paints the pattern. Stacking both would
+ *  not simply double the same pattern: the sheet's dot-grid tiles from its
+ *  own top-left, offset from this viewport's by the sheet header's height,
+ *  so two independently-phased 24px grids would beat against each other
+ *  instead of lining up. */
+export const canvasViewportPlain = "relative flex-1 overflow-hidden";
+
 /** The layer that actually moves.
  *
  *  Below lg, 0,0 is correct as-is - the canvas is a normal flex item to the

@@ -104,7 +104,7 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
       </div>
 
       <BottomSheet peekHeight={HOME_SHEET_PEEK} title="Tech Stack">
-        <HomeCanvas panOrigin={MOBILE_CANVAS_ORIGIN} showHint={false} />
+        <HomeCanvas panOrigin={MOBILE_CANVAS_ORIGIN} showHint={false} paintDots={false} />
       </BottomSheet>
 
       <MobileNav />

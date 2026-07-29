@@ -1,6 +1,7 @@
 /** Full-screen column: a scrolling body with the sheet and nav fixed over
- *  it. dot-grid matches the desktop pages' backdrop. */
-export const mobileRoot = "dot-grid relative flex min-h-0 flex-1 flex-col overflow-hidden";
+ *  it. Plain white, unlike the desktop pages' dotted backdrop - the mobile
+ *  design puts the dot pattern on the sheet instead, per the Figma update. */
+export const mobileRoot = "relative flex min-h-0 flex-1 flex-col overflow-hidden bg-white";
 
 /** The only scrolling region. Its bottom padding is set inline from the
  *  sheet's peek height, since the sheet is fixed and would otherwise cover
