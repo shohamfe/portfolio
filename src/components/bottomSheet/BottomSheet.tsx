@@ -16,6 +16,7 @@ import {
   sheetTitleBlock,
   sheetTitleMask,
 } from "./components/bottomSheet.variants";
+import { useSheetDrag } from "./hooks/bottomSheet.hooks";
 import type { BottomSheetProps } from "./types/bottomSheet.types";
 
 /** The pull-up tray both mobile pages end with. Two resting positions:
@@ -31,14 +32,10 @@ import type { BottomSheetProps } from "./types/bottomSheet.types";
  *  snap-to-rest glide is a CSS transition rather than Motion's `animate()`.
  *
  *  The handle is a real button, not just a bar: dragging is the only other
- *  way to open the sheet, and a drag is not something a keyboard can do.
- *
- *  `sheet` comes from the parent page (useSheetDrag), not from a hook call
- *  in here - the page's own scroll region needs the same live coverage
- *  value this component uses for its own position, so the drag state has to
- *  be owned one level up and passed down to both. */
-const BottomSheet: React.FC<BottomSheetProps> = ({ sheet, title, children }) => {
-  const { ref, y, isExpanded, isSliding, toggle, onPointerDown, onPointerMove, onPointerUp } = sheet;
+ *  way to open the sheet, and a drag is not something a keyboard can do. */
+const BottomSheet: React.FC<BottomSheetProps> = ({ title, children }) => {
+  const { ref, y, isExpanded, isSliding, toggle, onPointerDown, onPointerMove, onPointerUp } =
+    useSheetDrag();
 
   return (
     <motion.section
