@@ -18,14 +18,6 @@ export const SHEET_TOP_GAP = 16; // 1rem
  *  actually visible right now. */
 export const SHEET_EXPANDED = `calc(100dvh - env(safe-area-inset-top) - ${SHEET_TOP_GAP}px)`;
 
-/** How much bottom clearance a scroll region needs so its last line can
- *  clear the sheet's collapsed peek, and the nav sitting on top of it. Built
- *  from the same numbers useSheetDrag uses for the peek itself, so the two
- *  can't drift apart. */
-export const SCROLL_BOTTOM_CLEARANCE = `calc(env(safe-area-inset-bottom) + ${
-  NAV_FOOTPRINT + SHEET_PEEK_GAP
-}px)`;
-
 export const SHEET_HINT = "Swipe up to explore • Drag cards to rearrange";
 
 /** Where the home canvas's pan layer starts inside the tray.
