@@ -1,4 +1,8 @@
+"use client";
+
+import { motion } from "motion/react";
 import BottomSheet from "@/components/bottomSheet/BottomSheet";
+import { useSheetDrag } from "@/components/bottomSheet/hooks/bottomSheet.hooks";
 import MobileNav from "@/components/mobileNav/MobileNav";
 import { mobileRoot, mobileScroll } from "@/components/mobileHome/components/mobileHome.variants";
 import { cn } from "@/lib/cn";
@@ -11,18 +15,25 @@ import MobileTimeline from "./components/MobileTimeline";
  *
  *  The shell classes are shared with MobileHome rather than duplicated - both
  *  pages are the same three layers (scroll region, sheet, nav) and only their
- *  contents differ, including the bottom clearance for the collapsed sheet,
- *  which mobileRoot carries. Unlike Home, there is no fixed header here, so
- *  the scroll region needs its own top safe-area clearance
- *  (resumeScrollTop). */
+ *  contents differ. Unlike Home, there is no fixed header here, so the
+ *  scroll region needs its own top safe-area clearance (resumeScrollTop).
+ *
+ *  The scroll region's bottom padding tracks sheet.coverage - see MobileHome
+ *  for why a static clearance sized for the collapsed peek is not enough. */
 const MobileResume: React.FC = () => {
+  const sheet = useSheetDrag();
+
   return (
     <main id="resume" className={mobileRoot}>
-      <div id="mobile-resume-scroll" className={cn(mobileScroll, resumeScrollTop)}>
+      <motion.div
+        id="mobile-resume-scroll"
+        className={cn(mobileScroll, resumeScrollTop)}
+        style={{ paddingBottom: sheet.coverage }}
+      >
         <MobileTimeline />
-      </div>
+      </motion.div>
 
-      <BottomSheet title="Notes">
+      <BottomSheet sheet={sheet} title="Notes">
         <MobileNoteCanvas />
       </BottomSheet>
 

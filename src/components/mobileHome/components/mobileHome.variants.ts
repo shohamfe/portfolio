@@ -1,27 +1,8 @@
 /** Full-screen column: a fixed header, a scrolling body, then the sheet and
  *  nav floating on top. Plain white, unlike the desktop pages' dotted
  *  backdrop - the mobile design puts the dot pattern on the sheet instead,
- *  per the Figma update.
- *
- *  The bottom padding is what keeps content clear of the collapsed sheet,
- *  and it lives HERE, on the non-scrolling parent, rather than on the scroll
- *  region itself. Padding on a `flex-col` + `overflow-y-auto` box is not
- *  counted in its scroll extent on iOS Safari: scrollHeight equals
- *  clientHeight, so the page cannot scroll at all, and whatever content runs
- *  past the sheet's top edge is simply unreachable. Shortening the parent's
- *  content box instead means the flex-1 scroll region ends exactly at the
- *  collapsed sheet's top edge, so overflow is real, scrolling works, and
- *  nothing ever sits behind the sheet.
- *
- *  160px is the sheet's own collapsed peek - NAV_FOOTPRINT (104) +
- *  SHEET_PEEK_GAP (40) from constants/mobile - plus 16px of reading gap, so
- *  the last line of copy stops short of the sheet's top border rather than
- *  ending flush against it. Hardcoded because a Tailwind class has to be a
- *  static string; keep the 144 in sync with those two constants if either
- *  changes. The safe-area inset is added on top, matching how useSheetDrag
- *  computes the same peek. */
-export const mobileRoot =
-  "relative flex min-h-0 flex-1 flex-col overflow-hidden bg-white [padding-bottom:calc(env(safe-area-inset-bottom)+160px)]";
+ *  per the Figma update. */
+export const mobileRoot = "relative flex min-h-0 flex-1 flex-col overflow-hidden bg-white";
 
 /** Name, role and tagline - stays put above the scrolling bio sections,
  *  mirroring desktop's introFixed/introScroll split. Top padding clears the

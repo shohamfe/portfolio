@@ -48,42 +48,62 @@ const readSafeAreaBottom = (): number => {
  *  from the start, it would animate the initial measurement too and the sheet
  *  would visibly slide down into its resting position on load.
  *
- *  Nothing outside the sheet tracks its position: the pages keep a fixed
- *  content area sized for the collapsed peek (see mobileRoot) and simply let
- *  the sheet slide over it, rather than reflowing their text every frame of
- *  a drag. */
+ *  coverage is how many px of screen the sheet currently occupies (total
+ *  height minus however far down it has slid). The page that owns this hook
+ *  uses it to size its own scroll region's bottom clearance, so the content
+ *  area shrinks and grows with the sheet's actual position instead of
+ *  assuming it is always sitting at its collapsed peek.
+ *
+ *  It is a plain MotionValue kept in sync by hand at every point y changes,
+ *  not `useTransform(y, ...)` - that derivation did not reliably recompute
+ *  here (confirmed by reading coverage.get() immediately after a y.set():
+ *  it stayed at its stale initial value rather than the freshly transformed
+ *  one). Setting it explicitly alongside y is more code but leaves nothing
+ *  to Motion's own subscription timing. It jumps to its target the instant
+ *  y is set rather than gliding with the sheet's own CSS transition -
+ *  animating it too risks the identical conflict that drove the sheet's
+ *  snap itself off Motion's `animate()` in the first place. */
 export const useSheetDrag = () => {
   const ref = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
+  const coverage = useMotionValue(0);
   const collapsed = useRef(0);
+  const total = useRef(0);
   const gesture = useRef({ pointerY: 0, startY: 0, active: false });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [hasSettled, setHasSettled] = useState(false);
+
+  const syncCoverage = useCallback(() => {
+    coverage.set(total.current - y.get());
+  }, [coverage, y]);
 
   const settle = useCallback(
     (next: boolean) => {
       setIsExpanded(next);
       setHasSettled(true);
       y.set(next ? 0 : collapsed.current);
+      syncCoverage();
     },
-    [y]
+    [y, syncCoverage]
   );
 
   useEffect(() => {
     const measure = () => {
       const height = ref.current?.offsetHeight ?? 0;
+      total.current = height;
       const peek = NAV_FOOTPRINT + SHEET_PEEK_GAP + readSafeAreaBottom();
       collapsed.current = Math.max(height - peek, 0);
 
       if (!isExpanded) y.set(collapsed.current);
+      syncCoverage();
     };
 
     measure();
     window.addEventListener("resize", measure);
 
     return () => window.removeEventListener("resize", measure);
-  }, [isExpanded, y]);
+  }, [isExpanded, y, syncCoverage]);
 
   const onPointerDown = (event: React.PointerEvent<HTMLElement>) => {
     gesture.current = { pointerY: event.clientY, startY: y.get(), active: true };
@@ -96,6 +116,7 @@ export const useSheetDrag = () => {
 
     const next = gesture.current.startY + event.clientY - gesture.current.pointerY;
     y.set(Math.min(Math.max(next, 0), collapsed.current));
+    syncCoverage();
   };
 
   const onPointerUp = (event: React.PointerEvent<HTMLElement>) => {
@@ -127,6 +148,7 @@ export const useSheetDrag = () => {
   return {
     ref,
     y,
+    coverage,
     isExpanded,
     isSliding: hasSettled && !isDragging,
     toggle,
@@ -135,3 +157,5 @@ export const useSheetDrag = () => {
     onPointerUp,
   };
 };
+
+export type SheetDragState = ReturnType<typeof useSheetDrag>;
