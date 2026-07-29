@@ -100,7 +100,11 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh antialiased`}
+      // bg-white: with viewport-fit=cover, iOS paints the notch/home-indicator
+      // safe-area strips using html's own background - not whatever page
+      // content happens to sit there - so without this those strips showed
+      // body's default off-white instead of matching a page's actual colour.
+      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh bg-white antialiased`}
     >
       <head>
         {/* Preloaded so the cursor images are already decoded by first paint -
