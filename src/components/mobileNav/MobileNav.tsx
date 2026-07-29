@@ -8,6 +8,7 @@ import { LINKS } from "@/constants/site";
 import {
   navCard,
   navDivider,
+  navFade,
   navIconWrap,
   navItem,
   navLabel,
@@ -31,6 +32,8 @@ const MobileNav: React.FC = () => {
 
   return (
     <nav aria-label="Main" className={navRoot}>
+      <div aria-hidden className={navFade} />
+
       <div className={navCard}>
         {NAV_ITEMS.map((item, index) => {
           const active = !item.external && pathname === item.href;
