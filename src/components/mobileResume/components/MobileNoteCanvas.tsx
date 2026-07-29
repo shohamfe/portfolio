@@ -15,13 +15,17 @@ import { trayCard, trayPanLayer, trayViewport } from "./mobileResume.variants";
 const COLUMNS = 4;
 const STEP_X = 210;
 const STEP_Y = 150;
-const MARGIN = 16;
+/** Generous on purpose: the tray now fills the whole sheet (not just the
+ *  leftover space below a header), so the pannable area needs real margin
+ *  on every side or there is nowhere left to drag once the cards' own tight
+ *  cluster already fills the visible box. */
+const MARGIN = 200;
 /** Every other card drops slightly, so the row does not read as a ruler. */
 const STAGGER_Y = 20;
 
 const ROWS = Math.ceil(RESUME_CARDS.length / COLUMNS);
-const CONTENT_WIDTH = COLUMNS * STEP_X + MARGIN;
-const CONTENT_HEIGHT = ROWS * STEP_Y + MARGIN;
+const CONTENT_WIDTH = COLUMNS * STEP_X + 2 * MARGIN;
+const CONTENT_HEIGHT = ROWS * STEP_Y + 2 * MARGIN;
 
 const ROTATIONS = new Map(RESUME_CARD_PLACEMENTS.map((placement) => [placement.id, placement]));
 
@@ -34,7 +38,17 @@ const ROTATIONS = new Map(RESUME_CARD_PLACEMENTS.map((placement) => [placement.i
  *  matter though: the pan layer's own drag listener is off and started
  *  manually only when the pointer went down on empty canvas, since Motion
  *  ignores a child's stopPropagation and a card drag would otherwise pan the
- *  board at the same time. */
+ *  board at the same time.
+ *
+ *  Each card's own dragConstraints points at viewportRef, the static outer
+ *  box - not panLayerRef, the pan layer itself. That layer is also
+ *  draggable, and constraining a card's bounds to an ancestor that is
+ *  concurrently being dragged is a moving target: the card would visibly
+ *  jump on drag start as Motion reconciled its position against a
+ *  constantly-shifting box, and panning only worked within whatever sliver
+ *  of that box happened to still be on screen. Desktop's ResumeCardField
+ *  avoids this the same way, constraining to the static content column
+ *  rather than anything with its own drag. */
 const MobileNoteCanvas: React.FC = () => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const panLayerRef = useRef<HTMLDivElement>(null);
@@ -73,7 +87,7 @@ const MobileNoteCanvas: React.FC = () => {
               card={card}
               rotation={ROTATIONS.get(card.id)?.rotation ?? 0}
               parallaxDepth={ROTATIONS.get(card.id)?.depth ?? 0.5}
-              boundaryRef={panLayerRef}
+              boundaryRef={viewportRef}
             />
           </div>
         ))}

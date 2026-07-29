@@ -1,3 +1,9 @@
+/** Resume's own scroll region has no fixed header above it (unlike Home's),
+ *  so it needs the full safe-area clearance itself. Merged onto the shared
+ *  mobileScroll class via cn() - tailwind-merge drops mobileScroll's own
+ *  pt-4 in favour of this since both are the same padding-top group. */
+export const resumeScrollTop = "[padding-top:calc(env(safe-area-inset-top)+2rem)]";
+
 export const timelineRoot = "flex flex-col";
 
 /** One entry: the indicator rail, then the content. self-stretch on the rail
@@ -33,7 +39,10 @@ export const entryBullets = "list-disc pl-5 font-ui text-small text-text-strong 
  *  rather than with the rail. */
 export const sectionHeader = "flex flex-col items-start gap-1 pb-4 pl-14";
 
-export const sectionHeading = "font-display text-h2 font-extrabold text-black";
+/** Matches mobileHeading (mobileHome.variants) and bottomSheet's sheetTitle
+ *  - text-h2 (32px) read as oversized on a 375px frame and was wide enough
+ *  on some entries to force the scroll region into horizontal overflow. */
+export const sectionHeading = "font-display text-[24px] font-extrabold text-black";
 
 /** The note tray: a canvas that pans in both directions, clipped by the
  *  sheet. Matches the home canvas's own viewport/pan-layer split. */
