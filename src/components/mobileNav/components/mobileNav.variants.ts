@@ -2,10 +2,18 @@ import { cva } from "class-variance-authority";
 
 /** Floating bar over whatever is behind it, blurring the sheet and the page
  *  as they pass underneath - the same glass treatment the desktop header
- *  uses. pb-4 is the inset that lifts the card off the screen edge; the
- *  88px total is MOBILE_NAV_HEIGHT, which scroll regions clear. */
+ *  uses.
+ *
+ *  The bottom inset is env(safe-area-inset-bottom) plus the pb-4 lift, not
+ *  pb-4 alone - on a notched iPhone that env() is ~34px, and without it the
+ *  card would sit right under the home-indicator's own swipe-up gesture
+ *  zone, fighting the OS for that gesture instead of just being covered by
+ *  the chrome. The nav's own h-[88px] stays the non-safe-area portion -
+ *  scroll regions never need to clear it directly, since the nav sits
+ *  entirely inside the sheet's own peek band (see HOME_SHEET_PEEK /
+ *  RESUME_SHEET_PEEK), which scroll regions already clear. */
 export const navRoot =
-  "pointer-events-none fixed inset-x-0 bottom-0 z-30 flex h-[88px] items-center px-6 pb-4 backdrop-blur-[20px]";
+  "pointer-events-none fixed inset-x-0 bottom-0 z-30 flex h-[88px] items-center px-6 backdrop-blur-[20px] [padding-bottom:calc(env(safe-area-inset-bottom)+16px)]";
 
 /** The card itself takes the taps - the bar around it is only a blur layer,
  *  so the page keeps working in the gaps beside it. */

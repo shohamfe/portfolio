@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Syne, Google_Sans_Flex, Google_Sans_Code, Inter, Heebo } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
@@ -85,11 +85,22 @@ export const metadata: Metadata = {
   },
 };
 
+/** viewport-fit=cover, not Next's own default: without it, every
+ *  env(safe-area-inset-*) used below (the mobile nav, the bottom sheet)
+ *  resolves to 0px on iOS - Safari only extends the page under the
+ *  notch/home-indicator area, and hands out those insets, once a page opts
+ *  in with this. */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ children }) => {
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-full antialiased`}
+      className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh antialiased`}
     >
       <head>
         {/* Preloaded so the cursor images are already decoded by first paint -
@@ -103,10 +114,19 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({ childre
         <link rel="preload" as="image" href="/cursors/hand.svg" />
         <link rel="preload" as="image" href="/cursors/grab.svg" />
       </head>
-      {/* h-full (not min-h-full) plus overflow-hidden locks the document to
-          exactly the viewport height - nothing on the page scrolls except the
-          specific regions that opt in with their own overflow-y. */}
-      <body className="flex h-full flex-col overflow-hidden">
+      {/* h-dvh (not h-full/min-h-full), on both html and body: a percentage
+          height here would depend on the initial containing block resolving
+          correctly through two more percentage layers below it (html then
+          body), and iOS Safari does not reliably keep that chain in sync
+          with the real visual viewport while its own toolbar is animating -
+          the failure mode is the page quietly growing past the visible
+          screen with no way back, since overflow-hidden then has nothing
+          correctly-sized left to clip. dvh is a hard viewport measurement,
+          not a cascaded percentage, so it does not depend on that chain at
+          all. Plus overflow-hidden, this locks the document to exactly the
+          viewport height - nothing on the page scrolls except the specific
+          regions that opt in with their own overflow-y. */}
+      <body className="flex h-dvh flex-col overflow-hidden">
         {children}
         <GAClickTracker />
       </body>

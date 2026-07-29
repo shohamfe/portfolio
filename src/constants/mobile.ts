@@ -13,10 +13,6 @@ export const SHEET_EXPANDED = "80svh";
 
 export const SHEET_HINT = "Swipe up to explore • Drag cards to rearrange";
 
-/** Floating nav height including its bottom inset - scroll regions add this
- *  much clearance so their last line does not end up underneath it. */
-export const MOBILE_NAV_HEIGHT = 88;
-
 /** Where the home canvas's pan layer starts inside the tray.
  *
  *  Derived, not guessed: the React folder sits at CANVAS_MARGIN (600) plus
