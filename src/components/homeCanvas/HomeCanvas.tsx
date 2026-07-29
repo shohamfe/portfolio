@@ -15,7 +15,7 @@ import { TECH_FOLDERS } from "@/constants/tech";
 import { cn } from "@/lib/cn";
 import CanvasHint from "./components/CanvasHint";
 import DraggableFolder from "./components/DraggableFolder";
-import { canvasPanLayer, canvasViewport } from "./components/homeCanvas.variants";
+import { canvasPanLayer, canvasPanLayerFree, canvasViewport } from "./components/homeCanvas.variants";
 import { originForIndex, usePersistedOffsets } from "./hooks/homeCanvas.hooks";
 import type { HomeCanvasProps } from "./types/homeCanvas.types";
 
@@ -36,7 +36,7 @@ const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT + 2 * CANVAS_MARGIN
  *  handling does not respect a child's stopPropagation the way plain DOM
  *  listeners would, so both gestures used to fire at once and the folder
  *  never moved. */
-const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
+const HomeCanvas: React.FC<HomeCanvasProps> = ({ className, panOrigin, showHint = true }) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const dragControls = useDragControls();
@@ -57,8 +57,13 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
       <motion.div
         id="home-canvas-pan-layer"
         data-grabbable
-        className={canvasPanLayer}
-        style={{ width: CONTENT_WIDTH, height: CONTENT_HEIGHT }}
+        className={panOrigin ? canvasPanLayerFree : canvasPanLayer}
+        style={{
+          width: CONTENT_WIDTH,
+          height: CONTENT_HEIGHT,
+          left: panOrigin?.x,
+          top: panOrigin?.y,
+        }}
         drag
         dragListener={false}
         dragControls={dragControls}
@@ -79,7 +84,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ className }) => {
         ))}
       </motion.div>
 
-      <CanvasHint boundaryRef={viewportRef} dismissed={hasInteracted} />
+      {showHint && <CanvasHint boundaryRef={viewportRef} dismissed={hasInteracted} />}
     </div>
   );
 };

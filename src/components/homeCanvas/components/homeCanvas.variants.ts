@@ -23,6 +23,11 @@ export const canvasViewport = "dot-grid relative flex-1 overflow-hidden";
  *  against the content edge on the far side of the padding. */
 export const canvasPanLayer = "absolute left-0 top-0 lg:left-[72px] lg:top-[-552px]";
 
+/** Same layer, positioned entirely from an inline `panOrigin` instead. The
+ *  breakpoint-based offsets above are written for a canvas that spans the
+ *  whole page, and a small tray needs to open somewhere else entirely. */
+export const canvasPanLayerFree = "absolute";
+
 /** Sits between the canvas (z-0) and the intro text (z-20), matching the
  *  intro's own footprint (592px box) with extra width for the gradient to
  *  fade out into sharp, unblurred canvas. The canvas is full-bleed behind the
