@@ -11,28 +11,6 @@ import {
 } from "@/constants/canvas";
 import type { Offset, OffsetMap } from "../types/homeCanvas.types";
 
-/** setTimeout on animation frames. Pass null to disable. */
-export const useAnimationFrameTimeout = (callback: () => void, delayMs: number | null): void => {
-  const saved = useRef(callback);
-  saved.current = callback;
-
-  useEffect(() => {
-    if (delayMs === null) return;
-
-    const start = performance.now();
-    let frame = requestAnimationFrame(function tick(now) {
-      if (now - start >= delayMs) {
-        saved.current();
-        return;
-      }
-
-      frame = requestAnimationFrame(tick);
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [delayMs]);
-};
-
 /** Grid slot for a folder before movement, inset by CANVAS_MARGIN. */
 export const originForIndex = (index: number): Offset => ({
   x: CANVAS_MARGIN + (index % COLUMNS) * COLUMN_STEP,

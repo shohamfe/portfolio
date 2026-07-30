@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import type { TechFolder } from "@/constants/tech";
 
 export interface Offset {
@@ -13,18 +14,17 @@ export interface DraggableFolderProps {
   offset: Offset;
   onMove: (id: string, delta: Offset) => void;
   index: number;
+  /** Exposes this folder's drag grip to a caller - used to point the
+   *  tutorial spotlight's stage1TargetRef at one specific folder. */
+  gripRef?: RefObject<HTMLDivElement | null>;
 }
 
 export interface HomeCanvasProps {
   className?: string;
   panOrigin?: Offset;
-  showHint?: boolean;
   paintDots?: boolean;
-}
-
-export type HintPhase = "visible" | "leaving" | "gone";
-
-export interface CanvasHintProps {
-  boundaryRef: React.RefObject<HTMLElement | null>;
-  dismissed: boolean;
+  /** Whether the tutorial spotlight may run. False while the canvas is
+   *  inside a collapsed mobile bottom sheet, where its target folder isn't
+   *  actually visible/reachable yet. */
+  tutorialEnabled?: boolean;
 }

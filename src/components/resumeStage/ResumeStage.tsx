@@ -2,12 +2,13 @@
 
 import ResumeTimeline from "@/components/resumeTimeline/ResumeTimeline";
 import RulerScrollbar from "@/components/rulerScrollbar/RulerScrollbar";
-import { RULER_TICK_COUNT } from "@/constants/resume";
 import { cn } from "@/lib/cn";
 import { useRef } from "react";
+import ResumeHeader from "../resumeHeader/ResumeHeader";
 import ResumeCardField from "./components/ResumeCardField";
 import {
-  stageContent,
+  stageLeftBody,
+  stageLeftSection,
   stageRoot,
   stageRuler,
   stageScroller,
@@ -20,6 +21,7 @@ import {
 import type { ResumeStageProps } from "./types/resumeStage.types";
 
 const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
+  const stageRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -27,22 +29,25 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
   useScrollFocus(wrapperRef);
 
   return (
-    <div id="resume-stage" className={cn(stageRoot, className)}>
-      <RulerScrollbar
-        progress={progress}
-        tickCount={RULER_TICK_COUNT}
-        className={stageRuler}
-      />
+    <div id="resume-stage" ref={stageRef} className={cn(stageRoot, className)}>
+      <div id="resume-left-section" className={stageLeftSection}>
+        <ResumeHeader />
 
-      <div id="resume-scroller" ref={wrapperRef} className={stageScroller}>
-        <div id="resume-content" ref={contentRef} className={stageContent}>
-          <ResumeTimeline className={stageTimeline} />
+        <div id="resume-left-body" className={stageLeftBody}>
+          <RulerScrollbar progress={progress} className={stageRuler} />
 
-          <ResumeCardField boundaryRef={contentRef} />
+          <div id="resume-scroller" ref={wrapperRef} className={stageScroller}>
+            <div id="resume-content" ref={contentRef}>
+              <ResumeTimeline className={stageTimeline} />
+            </div>
+          </div>
         </div>
       </div>
+
+      <ResumeCardField boundaryRef={stageRef} />
     </div>
   );
 };
 
 export default ResumeStage;
+

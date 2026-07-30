@@ -14,6 +14,7 @@ const DraggableFolder: React.FC<DraggableFolderProps> = ({
   offset,
   onMove,
   index,
+  gripRef,
 }) => {
   const prefersReducedMotion = useReducedMotion();
   const x = useMotionValue(0);
@@ -52,6 +53,7 @@ const DraggableFolder: React.FC<DraggableFolderProps> = ({
     >
       <motion.div
         id={`canvas-grip-${folder.id}`}
+        ref={gripRef}
         data-grabbable
         className={canvasFolderGrip}
         style={{ x, y }}

@@ -20,3 +20,16 @@ export const RESUME_CARD_PLACEMENTS: readonly ResumeCardPlacement[] = [
 /** Number of ticks on the resume ruler. Enough that the bulge moves smoothly
  *  rather than jumping a visible step per scroll. */
 export const RULER_TICK_COUNT = 56;
+
+/** Shared between the desktop (ResumeCardField) and mobile (MobileNoteCanvas)
+ *  note tutorial mounts, so seeing it on one breakpoint doesn't show it again
+ *  on the other. */
+export const TUTORIAL_NOTES_STORAGE_KEY = "portfolio:tutorial-notes-seen";
+
+/** The card that stays lit during the (only) stage of the notes walkthrough. */
+export const TUTORIAL_NOTES_STAGE1_CARD_ID = "impact";
+
+export const TUTORIAL_NOTES_STAGE_1 = {
+  label: "Drag me around",
+  ariaText: "Tutorial: the Impact note can be dragged with a mouse or touch.",
+};

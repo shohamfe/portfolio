@@ -1,5 +1,5 @@
 export const introRoot =
-  "flex w-full flex-col px-10 pt-12 lg:h-full lg:min-h-0 lg:max-w-lg lg:shrink-0";
+  "flex w-full flex-col px-10 pt-12 bg-gradient-to-r from-surface-page from-80% to-transparent h-full min-h-0 lg:h-full lg:min-h-0 lg:max-w-lg lg:shrink-0";
 
 export const introFixed = "flex shrink-0 flex-col gap-8";
 
@@ -13,8 +13,14 @@ export const introTagline = "font-code text-code text-text-muted";
 
 export const introDivider = "border-border-subtle";
 
-export const introScroll =
-  "flex flex-col gap-8 pb-12 pt-8 lg:min-h-0 lg:flex-1 lg:overflow-y-auto";
+export const introScroll = "flex flex-row gap-6 min-h-0 flex-1 overflow-hidden";
+
+export const introScroller =
+  "flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col gap-8 pb-8";
+
+export const introContent = "flex flex-col gap-8 pt-8"
+
+export const introRuler = "hidden shrink-0 self-stretch lg:flex py-8";
 
 export const introSection = "flex flex-col gap-2";
 

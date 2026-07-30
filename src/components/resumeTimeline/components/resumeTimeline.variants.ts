@@ -1,4 +1,5 @@
-export const timelineRoot = "flex flex-col";
+export const timelineRoot =
+  "flex flex-col";
 
 export const timelineRow = "flex";
 

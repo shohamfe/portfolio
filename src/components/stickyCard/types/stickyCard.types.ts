@@ -12,4 +12,10 @@ export interface StickyCardProps {
    *  dragging. */
   boundaryRef?: RefObject<Element | null>;
   className?: string;
+  /** Exposes the draggable card element to a caller - used to point the
+   *  resume tutorial spotlight's stage1TargetRef at one specific card. */
+  cardRef?: RefObject<HTMLDivElement | null>;
+  /** Fired once per drag that actually moves the card (not a stray click) -
+   *  used to mark the resume tutorial's stage 1 as complete. */
+  onDragCommit?: () => void;
 }

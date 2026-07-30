@@ -8,8 +8,8 @@ import {
 } from "react-icons/pi";
 
 export const EXTERNAL_LINKS = [
-  { href: LINKS.github, label: "GitHub profile", icon: <PiGithubLogo /> },
   { href: LINKS.linkedin, label: "LinkedIn profile", icon: <PiLinkedinLogo /> },
+  { href: LINKS.github, label: "GitHub profile", icon: <PiGithubLogo /> },
   { href: LINKS.figma, label: "Figma profile", icon: <PiFigmaLogo /> },
 ];
 
