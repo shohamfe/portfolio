@@ -81,13 +81,15 @@ const MobileNoteCanvas: React.FC<MobileNoteCanvasProps> = ({ isExpanded }) => {
         })}
       </motion.div>
 
-      <TutorialSpotlight
-        containerRef={viewportRef}
-        stage1TargetRef={stage1TargetRef}
-        storageKey={TUTORIAL_NOTES_STORAGE_KEY}
-        stage1={TUTORIAL_NOTES_STAGE_1}
-        stage1Complete={stage1Complete}
-      />
+      {isExpanded && (
+        <TutorialSpotlight
+          containerRef={viewportRef}
+          stage1TargetRef={stage1TargetRef}
+          storageKey={TUTORIAL_NOTES_STORAGE_KEY}
+          stage1={TUTORIAL_NOTES_STAGE_1}
+          stage1Complete={stage1Complete}
+        />
+      )}
     </div>
   );
 };

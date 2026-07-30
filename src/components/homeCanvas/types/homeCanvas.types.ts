@@ -23,4 +23,8 @@ export interface HomeCanvasProps {
   className?: string;
   panOrigin?: Offset;
   paintDots?: boolean;
+  /** Whether the tutorial spotlight may run. False while the canvas is
+   *  inside a collapsed mobile bottom sheet, where its target folder isn't
+   *  actually visible/reachable yet. */
+  tutorialEnabled?: boolean;
 }

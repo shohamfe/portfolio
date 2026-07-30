@@ -1,4 +1,5 @@
-export const timelineRoot = "flex flex-col";
+export const timelineRoot =
+  "flex flex-col bg-gradient-to-r from-surface-page from-80% to-transparent";
 
 export const timelineRow = "flex";
 

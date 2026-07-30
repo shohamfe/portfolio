@@ -41,6 +41,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
   className,
   panOrigin,
   paintDots = true,
+  tutorialEnabled = true,
 }) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const stage1TargetRef = useRef<HTMLDivElement>(null);
@@ -110,15 +111,17 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
         ))}
       </motion.div>
 
-      <TutorialSpotlight
-        containerRef={viewportRef}
-        stage1TargetRef={stage1TargetRef}
-        storageKey={TUTORIAL_STORAGE_KEY}
-        stage1={TUTORIAL_STAGE_1}
-        stage2={TUTORIAL_STAGE_2}
-        stage1Complete={reactFolderMoved}
-        stage2Complete={canvasPanned}
-      />
+      {tutorialEnabled && (
+        <TutorialSpotlight
+          containerRef={viewportRef}
+          stage1TargetRef={stage1TargetRef}
+          storageKey={TUTORIAL_STORAGE_KEY}
+          stage1={TUTORIAL_STAGE_1}
+          stage2={TUTORIAL_STAGE_2}
+          stage1Complete={reactFolderMoved}
+          stage2Complete={canvasPanned}
+        />
+      )}
     </div>
   );
 };

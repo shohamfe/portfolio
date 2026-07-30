@@ -90,7 +90,11 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
       </motion.div>
 
       <BottomSheet sheet={sheet} title="Tech Stack">
-        <HomeCanvas panOrigin={MOBILE_CANVAS_ORIGIN} paintDots={false} />
+        <HomeCanvas
+          panOrigin={MOBILE_CANVAS_ORIGIN}
+          paintDots={false}
+          tutorialEnabled={sheet.isExpanded}
+        />
       </BottomSheet>
 
       <MobileNav />

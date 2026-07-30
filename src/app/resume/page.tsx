@@ -1,7 +1,5 @@
 import MobileResume from "@/components/mobileResume/MobileResume";
-import ResumeHeader from "@/components/resumeHeader/ResumeHeader";
 import ResumeStage from "@/components/resumeStage/ResumeStage";
-import { stageHeaderBlur } from "@/components/resumeStage/components/resumeStage.variants";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
 import {
   getSiteDescription,
@@ -11,10 +9,7 @@ import {
 } from "@/constants/site";
 import type { Metadata } from "next";
 import { resumePageRoot } from "./styles/resumePage.variants";
-
-type ResumePageProps = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+import { ResumePageProps } from "./types/resume.types";
 
 /** See the matching generateMetadata in @/app/page.tsx - same `?role=frontend`
  *  swap, kept in sync so a shared link behaves the same on either page. */
@@ -36,10 +31,6 @@ const ResumePage = async ({ searchParams }: ResumePageProps) => {
   return (
     <ViewportSwitch mobile={<MobileResume roleLabel={roleLabel} />}>
       <main id="resume" className={resumePageRoot}>
-        <div id="resume-header-blur" aria-hidden className={stageHeaderBlur} />
-
-        <ResumeHeader />
-
         <ResumeStage />
       </main>
     </ViewportSwitch>
