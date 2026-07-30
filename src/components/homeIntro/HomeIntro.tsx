@@ -51,7 +51,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
       </div>
 
       <div id="home-intro-scroll" className={introScroll}>
-        <section id="home-passion" aria-labelledby="passion-heading" className={introSection}>
+        <section
+          id="home-passion"
+          aria-labelledby="passion-heading"
+          className={introSection}
+        >
           <h2 id="passion-heading" className={introHeading}>
             {passion.title}
           </h2>
@@ -63,7 +67,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
           </ul>
         </section>
 
-        <section id="home-how-i-work" aria-labelledby="how-i-work-heading" className={introSection}>
+        <section
+          id="home-how-i-work"
+          aria-labelledby="how-i-work-heading"
+          className={introSection}
+        >
           <h2 id="how-i-work-heading" className={introHeading}>
             {howIWork.title}
           </h2>
@@ -75,7 +83,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
           </ul>
         </section>
 
-        <section id="home-about" aria-labelledby="about-heading" className={introSectionWide}>
+        <section
+          id="home-about"
+          aria-labelledby="about-heading"
+          className={introSectionWide}
+        >
           <h2 id="about-heading" className={introHeading}>
             {about.title}
           </h2>

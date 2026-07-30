@@ -13,6 +13,7 @@ import {
 } from "@/constants/site";
 import { ACCENT_SURFACE, PRESSABLE } from "@/lib/variants";
 import { cn } from "@/lib/cn";
+import Magnetic from "@/components/magnetic/Magnetic";
 
 type ResumePageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -60,10 +61,13 @@ const ResumePage = async ({ searchParams }: ResumePageProps) => {
           <SiteNav
             className="pointer-events-auto w-fit"
             trailing={
-              <a href={SITE.cvPath} download className={downloadButton}>
-                <PiDownloadSimple aria-hidden />
-                Download CV
-              </a>
+              <Magnetic>
+                <a href={SITE.cvPath} download className={downloadButton}>
+                  <PiDownloadSimple aria-hidden />
+
+                  <Magnetic>Download CV</Magnetic>
+                </a>
+              </Magnetic>
             }
           />
         </header>
