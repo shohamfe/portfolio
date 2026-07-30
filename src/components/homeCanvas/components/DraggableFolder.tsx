@@ -3,17 +3,10 @@
 import { useState } from "react";
 import { motion, useMotionValue, useReducedMotion } from "motion/react";
 import Folder from "@/components/folder/Folder";
-import { KEYBOARD_NUDGE } from "@/constants/canvas";
 import { cn } from "@/lib/cn";
+import { ARROW_DELTAS } from "../constants/homeCanvas.constants";
 import { canvasFolderGrip, canvasFolderSlot } from "./homeCanvas.variants";
-import type { DraggableFolderProps, Offset } from "../types/homeCanvas.types";
-
-const ARROW_DELTAS: Record<string, Offset> = {
-  ArrowUp: { x: 0, y: -KEYBOARD_NUDGE },
-  ArrowDown: { x: 0, y: KEYBOARD_NUDGE },
-  ArrowLeft: { x: -KEYBOARD_NUDGE, y: 0 },
-  ArrowRight: { x: KEYBOARD_NUDGE, y: 0 },
-};
+import type { DraggableFolderProps } from "../types/homeCanvas.types";
 
 const DraggableFolder: React.FC<DraggableFolderProps> = ({
   folder,

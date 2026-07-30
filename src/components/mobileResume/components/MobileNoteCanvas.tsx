@@ -6,15 +6,15 @@ import StickyCard from "@/components/stickyCard/StickyCard";
 import { DRAG_ELASTIC } from "@/constants/canvas";
 import { RESUME_CARD_PLACEMENTS } from "@/constants/resume";
 import { RESUME_CARDS } from "@/content/resume";
+import {
+  COLUMNS,
+  MARGIN,
+  STAGGER_Y,
+  STEP_X,
+  STEP_Y,
+} from "../constants/mobileResume.constants";
 import type { MobileNoteCanvasProps } from "./types/mobileNoteCanvas.types";
 import { trayCard, trayPanLayer, trayViewport } from "./mobileResume.variants";
-
-const COLUMNS = 4;
-const STEP_X = 180;
-const STEP_Y = 210;
-
-const MARGIN = 100;
-const STAGGER_Y = 20;
 
 const ROWS = Math.ceil(RESUME_CARDS.length / COLUMNS);
 const CONTENT_WIDTH = COLUMNS * STEP_X + MARGIN;

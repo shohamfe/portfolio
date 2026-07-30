@@ -2,38 +2,11 @@
 
 import IconButton from "@/components/iconButton/IconButton";
 import NavPill from "@/components/navPill/NavPill";
-import { CONTACT, LINKS, ROUTES } from "@/constants/site";
+import { ROUTES } from "@/constants/site";
 import { cn } from "@/lib/cn";
 import { usePathname } from "next/navigation";
-import {
-  PiEnvelopeSimple,
-  PiFigmaLogo,
-  PiGithubLogo,
-  PiLinkedinLogo,
-  PiPhone,
-} from "react-icons/pi";
+import { CONTACT_ITEMS, EXTERNAL_LINKS } from "./constants/siteNav.constants";
 import type { SiteNavProps } from "./types/siteNav.types";
-
-const EXTERNAL_LINKS = [
-  { href: LINKS.github, label: "GitHub profile", icon: <PiGithubLogo /> },
-  { href: LINKS.linkedin, label: "LinkedIn profile", icon: <PiLinkedinLogo /> },
-  { href: LINKS.figma, label: "Figma profile", icon: <PiFigmaLogo /> },
-];
-
-const CONTACT_ITEMS = [
-  {
-    href: LINKS.email,
-    text: CONTACT.email,
-    label: "Email Shoham",
-    icon: <PiEnvelopeSimple aria-hidden />,
-  },
-  {
-    href: LINKS.phone,
-    text: CONTACT.phone,
-    label: "Call Shoham",
-    icon: <PiPhone aria-hidden />,
-  },
-];
 
 const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
   const pathname = usePathname();

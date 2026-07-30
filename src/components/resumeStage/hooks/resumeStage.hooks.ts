@@ -3,9 +3,7 @@
 import { useEffect, useState, type RefObject } from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "motion/react";
-
-/** Only entries whose top edge falls inside this band count as focused. */
-const FOCUS_BAND = "-8% 0px -60% 0px";
+import { FOCUS_BAND } from "../constants/resumeStage.constants";
 
 export const useSmoothScrollProgress = (
   wrapperRef: RefObject<HTMLElement | null>,

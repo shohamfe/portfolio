@@ -7,12 +7,9 @@ import {
   useSpring,
   type MotionValue,
 } from "motion/react";
-
-const TILT_RANGE_DEG = 26;
+import { TILT_RANGE_DEG, TILT_SPRING } from "../constants/stickyCard.constants";
 
 const depthScale = (depth: number) => 0.55 + 0.45 * depth;
-
-const TILT_SPRING = { stiffness: 150, damping: 22, mass: 0.4 };
 
 export const useStickyCardTilt = (depth: number) => {
   const prefersReducedMotion = useReducedMotion();

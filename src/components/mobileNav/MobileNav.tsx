@@ -1,15 +1,9 @@
 "use client";
 
-import { LINKS } from "@/constants/site";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
-import {
-  PiFigmaLogo,
-  PiGithubLogo,
-  PiHouse,
-  PiReadCvLogo,
-} from "react-icons/pi";
+import { NAV_ITEMS } from "./constants/mobileNav.constants";
 import {
   navCard,
   navDivider,
@@ -18,19 +12,6 @@ import {
   navLabel,
   navRoot,
 } from "./components/mobileNav.variants";
-import type { MobileNavItem } from "./types/mobileNav.types";
-
-const NAV_ITEMS: readonly MobileNavItem[] = [
-  { href: "/", label: "Home", icon: <PiHouse /> },
-  { href: "/resume", label: "Resume", icon: <PiReadCvLogo /> },
-  {
-    href: LINKS.github,
-    label: "Github",
-    icon: <PiGithubLogo />,
-    external: true,
-  },
-  { href: LINKS.figma, label: "Figma", icon: <PiFigmaLogo />, external: true },
-];
 
 const MobileNav: React.FC = () => {
   const pathname = usePathname();

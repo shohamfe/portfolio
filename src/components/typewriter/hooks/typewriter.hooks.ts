@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const TYPING_MS = 70;
-const DELETING_MS = 40;
-const PAUSE_MS = 1500;
+import { DELETING_MS, PAUSE_MS, TYPING_MS } from "../constants/typewriter.constants";
 
 export const useTypewriterCycle = (words: readonly string[]): string => {
   const [index, setIndex] = useState(0);

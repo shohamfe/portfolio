@@ -10,11 +10,9 @@ import {
   useRole,
 } from "@floating-ui/react";
 import { cn } from "@/lib/cn";
+import { FADE_MS, HINT_DURATION_MS } from "../constants/homeCanvas.constants";
 import { useAnimationFrameTimeout } from "../hooks/homeCanvas.hooks";
 import type { CanvasHintProps, HintPhase } from "../types/homeCanvas.types";
-
-const HINT_DURATION_MS = 10000;
-const FADE_MS = 300;
 
 /** Cursor-following brief hint shown until the user interacts with the canvas. */
 const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
