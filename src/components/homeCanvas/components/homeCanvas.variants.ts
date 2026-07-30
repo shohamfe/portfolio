@@ -9,6 +9,14 @@
  *  any extra alignment work). */
 export const canvasViewport = "dot-grid relative flex-1 overflow-hidden";
 
+/** Same viewport, no dot layer of its own - for the mobile embed, where the
+ *  bottom sheet around it already paints the pattern. Stacking both would
+ *  not simply double the same pattern: the sheet's dot-grid tiles from its
+ *  own top-left, offset from this viewport's by the sheet header's height,
+ *  so two independently-phased 24px grids would beat against each other
+ *  instead of lining up. */
+export const canvasViewportPlain = "relative flex-1 overflow-hidden";
+
 /** The layer that actually moves.
  *
  *  Below lg, 0,0 is correct as-is - the canvas is a normal flex item to the
@@ -22,6 +30,11 @@ export const canvasViewport = "dot-grid relative flex-1 overflow-hidden";
  *  resolves against the padding box's own edge (just inside the border), not
  *  against the content edge on the far side of the padding. */
 export const canvasPanLayer = "absolute left-0 top-0 lg:left-[72px] lg:top-[-552px]";
+
+/** Same layer, positioned entirely from an inline `panOrigin` instead. The
+ *  breakpoint-based offsets above are written for a canvas that spans the
+ *  whole page, and a small tray needs to open somewhere else entirely. */
+export const canvasPanLayerFree = "absolute";
 
 /** Sits between the canvas (z-0) and the intro text (z-20), matching the
  *  intro's own footprint (592px box) with extra width for the gradient to

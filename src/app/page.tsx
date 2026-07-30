@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
 import { canvasIntroMask } from "@/components/homeCanvas/components/homeCanvas.variants";
 import HomeIntro from "@/components/homeIntro/HomeIntro";
+import MobileHome from "@/components/mobileHome/MobileHome";
+import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
 import { getRoleTitle, getSiteDescription, resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
 
 type HomePageProps = {
@@ -38,16 +40,18 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
   const roleLabel = resolveRoleLabel(params[ROLE_QUERY_PARAM]);
 
   return (
-    <main
-      id="home"
-      className="relative flex min-h-0 flex-1 flex-col gap-16 overflow-hidden lg:block"
-    >
-      <HomeIntro className="lg:relative lg:z-20" roleLabel={roleLabel} />
+    <ViewportSwitch mobile={<MobileHome roleLabel={roleLabel} />}>
+      <main
+        id="home"
+        className="relative flex min-h-0 flex-1 flex-col gap-16 overflow-hidden lg:block"
+      >
+        <HomeIntro className="lg:relative lg:z-20" roleLabel={roleLabel} />
 
-      <div id="home-intro-mask" aria-hidden className={canvasIntroMask} />
+        <div id="home-intro-mask" aria-hidden className={canvasIntroMask} />
 
-      <HomeCanvas className="lg:absolute lg:inset-0 lg:z-0" />
-    </main>
+        <HomeCanvas className="lg:absolute lg:inset-0 lg:z-0" />
+      </main>
+    </ViewportSwitch>
   );
 };
 

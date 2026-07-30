@@ -21,6 +21,16 @@ export interface DraggableFolderProps {
 
 export interface HomeCanvasProps {
   className?: string;
+  /** Where the pan layer starts, in pixels. Overrides the class-based
+   *  placement, which is written for the full-page desktop canvas and would
+   *  otherwise open on the empty pan margin inside a small tray. */
+  panOrigin?: Offset;
+  /** The cursor-following "try moving things around" pill. Off where there is
+   *  no cursor to follow. */
+  showHint?: boolean;
+  /** Off inside the mobile sheet, which already paints its own dot-grid
+   *  background - see canvasViewportPlain. */
+  paintDots?: boolean;
 }
 
 /** visible → leaving (fading out) → gone (unmounted). */
