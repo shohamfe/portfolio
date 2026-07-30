@@ -20,7 +20,11 @@ import type { CursorLabelProps } from "./types/cursorLabel.types";
 const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { refs, floatingStyles, context } = useFloating({
+  const {
+    refs: { setReference, setFloating },
+    floatingStyles,
+    context,
+  } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
     middleware: [offset(16)],
@@ -34,14 +38,14 @@ const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className })
 
   return (
     <>
-      <span ref={refs.setReference} {...getReferenceProps()} className="contents">
+      <span ref={setReference} {...getReferenceProps()} className="contents">
         {children}
       </span>
 
       {isOpen && (
         <FloatingPortal>
           <div
-            ref={refs.setFloating}
+            ref={setFloating}
             style={floatingStyles}
             className={cn(
               "pointer-events-none rounded-full bg-accent px-3 py-1 text-small text-accent-foreground",
