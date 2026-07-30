@@ -3,20 +3,8 @@
 import { useEffect, useState, type RefObject } from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "motion/react";
+import { FOCUS_BAND } from "../constants/resumeStage.constants";
 
-/** Only entries whose top edge falls inside this band count as focused. The
- *  band sits in the upper third of the scroller, so the entry you are reading
- *  lights up before it reaches the middle of the screen. */
-const FOCUS_BAND = "-8% 0px -60% 0px";
-
-/** Smooth-scrolls the given wrapper and reports how far through it we are.
- *
- *  Progress comes from a native scroll listener rather than from Lenis, since
- *  Lenis drives the wrapper's real scrollTop and therefore fires native scroll
- *  events anyway. Keeping the two separate means progress still works if
- *  smoothing is switched off, which is exactly what happens under reduced
- *  motion - Lenis hijacks the scroll wheel, so it is disabled there entirely
- *  rather than merely shortened. */
 export const useSmoothScrollProgress = (
   wrapperRef: RefObject<HTMLElement | null>,
   contentRef: RefObject<HTMLElement | null>
@@ -52,12 +40,8 @@ export const useSmoothScrollProgress = (
   return progress;
 };
 
-/** Marks resume entries as focused or not while they pass through the band.
- *
- *  The attributes are applied here rather than in the markup so ResumeTimeline
- *  can stay a server component with no knowledge of scrolling, and so the page
- *  renders fully legible before this effect ever runs - the dimming is an
- *  enhancement, never a prerequisite for reading. */
+/** Marks resume entries as focused while they pass through the band. Applied
+ *  here rather than in the markup so ResumeTimeline can stay a server component. */
 export const useScrollFocus = (wrapperRef: RefObject<HTMLElement | null>): void => {
   useEffect(() => {
     const wrapper = wrapperRef.current;

@@ -1,8 +1,7 @@
 import { useEffect, useState, type RefObject } from "react";
 import { useMotionValue, useReducedMotion, useSpring, type SpringOptions } from "motion/react";
+import { DEFAULT_SPRING } from "../constants/magnetic.constants";
 import type { MagneticActionArea } from "../types/magnetic.types";
-
-const DEFAULT_SPRING: SpringOptions = { stiffness: 26.7, damping: 4.1, mass: 0.2 };
 
 interface UseMagneticOptions {
   intensity: number;

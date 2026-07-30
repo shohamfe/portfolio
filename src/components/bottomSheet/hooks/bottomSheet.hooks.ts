@@ -3,10 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValue } from "motion/react";
 import { NAV_FOOTPRINT, SHEET_PEEK_GAP } from "@/constants/mobile";
-
-const TAP_SLOP = 4;
-
-const INTENT_TRAVEL = 40;
+import { INTENT_TRAVEL, TAP_SLOP } from "../constants/bottomSheet.constants";
 
 const readSafeAreaBottom = (): number => {
   const probe = document.createElement("div");

@@ -1,16 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DELETING_MS, PAUSE_MS, TYPING_MS } from "../constants/typewriter.constants";
 
-const TYPING_MS = 70;
-const DELETING_MS = 40;
-const PAUSE_MS = 1500;
-
-/** Types out each word in turn, pauses, deletes it, then moves to the next -
- *  looping forever. Each render schedules exactly one character-step (or one
- *  state transition) via a single setTimeout, so the whole cycle is driven by
- *  re-renders rather than a persistent interval that would need its own
- *  cleanup bookkeeping. */
 export const useTypewriterCycle = (words: readonly string[]): string => {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
@@ -33,7 +25,9 @@ export const useTypewriterCycle = (words: readonly string[]): string => {
     }
 
     const delay = isDeleting ? DELETING_MS : TYPING_MS;
-    const next = isDeleting ? text.slice(0, -1) : word.slice(0, text.length + 1);
+    const next = isDeleting
+      ? text.slice(0, -1)
+      : word.slice(0, text.length + 1);
     const timer = setTimeout(() => setText(next), delay);
 
     return () => clearTimeout(timer);

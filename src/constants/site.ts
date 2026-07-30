@@ -1,8 +1,4 @@
-/** Query param that swaps the role copy below - visit any page with
- *  `?role=frontend` to get the "Frontend Developer" phrasing instead of the
- *  default "Software Developer (Frontend Oriented)" one, in both the meta
- *  description and the on-page copy. Lets one link go to a general audience
- *  and another, narrower one go to frontend-focused recruiters. */
+/** `?role=frontend` swaps the role copy below to "Frontend Developer" phrasing. */
 export const ROLE_QUERY_PARAM = "role";
 export const ROLE_QUERY_VALUE = "frontend";
 
@@ -35,15 +31,8 @@ export const SITE = {
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
 
-/** Absolute base for generated metadata URLs. og:image and twitter:image are
- *  fetched by scrapers that have no page context, so they must be absolute -
- *  Next resolves them against this.
- *
- *  Read from the environment rather than hardcoded: Vercel injects the
- *  production host itself, so this is correct on a deploy without anyone
- *  maintaining it. Set NEXT_PUBLIC_SITE_URL to override once a custom domain
- *  is pointed at the site. The localhost fallback only ever applies to local
- *  dev, where nothing is scraping the page anyway. */
+/** Absolute base for og:image/twitter:image URLs, since scrapers have no page context.
+ *  Falls back to Vercel's injected production host, then localhost for local dev. */
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -59,8 +48,7 @@ export const LINKS = {
     "https://www.figma.com/design/l5phLfD82JdpZIZ2up9XPr/Shoham-Fellner-Resume?node-id=49-1160&t=IqXtCEdOPYhCn5Th-1",
 } as const;
 
-/** Display strings for the contact line - LINKS carries the href-formatted
- *  versions (tel: needs E.164, not the local 050- format people read). */
+/** Display strings for the contact line; LINKS carries the href-formatted versions. */
 export const CONTACT = {
   email: "shoham.fe@gmail.com",
   phone: "050-8882689",
@@ -69,9 +57,7 @@ export const CONTACT = {
 /** Public GA4 measurement ID - not a secret, safe to ship in client code. */
 export const GA_MEASUREMENT_ID = "G-Q2MY5GERZT";
 
-/** Nav order matches the Figma header. Portfolio is intentionally absent
- *  while it is still a stub - the route and its page are left in place, so
- *  restoring it is a matter of adding the entry back here. */
+/** Portfolio route exists but is intentionally left out of nav while it's a stub. */
 export const ROUTES = [
   { href: "/", label: "Home" },
   { href: "/resume", label: "Resume" },

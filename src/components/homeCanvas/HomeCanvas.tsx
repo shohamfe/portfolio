@@ -25,22 +25,12 @@ import { originForIndex, usePersistedOffsets } from "./hooks/homeCanvas.hooks";
 import type { HomeCanvasProps } from "./types/homeCanvas.types";
 
 const ROWS = Math.ceil(TECH_FOLDERS.length / COLUMNS);
-const CONTENT_WIDTH = (COLUMNS - 1) * COLUMN_STEP + FOLDER_WIDTH + 2 * CANVAS_MARGIN;
-const CONTENT_HEIGHT = (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT + 2 * CANVAS_MARGIN;
+const CONTENT_WIDTH =
+  (COLUMNS - 1) * COLUMN_STEP + FOLDER_WIDTH + 2 * CANVAS_MARGIN;
+const CONTENT_HEIGHT =
+  (ROWS - 1) * ROW_STEP + FOLDER_HEIGHT + 2 * CANVAS_MARGIN;
 
-/** Pannable canvas of technology folders.
- *
- *  Dragging empty space pans the whole board, which rubber-bands at the edges
- *  rather than stopping dead. Dragging a folder moves just that folder, and
- *  every position is remembered across reloads.
- *
- *  The pan layer's own drag listener is disabled (`dragListener={false}`) and
- *  started manually via `dragControls`, only when the pointer actually went
- *  down on empty canvas. Relying on event propagation to stop a folder's own
- *  drag from also starting the parent's pan does not work - Motion's pointer
- *  handling does not respect a child's stopPropagation the way plain DOM
- *  listeners would, so both gestures used to fire at once and the folder
- *  never moved. */
+/** Pannable canvas of technology folders */
 const HomeCanvas: React.FC<HomeCanvasProps> = ({
   className,
   panOrigin,
@@ -66,7 +56,10 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
     <div
       id="home-canvas"
       ref={viewportRef}
-      className={cn(paintDots ? canvasViewport : canvasViewportPlain, className)}
+      className={cn(
+        paintDots ? canvasViewport : canvasViewportPlain,
+        className,
+      )}
     >
       <motion.div
         id="home-canvas-pan-layer"
@@ -98,7 +91,9 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
         ))}
       </motion.div>
 
-      {showHint && <CanvasHint boundaryRef={viewportRef} dismissed={hasInteracted} />}
+      {showHint && (
+        <CanvasHint boundaryRef={viewportRef} dismissed={hasInteracted} />
+      )}
     </div>
   );
 };

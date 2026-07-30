@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
 import ResumeTimeline from "@/components/resumeTimeline/ResumeTimeline";
 import RulerScrollbar from "@/components/rulerScrollbar/RulerScrollbar";
 import { RULER_TICK_COUNT } from "@/constants/resume";
 import { cn } from "@/lib/cn";
+import { useRef } from "react";
 import ResumeCardField from "./components/ResumeCardField";
 import {
   stageContent,
@@ -13,22 +13,12 @@ import {
   stageScroller,
   stageTimeline,
 } from "./components/resumeStage.variants";
-import { useScrollFocus, useSmoothScrollProgress } from "./hooks/resumeStage.hooks";
+import {
+  useScrollFocus,
+  useSmoothScrollProgress,
+} from "./hooks/resumeStage.hooks";
 import type { ResumeStageProps } from "./types/resumeStage.types";
 
-/** Owns everything about the Resume page that depends on scrolling: the
- *  smooth-scroll container, the ruler that reports position, and the focus
- *  dimming that lifts whichever entry you are reading out of the greyed rest.
- *
- *  The header itself is the blur-glass surface now - it overlays this stage
- *  rather than sitting above it in normal flow, so content genuinely passes
- *  behind it while scrolling. That is set up one level up, in the Resume
- *  page: this component only needs to leave enough top clearance for the
- *  header's own height, which it does via stageContent's padding.
- *
- *  The timeline itself stays a server component - this only wraps it, so the
- *  resume text is rendered and readable regardless of whether any of this
- *  client-side behaviour runs. */
 const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

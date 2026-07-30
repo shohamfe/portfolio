@@ -10,66 +10,14 @@ import {
   useRole,
 } from "@floating-ui/react";
 import { cn } from "@/lib/cn";
+import { FADE_MS, HINT_DURATION_MS } from "../constants/homeCanvas.constants";
 import { useAnimationFrameTimeout } from "../hooks/homeCanvas.hooks";
 import type { CanvasHintProps, HintPhase } from "../types/homeCanvas.types";
 
-const HINT_DURATION_MS = 10000;
-const FADE_MS = 300;
-
-/** Cursor-following pill shown for the first 10 seconds after Home mounts, or
- *  until the user first touches the canvas - whichever comes first. Nothing
- *  else on the page signals that the folders (and the canvas itself) are
- *  draggable, so this nudges first-time visitors toward finding out.
- *
- *  Runs on a three-phase machine (visible → leaving → gone) so the pill is
- *  genuinely removed from the DOM once it has faded, rather than lingering
- *  as an invisible element.
- *
- *  Both phase changes are timed with requestAnimationFrame rather than
- *  setTimeout. This is the actual fix for a bug where the pill would sit
- *  frozen on screen past its timeout and only vanish - instantly, with no
- *  fade - once the user clicked something. React had already applied the
- *  hidden state; the browser simply had not repainted, and the click forced
- *  the repaint that revealed it. setTimeout has no relationship to the paint
- *  cycle, so nothing guaranteed a frame would follow it. rAF only runs as
- *  part of producing a frame, so a state change scheduled from it is painted
- *  by construction. (Two earlier attempts blamed Motion - AnimatePresence,
- *  then an animate-target flip - and swapping both out for a plain CSS
- *  transition changed nothing, which is what ruled Motion out entirely.)
- *
- *  The transition lists `scale`, not `transform`. Tailwind v4 compiles the
- *  scale, translate and rotate utilities to the standalone CSS properties of
- *  those names rather than into a combined `transform`, so transitioning
- *  `transform` animates nothing and the size snaps instead of easing.
- *  (transform-origin still applies to those individual properties, so
- *  origin-top-left keeps working.)
- *
- *  z-50 also belongs on the wrapper, for the same reason: z-index is inert on
- *  a position:static element, and only the wrapper is positioned (floating-ui
- *  writes position into floatingStyles). On the static pill it did nothing, so
- *  the portal sat at z-index auto and HomeIntro's z-20 painted over it. Both
- *  compare in the root stacking context, since main is position:relative with
- *  z-index auto and so does not open one of its own.
- *
- *  pointer-events-none belongs on the positioned wrapper, not just the pill
- *  inside it. Without it the wrapper is a hit-testable box sitting right
- *  under the cursor, so moving fast enough to catch up to the pill put the
- *  pointer over the wrapper instead of the canvas - useClientPoint stopped
- *  receiving pointermove, and the pill froze mid-flight until some unrelated
- *  re-render (a click) shook it loose. It also would have swallowed the
- *  pointerdown that starts a canvas pan whenever a drag began underneath it.
- *
- *  bottom-start, not bottom: plain "bottom" centres the pill horizontally on
- *  the cursor point, which is what kept it looking centred no matter how the
- *  offset was tuned. "-start" aligns the pill's left edge to the point, so it
- *  extends down and to the right. translate-x-3 then adds a small diagonal
- *  gap, and origin-top-left makes it grow out of the corner nearest the
- *  cursor rather than from its own middle. */
+/** Cursor-following brief hint shown until the user interacts with the canvas. */
 const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   const [phase, setPhase] = useState<HintPhase>("visible");
 
-  // Whichever comes first: the timeout elapsing, or the user touching the
-  // canvas. Once leaving, the timeout is disabled so it cannot re-trigger.
   useAnimationFrameTimeout(
     () => setPhase("leaving"),
     phase === "visible" ? HINT_DURATION_MS : null,
@@ -106,7 +54,7 @@ const CanvasHint: React.FC<CanvasHintProps> = ({ boundaryRef, dismissed }) => {
   return (
     <FloatingPortal>
       <div
-        ref={refs.setFloating}
+        ref={refs?.setFloating}
         style={floatingStyles}
         {...getFloatingProps()}
         className="pointer-events-none z-50"

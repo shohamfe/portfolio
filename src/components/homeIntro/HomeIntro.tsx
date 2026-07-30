@@ -21,12 +21,6 @@ import {
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
-/** The left-hand column of the Home page: identity, navigation, and the three
- *  short prose sections. Name/tagline/nav and the divider stay fixed; only
- *  the content below the divider scrolls, and only the page below it - the
- *  page itself never scrolls (see body's h-full/overflow-hidden in layout).
- *  Each section is labelled by its heading so it announces as a named
- *  landmark rather than an anonymous region. */
 const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
   return (
     <div id="home-intro" className={cn(introRoot, className)}>
@@ -51,7 +45,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
       </div>
 
       <div id="home-intro-scroll" className={introScroll}>
-        <section id="home-passion" aria-labelledby="passion-heading" className={introSection}>
+        <section
+          id="home-passion"
+          aria-labelledby="passion-heading"
+          className={introSection}
+        >
           <h2 id="passion-heading" className={introHeading}>
             {passion.title}
           </h2>
@@ -63,7 +61,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
           </ul>
         </section>
 
-        <section id="home-how-i-work" aria-labelledby="how-i-work-heading" className={introSection}>
+        <section
+          id="home-how-i-work"
+          aria-labelledby="how-i-work-heading"
+          className={introSection}
+        >
           <h2 id="how-i-work-heading" className={introHeading}>
             {howIWork.title}
           </h2>
@@ -75,7 +77,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
           </ul>
         </section>
 
-        <section id="home-about" aria-labelledby="about-heading" className={introSectionWide}>
+        <section
+          id="home-about"
+          aria-labelledby="about-heading"
+          className={introSectionWide}
+        >
           <h2 id="about-heading" className={introHeading}>
             {about.title}
           </h2>
