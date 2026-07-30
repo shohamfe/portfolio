@@ -37,7 +37,20 @@ export const sheetIconBadgeVariants = cva(
   },
 );
 
-export const sheetIcon = "size-4";
+export const sheetIconVariants = cva("size-4", {
+  variants: {
+    color: {
+      blue: "border-primary",
+      purple: "border-secondary",
+      pink: "border-danger",
+      yellow: "border-warning",
+      green: "border-success",
+      grey: "border-default-700",
+    },
+  },
+  defaultVariants: { color: "grey" },
+});
+
 
 /** 70px note with upward shadow. On hover: rotates/lifts to reveal behind folder. */
 export const sheetVariants = cva(
