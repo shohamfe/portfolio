@@ -11,6 +11,11 @@ import {
   ROLE_QUERY_PARAM,
   SITE,
 } from "@/constants/site";
+import {
+  homeCanvasSlot,
+  homeIntroSlot,
+  homePageRoot,
+} from "./styles/homePage.variants";
 
 type HomePageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -39,18 +44,16 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 
   return (
     <ViewportSwitch mobile={<MobileHome roleLabel={roleLabel} />}>
-      <main
-        id="home"
-        className="relative flex min-h-0 flex-1 flex-col gap-16 overflow-hidden lg:block"
-      >
-        <HomeIntro className="lg:relative lg:z-20" roleLabel={roleLabel} />
+      <main id="home" className={homePageRoot}>
+        <HomeIntro className={homeIntroSlot} roleLabel={roleLabel} />
 
         <div id="home-intro-mask" aria-hidden className={canvasIntroMask} />
 
-        <HomeCanvas className="lg:absolute lg:inset-0 lg:z-0" />
+        <HomeCanvas className={homeCanvasSlot} />
       </main>
     </ViewportSwitch>
   );
 };
 
 export default HomePage;
+

@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef } from "react";
 import ResumeTimeline from "@/components/resumeTimeline/ResumeTimeline";
 import RulerScrollbar from "@/components/rulerScrollbar/RulerScrollbar";
-import { RULER_TICK_COUNT } from "@/constants/resume";
 import { cn } from "@/lib/cn";
+import { useRef } from "react";
 import ResumeHeader from "../resumeHeader/ResumeHeader";
 import ResumeCardField from "./components/ResumeCardField";
 import {
@@ -35,11 +34,7 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
         <ResumeHeader />
 
         <div id="resume-left-body" className={stageLeftBody}>
-          <RulerScrollbar
-            progress={progress}
-            tickCount={RULER_TICK_COUNT}
-            className={stageRuler}
-          />
+          <RulerScrollbar progress={progress} className={stageRuler} />
 
           <div id="resume-scroller" ref={wrapperRef} className={stageScroller}>
             <div id="resume-content" ref={contentRef}>

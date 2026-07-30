@@ -1,17 +1,18 @@
+import { RULER_TICK_COUNT } from "@/constants/resume";
 import { cn } from "@/lib/cn";
-import {
-  getActiveTickIndex,
-  getTickDistanceBucket,
-} from "./helpers/rulerScrollbar.helpers";
 import {
   rulerRoot,
   rulerTickVariants,
 } from "./components/rulerScrollbar.variants";
+import {
+  getActiveTickIndex,
+  getTickDistanceBucket,
+} from "./helpers/rulerScrollbar.helpers";
 import type { RulerScrollbarProps } from "./types/rulerScrollbar.types";
 
 const RulerScrollbar: React.FC<RulerScrollbarProps> = ({
   progress,
-  tickCount = 48,
+  tickCount = RULER_TICK_COUNT,
   className,
 }) => {
   const activeIndex = getActiveTickIndex(progress, tickCount);
