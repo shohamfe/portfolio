@@ -39,10 +39,7 @@ import {
   PiVectorTwo,
 } from "react-icons/pi";
 
-// Catalogue of technology "folders" shown on the Home canvas.
-// Each folder is a white folder body carrying a tech logo, backed by two
-// coloured sheets. Every sheet carries a small Phosphor icon badge chosen to
-// describe something the technology actually does, not just decoration.
+// Each sheet's icon is chosen to describe something the technology does, not just decoration.
 
 export type SheetColor = "pink" | "green" | "yellow" | "grey" | "blue" | "purple";
 

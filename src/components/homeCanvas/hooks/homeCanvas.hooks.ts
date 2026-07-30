@@ -11,16 +11,7 @@ import {
 } from "@/constants/canvas";
 import type { Offset, OffsetMap } from "../types/homeCanvas.types";
 
-/** setTimeout, but resolved on an animation frame.
- *
- *  A plain setTimeout fires on its own schedule with no relationship to the
- *  browser's paint cycle, so a state change made from one is not guaranteed
- *  to be painted - it can sit applied-but-invisible until some unrelated
- *  input event (a click, a mousemove) forces a repaint. requestAnimationFrame
- *  only runs as part of producing a frame, so anything scheduled from it is
- *  painted by construction.
- *
- *  Pass null to disable. */
+/** setTimeout on animation frames. Pass null to disable. */
 export const useAnimationFrameTimeout = (callback: () => void, delayMs: number | null): void => {
   const saved = useRef(callback);
   saved.current = callback;
@@ -42,8 +33,7 @@ export const useAnimationFrameTimeout = (callback: () => void, delayMs: number |
   }, [delayMs]);
 };
 
-/** Grid slot for a folder before the user moves it, inset by CANVAS_MARGIN so
- *  the grid sits away from the edges of the (larger) pan layer. */
+/** Grid slot for a folder before movement, inset by CANVAS_MARGIN. */
 export const originForIndex = (index: number): Offset => ({
   x: CANVAS_MARGIN + (index % COLUMNS) * COLUMN_STEP,
   y: CANVAS_MARGIN + Math.floor(index / COLUMNS) * ROW_STEP,
@@ -65,19 +55,7 @@ const parseStored = (raw: string): OffsetMap => {
   ) as OffsetMap;
 };
 
-/** Folder positions survive reloads and route changes.
- *
- *  Starts from DEFAULT_FOLDER_OFFSETS (a hand-arranged layout) rather than an
- *  empty grid, so a first-time visitor sees that arrangement from the very
- *  first paint instead of the neat grid snapping into it after hydration -
- *  the default is a static constant, identical on server and client, so
- *  seeding useState with it directly is hydration-safe. A visitor's own
- *  stored drags are layered on top per folder id, not swapped in wholesale,
- *  so moving one folder doesn't discard the curated position of the rest.
- *
- *  Moves are applied as deltas resolved inside the state updater. Taking an
- *  absolute position from props instead loses every move but the last when
- *  several land in the same tick, which is what holding an arrow key does. */
+/** Folder positions persist across reloads and route changes. */
 export const usePersistedOffsets = (): {
   offsets: OffsetMap;
   moveBy: (id: string, delta: Offset) => void;
@@ -92,7 +70,7 @@ export const usePersistedOffsets = (): {
       try {
         setOffsets({ ...DEFAULT_FOLDER_OFFSETS, ...parseStored(raw) });
       } catch {
-        // Corrupt or hand-edited storage should not break the canvas.
+        // Ignore corrupt storage.
         window.localStorage.removeItem(STORAGE_KEY);
       }
     }

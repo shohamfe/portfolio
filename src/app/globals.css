@@ -135,10 +135,8 @@
     font-family: var(--font-body), system-ui, sans-serif;
   }
 
-  /* Custom cursors are plain CSS so they respect the user's OS pointer
-     settings. Only the label pill that trails the arrow is JS-driven.
-     Arrow at rest, Hand over anything clickable or draggable, Grab while the
-     button is held down. Each keeps a standard keyword fallback. */
+  /* Custom cursors are plain CSS so they respect the user's OS pointer settings.
+     Only the label pill that trails the arrow is JS-driven. */
   body {
     cursor: url("/cursors/arrow.svg") 4 4, auto;
   }
@@ -176,33 +174,7 @@
   }
 }
 
-/* Resume entries dim once they leave the focus band, so the entry being read
-   stands out from the rest.
-
-   Deliberately outside every @layer. Tailwind's own utility classes (like the
-   text-text-strong on these same elements) live in its utilities layer, and a
-   named CSS layer always wins over an earlier-declared one regardless of
-   selector specificity - a rule in @layer base cannot beat a utility class no
-   matter how specific it is written, only an unlayered rule outranks every
-   layer unconditionally. This was tried inside @layer base first and silently
-   did nothing, confirmed by directly reading the computed colour before and
-   after toggling the attributes: identical in both states.
-
-   Deliberately keyed on data-in-view="false" rather than dimming by default
-   and un-dimming what is in view. Both attributes are set by useScrollFocus,
-   and an IntersectionObserver delivers its first records asynchronously - so
-   dimming by default means every entry sits dimmed until that first delivery
-   lands, and stays there forever if it never does. Keyed this way, unreadable
-   is never the resting state: entries dim only once something has positively
-   established they are outside the band.
-
-   A direct colour swap to --text-dormant, not opacity+grayscale: that filter
-   approach barely affects text that is already near-black and low-saturation
-   (--text-strong itself), so the "dimmed" state read as almost identical to
-   the active one instead of visibly receding. --text-dormant already existed
-   in the theme for exactly this purpose and was never wired up. Targeting by
-   tag rather than touching entryTitle/entrySubtitle/entryBullets directly
-   keeps those classes free to set their own resting colour. */
+/* Dim resume entries when data-in-view="false"; kept outside @layer so utilities can override it. */
 [data-scroll-dim] h3,
 [data-scroll-dim] p,
 [data-scroll-dim] li {
@@ -223,13 +195,9 @@
   background-size: var(--dot-grid-size) var(--dot-grid-size);
 }
 
-/* Plain CSS, deliberately not a Motion initial/animate: Motion silently never
-   runs a mount animation on ANY descendant of a drag-enabled element - not
-   just ones with their own drag props, any descendant at all, confirmed by
-   testing a bare probe with no drag and no custom motion values. The folder
-   canvas's pan layer has `drag`, so the folders' drop-in has to live outside
-   Motion's orchestration entirely. animation-delay is set inline per folder
-   for the stagger, since Tailwind can't express a dynamic per-index value. */
+/* Plain CSS, not a Motion initial/animate: Motion never runs a mount animation
+   on any descendant of a drag-enabled element, and the folder canvas's pan
+   layer has `drag`. animation-delay is set inline per folder for the stagger. */
 @utility folder-drop-in {
   animation: folder-drop-in 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
