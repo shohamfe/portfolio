@@ -14,18 +14,23 @@ export const ROLE_LABELS = {
 export const resolveRoleLabel = (roleParam: string | string[] | undefined) =>
   roleParam === ROLE_QUERY_VALUE ? ROLE_LABELS.frontend : ROLE_LABELS.default;
 
-export const getSiteDescription = (roleLabel: { primary: string; secondary: string | null }) =>
+export const getSiteDescription = (roleLabel: {
+  primary: string;
+  secondary: string | null;
+}) =>
   `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
 
-export const getRoleTitle = (roleLabel: { primary: string; secondary: string | null }) =>
-  `${roleLabel.primary}++`;
+export const getRoleTitle = (roleLabel: {
+  primary: string;
+  secondary: string | null;
+}) => `${roleLabel.primary}++`;
 
 /** Identity and outbound links. Single source for anything that appears in
  *  metadata, the header, and the footer. */
 export const SITE = {
   name: "Shoham Fellner",
   role: getRoleTitle(ROLE_LABELS.default),
-  tagline: "From concept to experience",
+  tagline: "// From concept to experience",
   description: getSiteDescription(ROLE_LABELS.default),
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;

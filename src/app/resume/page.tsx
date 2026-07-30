@@ -37,9 +37,12 @@ const downloadButton = cn(
   PRESSABLE,
 );
 
-const ResumePage: React.FC = () => {
+const ResumePage = async ({ searchParams }: ResumePageProps) => {
+  const params = await searchParams;
+  const roleLabel = resolveRoleLabel(params[ROLE_QUERY_PARAM]);
+
   return (
-    <ViewportSwitch mobile={<MobileResume />}>
+    <ViewportSwitch mobile={<MobileResume roleLabel={roleLabel} />}>
       <main
         id="resume"
         className="dot-grid relative flex min-h-0 flex-1 flex-col overflow-hidden"

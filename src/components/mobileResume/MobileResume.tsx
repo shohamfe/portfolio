@@ -3,24 +3,26 @@
 import { motion } from "motion/react";
 import BottomSheet from "@/components/bottomSheet/BottomSheet";
 import { useSheetDrag } from "@/components/bottomSheet/hooks/bottomSheet.hooks";
-import MobileNav from "@/components/mobileNav/MobileNav";
 import {
   mobileRoot,
   mobileScroll,
 } from "@/components/mobileHome/components/mobileHome.variants";
-import { cn } from "@/lib/cn";
+import MobileHero from "@/components/mobileHero/MobileHero";
+import MobileNav from "@/components/mobileNav/MobileNav";
 import MobileNoteCanvas from "./components/MobileNoteCanvas";
-import { resumeScrollTop } from "./components/mobileResume.variants";
 import MobileTimeline from "./components/MobileTimeline";
+import type { MobileResumeProps } from "./types/mobileResume.types";
 
-const MobileResume: React.FC = () => {
+const MobileResume: React.FC<MobileResumeProps> = ({ roleLabel }) => {
   const sheet = useSheetDrag();
 
   return (
     <main id="resume" className={mobileRoot}>
+      <MobileHero roleLabel={roleLabel} />
+
       <motion.div
         id="mobile-resume-scroll"
-        className={cn(mobileScroll, resumeScrollTop)}
+        className={mobileScroll}
         style={{ paddingBottom: sheet.coverage }}
       >
         <MobileTimeline />

@@ -1,10 +1,4 @@
-/** Resume's own scroll region has no fixed header above it (unlike Home's),
- *  so it needs the full safe-area clearance itself. Merged onto the shared
- *  mobileScroll class via cn() - tailwind-merge drops mobileScroll's own
- *  pt-4 in favour of this since both are the same padding-top group. */
-export const resumeScrollTop = "[padding-top:calc(env(safe-area-inset-top)+2rem)]";
-
-export const timelineRoot = "flex flex-col";
+export const timelineRoot = "flex flex-col pt-4";
 
 /** One entry: the indicator rail, then the content. self-stretch on the rail
  *  is what lets the connecting line fill whatever height the text needs. */

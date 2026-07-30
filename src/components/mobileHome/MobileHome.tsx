@@ -4,9 +4,10 @@ import BottomSheet from "@/components/bottomSheet/BottomSheet";
 import { sectionUnderline } from "@/components/bottomSheet/components/bottomSheet.variants";
 import { useSheetDrag } from "@/components/bottomSheet/hooks/bottomSheet.hooks";
 import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
+import MobileHero from "@/components/mobileHero/MobileHero";
 import MobileNav from "@/components/mobileNav/MobileNav";
 import { MOBILE_CANVAS_ORIGIN } from "@/constants/mobile";
-import { getRoleTitle, getSiteDescription, SITE } from "@/constants/site";
+import { getSiteDescription } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
 import { motion } from "motion/react";
 import {
@@ -16,12 +17,6 @@ import {
   bioParagraph,
   bioSection,
   bioSections,
-  heroDivider,
-  heroFixed,
-  heroHeader,
-  heroName,
-  heroRole,
-  heroTagline,
   mobileRoot,
   mobileScroll,
 } from "./components/mobileHome.variants";
@@ -39,17 +34,7 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
 
   return (
     <main id="home" className={mobileRoot}>
-      <div className={heroFixed}>
-        <header className={heroHeader}>
-          <h1 className={heroName}>{SITE.name}</h1>
-
-          <p className={heroRole}>{getRoleTitle(roleLabel)}</p>
-
-          <p className={heroTagline}>{SITE.tagline}</p>
-        </header>
-
-        <hr className={heroDivider} />
-      </div>
+      <MobileHero roleLabel={roleLabel} />
 
       <motion.div
         id="mobile-home-scroll"
