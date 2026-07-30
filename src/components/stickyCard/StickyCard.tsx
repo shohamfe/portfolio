@@ -19,6 +19,8 @@ const StickyCard: React.FC<StickyCardProps> = ({
   parallaxDepth = 0.5,
   boundaryRef,
   className,
+  cardRef,
+  onDragCommit,
 }) => {
   const { rotateX, rotateY, prefersReducedMotion } =
     useStickyCardTilt(parallaxDepth);
@@ -29,6 +31,7 @@ const StickyCard: React.FC<StickyCardProps> = ({
     <div className={stickyCardPerspective}>
       <motion.div
         id={id}
+        ref={cardRef}
         data-grabbable
         className={cn(stickyCardVariants({ color: card.color }), className)}
         style={{
@@ -51,6 +54,11 @@ const StickyCard: React.FC<StickyCardProps> = ({
                 transition: { type: "spring", stiffness: 500, damping: 30 },
               }
         }
+        onDragEnd={(_, info) => {
+          if (onDragCommit && (info.offset.x !== 0 || info.offset.y !== 0)) {
+            onDragCommit();
+          }
+        }}
       >
         <Chip color={card.color} variant="solid" className={stickyCardChip}>
           {card.chip}
