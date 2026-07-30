@@ -1,7 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { PiEnvelopeSimple, PiFigmaLogo, PiGithubLogo, PiLinkedinLogo, PiPhone } from "react-icons/pi";
+import {
+  PiEnvelopeSimple,
+  PiFigmaLogo,
+  PiGithubLogo,
+  PiLinkedinLogo,
+  PiPhone,
+} from "react-icons/pi";
 import IconButton from "@/components/iconButton/IconButton";
 import Magnetic from "@/components/magnetic/Magnetic";
 import NavPill from "@/components/navPill/NavPill";
@@ -16,8 +22,18 @@ const EXTERNAL_LINKS = [
 ];
 
 const CONTACT_ITEMS = [
-  { href: LINKS.email, text: CONTACT.email, label: "Email Shoham", icon: <PiEnvelopeSimple aria-hidden /> },
-  { href: LINKS.phone, text: CONTACT.phone, label: "Call Shoham", icon: <PiPhone aria-hidden /> },
+  {
+    href: LINKS.email,
+    text: CONTACT.email,
+    label: "Email Shoham",
+    icon: <PiEnvelopeSimple aria-hidden />,
+  },
+  {
+    href: LINKS.phone,
+    text: CONTACT.phone,
+    label: "Call Shoham",
+    icon: <PiPhone aria-hidden />,
+  },
 ];
 
 /** Route pills plus the external profile links. Shared by Home and Resume. */
@@ -25,7 +41,7 @@ const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
   const pathname = usePathname();
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
+    <div id="site-nav" className={cn("flex flex-col gap-3", className)}>
       <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
         {CONTACT_ITEMS.map((item) => (
           <li key={item.href}>
@@ -41,7 +57,10 @@ const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
         ))}
       </ul>
 
-      <nav aria-label="Main" className="flex flex-wrap items-center gap-x-6 gap-y-3">
+      <nav
+        aria-label="Main"
+        className="flex flex-wrap items-center gap-x-6 gap-y-3"
+      >
         <ul className="flex items-center gap-2">
           {ROUTES.map((route) => (
             <li key={route.href}>

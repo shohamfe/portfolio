@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import {
   Syne,
   Google_Sans_Flex,
@@ -8,6 +9,7 @@ import {
   Heebo,
 } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
+import { MOBILE_QUERY } from "@/constants/mobile";
 import { GA_MEASUREMENT_ID, SITE, SITE_URL } from "@/constants/site";
 import "./globals.css";
 
@@ -85,6 +87,11 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
       className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh bg-white antialiased`}
     >
       <head>
+        {/* Detects the real viewport before hydration */}
+        <Script id="viewport-detect" strategy="beforeInteractive">
+          {`try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`}
+        </Script>
+
         <link rel="preload" as="image" href="/cursors/arrow.svg" />
         <link rel="preload" as="image" href="/cursors/pointer.svg" />
         <link rel="preload" as="image" href="/cursors/hand.svg" />

@@ -51,7 +51,7 @@ const MobileNoteCanvas: React.FC<MobileNoteCanvasProps> = ({ isExpanded }) => {
             key={card.id}
             className={trayCard}
             style={{
-              left: (index % COLUMNS) * STEP_X + MARGIN / 3,
+              left: (index % COLUMNS) * STEP_X + MARGIN / 5,
               top:
                 MARGIN * 1.25 +
                 Math.floor(index / COLUMNS) * STEP_Y +

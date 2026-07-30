@@ -67,7 +67,10 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           <span className={sheetHint}>{SHEET_HINT}</span>
         </button>
 
-        <div id="mobile-sheet-title" className={sheetTitleBlock}>
+        <div
+          id="mobile-sheet-title"
+          className={cn(sheetTitleBlock, "pointer-events-none")}
+        >
           <h2 className={sheetTitle}>{title}</h2>
 
           <span aria-hidden className={sectionUnderline} />
