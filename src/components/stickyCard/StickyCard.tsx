@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
 import Chip from "@/components/chip/Chip";
+import Magnetic from "@/components/magnetic/Magnetic";
 import { cn } from "@/lib/cn";
+import { motion } from "motion/react";
 import {
   stickyCardBody,
   stickyCardChip,
@@ -12,7 +13,6 @@ import {
 } from "./components/stickyCard.variants";
 import { useDragReset, useStickyCardTilt } from "./hooks/stickyCard.hooks";
 import type { StickyCardProps } from "./types/stickyCard.types";
-import Magnetic from "../magnetic/Magnetic";
 
 const StickyCard: React.FC<StickyCardProps> = ({
   card,
@@ -30,7 +30,6 @@ const StickyCard: React.FC<StickyCardProps> = ({
 
   return (
     <Magnetic actionArea="global" range={200}>
-
       <div className={stickyCardPerspective}>
         <motion.div
           id={id}
@@ -52,10 +51,10 @@ const StickyCard: React.FC<StickyCardProps> = ({
             prefersReducedMotion
               ? { zIndex: 50 }
               : {
-                scale: 1.04,
-                zIndex: 50,
-                transition: { type: "spring", stiffness: 500, damping: 30 },
-              }
+                  scale: 1.04,
+                  zIndex: 50,
+                  transition: { type: "spring", stiffness: 500, damping: 30 },
+                }
           }
           onDragEnd={(_, info) => {
             if (onDragCommit && (info.offset.x !== 0 || info.offset.y !== 0)) {
@@ -77,7 +76,6 @@ const StickyCard: React.FC<StickyCardProps> = ({
         </motion.div>
       </div>
     </Magnetic>
-
   );
 };
 
