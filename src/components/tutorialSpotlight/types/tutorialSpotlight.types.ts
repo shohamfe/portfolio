@@ -1,11 +1,7 @@
 import type { RefObject } from "react";
 
 export type TutorialSpotlightStage =
-  | "checking"
-  | "hidden"
-  | "stage1"
-  | "stage2"
-  | "dismissed";
+  "checking" | "hidden" | "stage1" | "stage2" | "dismissed";
 
 export interface TutorialSpotlightStageContent {
   label: string;

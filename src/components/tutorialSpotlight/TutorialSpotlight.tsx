@@ -35,20 +35,22 @@ const TutorialSpotlight: React.FC<TutorialSpotlightProps> = ({
     storageKey,
     hasStage2,
     stage1Complete,
-    stage2Complete
+    stage2Complete,
   );
 
   const isActiveStage = stage === "stage1" || stage === "stage2";
 
   // Kept at the last real stage so target/content/rects don't jump to a
   // fallback while fading out after dismissal.
-  const [lastActiveStage, setLastActiveStage] = useState<TutorialSpotlightStage>("stage1");
+  const [lastActiveStage, setLastActiveStage] =
+    useState<TutorialSpotlightStage>("stage1");
   useEffect(() => {
     if (isActiveStage) setLastActiveStage(stage);
   }, [isActiveStage, stage]);
 
   // Stage 2 always lights the whole container, so its target is the container itself.
-  const activeTargetRef = lastActiveStage === "stage2" ? containerRef : stage1TargetRef;
+  const activeTargetRef =
+    lastActiveStage === "stage2" ? containerRef : stage1TargetRef;
 
   // Mounted for as long as it's active, plus one fade-out after - not tied
   // directly to isActiveStage, so the exit transition has time to play
@@ -76,7 +78,7 @@ const TutorialSpotlight: React.FC<TutorialSpotlightProps> = ({
   const { containerRect, targetRect } = useTargetRect(
     containerRef,
     activeTargetRef,
-    shouldRender
+    shouldRender,
   );
 
   const [announcement, setAnnouncement] = useState("");
@@ -88,7 +90,8 @@ const TutorialSpotlight: React.FC<TutorialSpotlightProps> = ({
 
   if (!shouldRender || !containerRect || !targetRect) return null;
 
-  const activeContent = lastActiveStage === "stage2" && stage2 ? stage2 : stage1;
+  const activeContent =
+    lastActiveStage === "stage2" && stage2 ? stage2 : stage1;
 
   return createPortal(
     <>
@@ -114,7 +117,7 @@ const TutorialSpotlight: React.FC<TutorialSpotlightProps> = ({
         {announcement}
       </p>
     </>,
-    document.body
+    document.body,
   );
 };
 

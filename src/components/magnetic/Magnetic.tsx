@@ -16,12 +16,15 @@ const Magnetic: React.FC<MagneticProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { springX, springY, handleMouseEnter, handleMouseLeave } = useMagnetic(ref, {
-    intensity,
-    range,
-    actionArea,
-    springOptions,
-  });
+  const { springX, springY, handleMouseEnter, handleMouseLeave } = useMagnetic(
+    ref,
+    {
+      intensity,
+      range,
+      actionArea,
+      springOptions,
+    },
+  );
 
   return (
     <motion.div

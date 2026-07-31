@@ -13,5 +13,5 @@ export const navPillVariants = cva(
     defaultVariants: {
       active: false,
     },
-  }
+  },
 );

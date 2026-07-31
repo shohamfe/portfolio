@@ -15,4 +15,3 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
 };
 
 export default HomeIntro;
-

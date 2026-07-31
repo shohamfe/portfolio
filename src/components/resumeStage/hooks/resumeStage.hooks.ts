@@ -7,7 +7,7 @@ import { FOCUS_BAND } from "../constants/resumeStage.constants";
 
 export const useSmoothScrollProgress = (
   wrapperRef: RefObject<HTMLElement | null>,
-  contentRef: RefObject<HTMLElement | null>
+  contentRef: RefObject<HTMLElement | null>,
 ): number => {
   const prefersReducedMotion = useReducedMotion();
   const [progress, setProgress] = useState(0);
@@ -42,21 +42,28 @@ export const useSmoothScrollProgress = (
 
 /** Marks resume entries as focused while they pass through the band. Applied
  *  here rather than in the markup so ResumeTimeline can stay a server component. */
-export const useScrollFocus = (wrapperRef: RefObject<HTMLElement | null>): void => {
+export const useScrollFocus = (
+  wrapperRef: RefObject<HTMLElement | null>,
+): void => {
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    const entries = wrapper.querySelectorAll<HTMLElement>('[id^="resume-entry-"]');
+    const entries = wrapper.querySelectorAll<HTMLElement>(
+      '[id^="resume-entry-"]',
+    );
     entries.forEach((entry) => entry.setAttribute("data-scroll-dim", ""));
 
     const observer = new IntersectionObserver(
       (records) => {
         records.forEach((record) => {
-          record.target.setAttribute("data-in-view", String(record.isIntersecting));
+          record.target.setAttribute(
+            "data-in-view",
+            String(record.isIntersecting),
+          );
         });
       },
-      { root: wrapper, rootMargin: FOCUS_BAND, threshold: 0 }
+      { root: wrapper, rootMargin: FOCUS_BAND, threshold: 0 },
     );
 
     entries.forEach((entry) => observer.observe(entry));

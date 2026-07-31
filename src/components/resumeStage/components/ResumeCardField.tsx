@@ -49,7 +49,9 @@ const ResumeCardField: React.FC<ResumeCardFieldProps> = ({
               parallaxDepth={placement.depth}
               boundaryRef={boundaryRef}
               cardRef={isTutorialTarget ? stage1TargetRef : undefined}
-              onDragCommit={isTutorialTarget ? () => setStage1Complete(true) : undefined}
+              onDragCommit={
+                isTutorialTarget ? () => setStage1Complete(true) : undefined
+              }
             />
           </div>
         );

@@ -17,7 +17,11 @@ import type { CursorLabelProps } from "./types/cursorLabel.types";
  *  JS-driven cursor element on the site - the arrow/hand/grab cursors are
  *  plain CSS, set in globals.css. Positioning and ARIA wiring come from
  *  @floating-ui/react rather than a hand-rolled mousemove listener. */
-const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className }) => {
+const CursorLabel: React.FC<CursorLabelProps> = ({
+  label,
+  children,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const {
@@ -34,7 +38,11 @@ const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className })
   const clientPoint = useClientPoint(context);
   const role = useRole(context, { role: "tooltip" });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([hover, clientPoint, role]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    hover,
+    clientPoint,
+    role,
+  ]);
 
   return (
     <>
@@ -48,8 +56,8 @@ const CursorLabel: React.FC<CursorLabelProps> = ({ label, children, className })
             ref={setFloating}
             style={floatingStyles}
             className={cn(
-              "pointer-events-none rounded-full bg-accent px-3 py-1 text-small text-accent-foreground",
-              className
+              "bg-accent text-small text-accent-foreground pointer-events-none rounded-full px-3 py-1",
+              className,
             )}
             {...getFloatingProps()}
           >

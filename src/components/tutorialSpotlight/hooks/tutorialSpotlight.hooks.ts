@@ -9,7 +9,10 @@ interface TargetRects {
 }
 
 const rectsEqual = (a: DOMRect, b: DOMRect): boolean =>
-  a.top === b.top && a.left === b.left && a.width === b.width && a.height === b.height;
+  a.top === b.top &&
+  a.left === b.left &&
+  a.width === b.width &&
+  a.height === b.height;
 
 /** Re-measures every frame via requestAnimationFrame while `enabled`, so the
  *  spotlight tracks the target live while it is being dragged instead of
@@ -18,7 +21,7 @@ const rectsEqual = (a: DOMRect, b: DOMRect): boolean =>
 export const useTargetRect = (
   containerRef: RefObject<HTMLElement | null>,
   targetRef: RefObject<HTMLElement | null>,
-  enabled: boolean
+  enabled: boolean,
 ): TargetRects => {
   const [rects, setRects] = useState<TargetRects>({
     containerRect: null,
@@ -44,7 +47,7 @@ export const useTargetRect = (
           rectsEqual(previous.containerRect, containerRect) &&
           rectsEqual(previous.targetRect, targetRect)
             ? previous
-            : { containerRect, targetRect }
+            : { containerRect, targetRect },
         );
       }
 
@@ -65,7 +68,7 @@ export const useTutorialSpotlightStage = (
   storageKey: string,
   hasStage2: boolean,
   stage1Complete: boolean,
-  stage2Complete: boolean
+  stage2Complete: boolean,
 ): TutorialSpotlightStage => {
   const [stage, setStage] = useState<TutorialSpotlightStage>("checking");
 

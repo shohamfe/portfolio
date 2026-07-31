@@ -138,27 +138,51 @@
   /* Custom cursors are plain CSS so they respect the user's OS pointer settings.
      Only the label pill that trails the arrow is JS-driven. */
   body {
-    cursor: url("/cursors/arrow.svg") 4 4, auto;
+    cursor:
+      url("/cursors/arrow.svg") 4 4,
+      auto;
   }
 
   /* Running text keeps the I-beam so it still reads as selectable.
      :where() keeps this at zero specificity, so the control rules below win. */
-  :where(p, h1, h2, h3, h4, h5, h6, li, figcaption, blockquote, dt, dd, td, th, label) {
+  :where(
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    li,
+    figcaption,
+    blockquote,
+    dt,
+    dd,
+    td,
+    th,
+    label
+  ) {
     cursor: text;
   }
 
   a,
   button,
   [role="button"] {
-    cursor: url("/cursors/pointer.svg") 10 5, pointer;
+    cursor:
+      url("/cursors/pointer.svg") 10 5,
+      pointer;
   }
 
   [data-grabbable] {
-    cursor: url("/cursors/hand.svg") 9 10, grab;
+    cursor:
+      url("/cursors/hand.svg") 9 10,
+      grab;
   }
 
   [data-grabbable]:active {
-    cursor: url("/cursors/grab.svg") 8 9, grabbing;
+    cursor:
+      url("/cursors/grab.svg") 8 9,
+      grabbing;
   }
 
   /* Text inside a control belongs to the control, not to the copy. */
@@ -170,7 +194,9 @@
   }
 
   :disabled {
-    cursor: url("/cursors/arrow.svg") 4 4, not-allowed;
+    cursor:
+      url("/cursors/arrow.svg") 4 4,
+      not-allowed;
   }
 }
 

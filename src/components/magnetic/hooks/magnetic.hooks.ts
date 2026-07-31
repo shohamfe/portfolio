@@ -1,5 +1,10 @@
 import { useEffect, useState, type RefObject } from "react";
-import { useMotionValue, useReducedMotion, useSpring, type SpringOptions } from "motion/react";
+import {
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type SpringOptions,
+} from "motion/react";
 import { DEFAULT_SPRING } from "../constants/magnetic.constants";
 import type { MagneticActionArea } from "../types/magnetic.types";
 
@@ -14,7 +19,7 @@ interface UseMagneticOptions {
  *  from ibelick/motion-primitives, with a reduced-motion escape hatch added. */
 export const useMagnetic = (
   ref: RefObject<HTMLDivElement | null>,
-  { intensity, range, actionArea, springOptions }: UseMagneticOptions
+  { intensity, range, actionArea, springOptions }: UseMagneticOptions,
 ) => {
   const [isHovered, setIsHovered] = useState(false);
   const shouldReduceMotion = useReducedMotion();

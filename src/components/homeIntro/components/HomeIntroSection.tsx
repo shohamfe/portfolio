@@ -1,9 +1,5 @@
 import type { HomeIntroSectionProps } from "../types/homeIntro.types";
-import {
-  introHeading,
-  introList,
-  introSection,
-} from "./homeIntro.variants";
+import { introHeading, introList, introSection } from "./homeIntro.variants";
 
 const HomeIntroSection: React.FC<HomeIntroSectionProps> = ({
   id,

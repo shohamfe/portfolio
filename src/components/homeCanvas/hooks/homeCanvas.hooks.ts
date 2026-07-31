@@ -29,7 +29,9 @@ const parseStored = (raw: string): OffsetMap => {
   if (typeof parsed !== "object" || parsed === null) return {};
 
   return Object.fromEntries(
-    Object.entries(parsed as Record<string, unknown>).filter(([, value]) => isOffset(value))
+    Object.entries(parsed as Record<string, unknown>).filter(([, value]) =>
+      isOffset(value),
+    ),
   ) as OffsetMap;
 };
 
@@ -66,7 +68,10 @@ export const usePersistedOffsets = (): {
     setOffsets((previous) => {
       const current = previous[id] ?? { x: 0, y: 0 };
 
-      return { ...previous, [id]: { x: current.x + delta.x, y: current.y + delta.y } };
+      return {
+        ...previous,
+        [id]: { x: current.x + delta.x, y: current.y + delta.y },
+      };
     });
   }, []);
 

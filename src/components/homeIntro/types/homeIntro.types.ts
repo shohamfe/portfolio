@@ -24,8 +24,6 @@ export interface HomeIntroAboutSectionProps {
   };
 }
 
-
 export interface HomeIntroScrollProps {
   roleLabel: (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS];
 }
-

@@ -4,7 +4,11 @@ import type { ChipProps } from "./types/chip.types";
 
 /** Small rounded-full label used on the resume sticky cards. */
 const Chip: React.FC<ChipProps> = ({ children, color, variant, className }) => {
-  return <span className={cn(chipVariants({ color, variant }), className)}>{children}</span>;
+  return (
+    <span className={cn(chipVariants({ color, variant }), className)}>
+      {children}
+    </span>
+  );
 };
 
 export default Chip;
