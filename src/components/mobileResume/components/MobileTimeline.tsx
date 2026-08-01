@@ -22,7 +22,10 @@ import {
 /** One entry: pin dot and connecting line on the left, the entry's own copy
  *  on the right. The year moves inline above the title here rather than
  *  sitting in a gutter, which a 430px frame has no room for. */
-const MobileTimelineEntry: React.FC<MobileTimelineEntryProps> = ({ entry, connected }) => {
+const MobileTimelineEntry: React.FC<MobileTimelineEntryProps> = ({
+  entry,
+  connected,
+}) => {
   return (
     <div id={`mobile-entry-${entry.id}`} className={timelineItem}>
       <div className={indicatorColumn}>
@@ -38,7 +41,12 @@ const MobileTimelineEntry: React.FC<MobileTimelineEntryProps> = ({ entry, connec
 
         <h3 className={entryTitle}>
           {entry.href ? (
-            <a href={entry.href} target="_blank" rel="noreferrer" className={entryLink}>
+            <a
+              href={entry.href}
+              target="_blank"
+              rel="noreferrer"
+              className={entryLink}
+            >
               {entry.title}
             </a>
           ) : (
@@ -80,7 +88,10 @@ const MobileTimeline: React.FC = () => {
           aria-labelledby={`mobile-section-${section.id}-heading`}
         >
           <div className={sectionHeader}>
-            <h2 id={`mobile-section-${section.id}-heading`} className={sectionHeading}>
+            <h2
+              id={`mobile-section-${section.id}-heading`}
+              className={sectionHeading}
+            >
               {section.title}
             </h2>
 

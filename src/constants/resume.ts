@@ -31,5 +31,6 @@ export const TUTORIAL_NOTES_STAGE1_CARD_ID = "impact";
 
 export const TUTORIAL_NOTES_STAGE_1 = {
   label: "Drag me around",
-  ariaText: "Tutorial: the Impact note can be dragged with a mouse or touch.",
+  ariaText:
+    "Tutorial: the Impact note can be dragged with a mouse, touch, or arrow keys.",
 };

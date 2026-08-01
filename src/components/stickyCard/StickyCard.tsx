@@ -11,6 +11,7 @@ import {
   stickyCardTitle,
   stickyCardVariants,
 } from "./components/stickyCard.variants";
+import { ARROW_KEY_DELTAS } from "./constants/stickyCard.constants";
 import { useDragReset, useStickyCardTilt } from "./hooks/stickyCard.hooks";
 import type { StickyCardProps } from "./types/stickyCard.types";
 
@@ -27,6 +28,16 @@ const StickyCard: React.FC<StickyCardProps> = ({
     useStickyCardTilt(parallaxDepth);
   const drag = useDragReset();
   const id = `sticky-card-${card.id}`;
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const delta = ARROW_KEY_DELTAS[event.key];
+    if (!delta) return;
+
+    event.preventDefault();
+    drag.x.set(drag.x.get() + delta.x);
+    drag.y.set(drag.y.get() + delta.y);
+    onDragCommit?.();
+  };
 
   return (
     <Magnetic actionArea="global" range={200}>
@@ -61,6 +72,10 @@ const StickyCard: React.FC<StickyCardProps> = ({
               onDragCommit();
             }
           }}
+          tabIndex={0}
+          role="group"
+          aria-label={`${card.title} note - drag, or move with the arrow keys`}
+          onKeyDown={handleKeyDown}
         >
           <Chip color={card.color} variant="solid" className={stickyCardChip}>
             {card.chip}

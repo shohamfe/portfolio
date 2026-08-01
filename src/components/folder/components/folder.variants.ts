@@ -51,7 +51,6 @@ export const sheetIconVariants = cva("size-4", {
   defaultVariants: { color: "grey" },
 });
 
-
 /** 70px note with upward shadow. On hover: rotates/lifts to reveal behind folder. */
 export const sheetVariants = cva(
   "flex size-[70px] shrink-0 flex-col items-start rounded-lg border border-solid p-2 shadow-note transition-transform duration-300 ease-out",

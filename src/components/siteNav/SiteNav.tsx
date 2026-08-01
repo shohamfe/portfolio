@@ -19,7 +19,7 @@ const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
             <a
               href={item.href}
               aria-label={item.label}
-              className="inline-flex items-center gap-1.5 font-ui text-small text-text-muted hover:text-text-strong"
+              className="font-ui text-small text-text-muted hover:text-text-strong inline-flex items-center gap-1.5"
             >
               {item.icon}
               {item.text}

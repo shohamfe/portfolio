@@ -106,7 +106,11 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
             origin={originForIndex(index)}
             offset={offsets[folder.id] ?? { x: 0, y: 0 }}
             onMove={handleFolderMove}
-            gripRef={folder.id === TUTORIAL_STAGE1_FOLDER_ID ? stage1TargetRef : undefined}
+            gripRef={
+              folder.id === TUTORIAL_STAGE1_FOLDER_ID
+                ? stage1TargetRef
+                : undefined
+            }
           />
         ))}
       </motion.div>

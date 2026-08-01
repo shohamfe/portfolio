@@ -5,7 +5,7 @@ export const introFixed = "flex shrink-0 flex-col gap-8";
 
 export const introHeader = "flex flex-col gap-3";
 
-export const introName = "font-display text-h1 font-bold text-text-strong";
+export const introName = "font-display text-h2 font-extrabold text-text-strong";
 
 export const introRole = "font-display text-h5 text-text-strong";
 
@@ -18,7 +18,7 @@ export const introScroll = "flex flex-row gap-6 min-h-0 flex-1 overflow-hidden";
 export const introScroller =
   "flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col gap-8 pb-8";
 
-export const introContent = "flex flex-col gap-8 pt-8"
+export const introContent = "flex flex-col gap-8 pt-8";
 
 export const introRuler = "hidden shrink-0 self-stretch lg:flex py-8";
 

@@ -22,7 +22,8 @@ const SpotlightDim: React.FC<SpotlightDimProps> = ({
   instant,
 }) => {
   const radius =
-    Math.max(targetRect.width, targetRect.height) / 2 + SPOTLIGHT_HOLE_PADDING_PX;
+    Math.max(targetRect.width, targetRect.height) / 2 +
+    SPOTLIGHT_HOLE_PADDING_PX;
   const centerX = targetRect.left + targetRect.width / 2 - containerRect.left;
   const centerY = targetRect.top + targetRect.height / 2 - containerRect.top;
   const outer = `M0 0 H${containerRect.width} V${containerRect.height} H0 Z`;
@@ -38,7 +39,7 @@ const SpotlightDim: React.FC<SpotlightDimProps> = ({
       className={cn(
         spotlightFiller,
         instant ? "duration-0" : "duration-300",
-        isVisible ? "opacity-100" : "opacity-0"
+        isVisible ? "opacity-100" : "opacity-0",
       )}
       style={{
         top: containerRect.top,

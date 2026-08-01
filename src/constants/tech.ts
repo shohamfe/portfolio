@@ -41,7 +41,8 @@ import {
 
 // Each sheet's icon is chosen to describe something the technology does, not just decoration.
 
-export type SheetColor = "pink" | "green" | "yellow" | "grey" | "blue" | "purple";
+export type SheetColor =
+  "pink" | "green" | "yellow" | "grey" | "blue" | "purple";
 
 export interface TechFolderSheet {
   color: SheetColor;

@@ -8,7 +8,12 @@ import { HOME_CONTENT } from "@/content/home";
 import type { HomeIntroScrollProps } from "../types/homeIntro.types";
 import HomeIntroAboutSection from "./HomeIntroAboutSection";
 import HomeIntroSection from "./HomeIntroSection";
-import { introContent, introRuler, introScroll, introScroller } from "./homeIntro.variants";
+import {
+  introContent,
+  introRuler,
+  introScroll,
+  introScroller,
+} from "./homeIntro.variants";
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
@@ -49,6 +54,3 @@ const HomeIntroScroll: React.FC<HomeIntroScrollProps> = ({ roleLabel }) => {
 };
 
 export default HomeIntroScroll;
-
-
-

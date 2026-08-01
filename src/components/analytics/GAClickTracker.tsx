@@ -22,7 +22,10 @@ const GAClickTracker: React.FC = () => {
       const button = target.closest<HTMLElement>("button, a");
       if (button) {
         sendGAEvent("event", "button_click", {
-          label: button.getAttribute("aria-label") ?? button.textContent?.trim() ?? button.id,
+          label:
+            button.getAttribute("aria-label") ??
+            button.textContent?.trim() ??
+            button.id,
         });
       }
     };

@@ -15,5 +15,5 @@ export const iconButtonVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  }
+  },
 );

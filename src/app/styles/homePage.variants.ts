@@ -4,4 +4,3 @@ export const homePageRoot =
 export const homeIntroSlot = "lg:relative lg:z-20 lg:h-full";
 
 export const homeCanvasSlot = "lg:absolute lg:inset-0 lg:z-0";
-

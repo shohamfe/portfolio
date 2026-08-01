@@ -74,7 +74,9 @@ const MobileNoteCanvas: React.FC<MobileNoteCanvasProps> = ({ isExpanded }) => {
                 rotation={ROTATIONS.get(card.id)?.rotation ?? 0}
                 parallaxDepth={ROTATIONS.get(card.id)?.depth ?? 0.5}
                 cardRef={isTutorialTarget ? stage1TargetRef : undefined}
-                onDragCommit={isTutorialTarget ? () => setStage1Complete(true) : undefined}
+                onDragCommit={
+                  isTutorialTarget ? () => setStage1Complete(true) : undefined
+                }
               />
             </div>
           );

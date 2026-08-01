@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 import type { VariantProps } from "class-variance-authority";
 import type { iconButtonVariants } from "../components/iconButton.variants";
 
-export interface IconButtonProps extends VariantProps<typeof iconButtonVariants> {
+export interface IconButtonProps extends VariantProps<
+  typeof iconButtonVariants
+> {
   icon: ReactNode;
   /** Required - icon-only controls need an accessible name. */
   "aria-label": string;

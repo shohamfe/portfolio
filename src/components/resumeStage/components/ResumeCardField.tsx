@@ -20,14 +20,12 @@ const ResumeCardField: React.FC<ResumeCardFieldProps> = ({
   boundaryRef,
   className,
 }) => {
-  const fieldRef = useRef<HTMLElement>(null);
   const stage1TargetRef = useRef<HTMLDivElement>(null);
   const [stage1Complete, setStage1Complete] = useState(false);
 
   return (
     <aside
       id="resume-card-field"
-      ref={fieldRef}
       aria-label="Highlights"
       className={cn(cardFieldRoot, className)}
     >
@@ -49,14 +47,16 @@ const ResumeCardField: React.FC<ResumeCardFieldProps> = ({
               parallaxDepth={placement.depth}
               boundaryRef={boundaryRef}
               cardRef={isTutorialTarget ? stage1TargetRef : undefined}
-              onDragCommit={isTutorialTarget ? () => setStage1Complete(true) : undefined}
+              onDragCommit={
+                isTutorialTarget ? () => setStage1Complete(true) : undefined
+              }
             />
           </div>
         );
       })}
 
       <TutorialSpotlight
-        containerRef={fieldRef}
+        containerRef={boundaryRef}
         stage1TargetRef={stage1TargetRef}
         storageKey={TUTORIAL_NOTES_STORAGE_KEY}
         stage1={TUTORIAL_NOTES_STAGE_1}

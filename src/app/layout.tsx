@@ -10,7 +10,12 @@ import {
 } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
 import { MOBILE_QUERY } from "@/constants/mobile";
-import { GA_MEASUREMENT_ID, SITE, SITE_URL } from "@/constants/site";
+import {
+  GA_MEASUREMENT_ID,
+  SITE,
+  SITE_KEYWORDS,
+  SITE_URL,
+} from "@/constants/site";
 import "./globals.css";
 
 const syne = Syne({
@@ -56,6 +61,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: `${SITE.name} - ${SITE.role}`,
   description: SITE.description,
+  keywords: [...SITE_KEYWORDS],
   openGraph: {
     title: `${SITE.name} - ${SITE.role}`,
     description: SITE.description,

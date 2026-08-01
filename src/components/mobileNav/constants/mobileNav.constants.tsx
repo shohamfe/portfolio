@@ -1,5 +1,10 @@
 import { LINKS } from "@/constants/site";
-import { PiFigmaLogo, PiGithubLogo, PiHouse, PiReadCvLogo } from "react-icons/pi";
+import {
+  PiFigmaLogo,
+  PiGithubLogo,
+  PiHouse,
+  PiReadCvLogo,
+} from "react-icons/pi";
 import type { MobileNavItem } from "../types/mobileNav.types";
 
 export const NAV_ITEMS: readonly MobileNavItem[] = [

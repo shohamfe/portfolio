@@ -46,16 +46,20 @@ const SpotlightLabel: React.FC<SpotlightLabelProps> = ({
       window.innerHeight - SPOTLIGHT_LABEL_EDGE_MARGIN_PX;
     const preferredTop = fitsBelow
       ? belowTop
-      : targetRect.top - SPOTLIGHT_LABEL_OFFSET_PX - SPOTLIGHT_LABEL_HEIGHT_ESTIMATE_PX;
+      : targetRect.top -
+        SPOTLIGHT_LABEL_OFFSET_PX -
+        SPOTLIGHT_LABEL_HEIGHT_ESTIMATE_PX;
     top = Math.min(
       Math.max(preferredTop, SPOTLIGHT_LABEL_EDGE_MARGIN_PX),
-      window.innerHeight - SPOTLIGHT_LABEL_EDGE_MARGIN_PX - SPOTLIGHT_LABEL_HEIGHT_ESTIMATE_PX
+      window.innerHeight -
+        SPOTLIGHT_LABEL_EDGE_MARGIN_PX -
+        SPOTLIGHT_LABEL_HEIGHT_ESTIMATE_PX,
     );
 
     const centerX = targetRect.left + targetRect.width / 2;
     left = Math.min(
       Math.max(centerX, SPOTLIGHT_LABEL_EDGE_MARGIN_PX),
-      window.innerWidth - SPOTLIGHT_LABEL_EDGE_MARGIN_PX
+      window.innerWidth - SPOTLIGHT_LABEL_EDGE_MARGIN_PX,
     );
     transform = "translateX(-50%)";
   }
@@ -67,7 +71,7 @@ const SpotlightLabel: React.FC<SpotlightLabelProps> = ({
       className={cn(
         spotlightLabel,
         instant ? "duration-0" : "duration-300",
-        isVisible ? "opacity-100" : "opacity-0"
+        isVisible ? "opacity-100" : "opacity-0",
       )}
     >
       {text}

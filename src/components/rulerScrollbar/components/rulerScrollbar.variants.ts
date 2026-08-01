@@ -6,7 +6,8 @@ import { cva } from "class-variance-authority";
 /** h-full + justify-between (not a fixed gap) so the ruler always spans
  *  whatever height its container gives it, spreading tickCount ticks evenly
  *  across that space rather than stacking to a short, fixed total height. */
-export const rulerRoot = "pointer-events-none flex h-full w-10 flex-col items-end justify-between";
+export const rulerRoot =
+  "pointer-events-none flex h-full w-10 flex-col items-end justify-between";
 
 /** Tick width and colour both step down together with distance from the
  *  active index - width shrinks and colour fades from `text-strong` (near
@@ -25,5 +26,5 @@ export const rulerTickVariants = cva(
       },
     },
     defaultVariants: { distance: "far" },
-  }
+  },
 );

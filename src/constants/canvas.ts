@@ -26,7 +26,9 @@ export const STORAGE_KEY = "portfolio:folder-offsets";
  *  the default so a first-time visitor sees it immediately instead of the
  *  neat grid. Offsets are deltas on top of originForIndex's grid slot, same
  *  as anything a user drags themselves - the two compose the same way. */
-export const DEFAULT_FOLDER_OFFSETS: Readonly<Record<string, { x: number; y: number }>> = {
+export const DEFAULT_FOLDER_OFFSETS: Readonly<
+  Record<string, { x: number; y: number }>
+> = {
   react: { x: 364, y: 338 },
   css3: { x: -482, y: -310 },
   html5: { x: 568, y: -382 },

@@ -1,6 +1,12 @@
 import type { ResumeSectionProps } from "../types/resumeTimeline.types";
 import ResumeEntry from "./ResumeEntry";
-import { sectionHeading, sectionRule, timelineContent, timelineGutter, timelineRow } from "./resumeTimeline.variants";
+import {
+  sectionHeading,
+  sectionRule,
+  timelineContent,
+  timelineGutter,
+  timelineRow,
+} from "./resumeTimeline.variants";
 
 /** A titled block of entries. The heading sits in its own gutter/content row
  *  so the divider runs behind it too, then a rule marks the section's end. */

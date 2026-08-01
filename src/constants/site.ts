@@ -31,6 +31,17 @@ export const SITE = {
   cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
 
+/** Search keyword targets for the root metadata's `keywords` field. */
+export const SITE_KEYWORDS = [
+  "Shoham Fellner",
+  "Frontend Developer",
+  "Software Developer",
+  "React Developer",
+  "TypeScript",
+  "UX/UI Designer",
+  "Portfolio",
+] as const;
+
 /** Absolute base for og:image/twitter:image URLs, since scrapers have no page context.
  *  Falls back to Vercel's injected production host, then localhost for local dev. */
 export const SITE_URL =

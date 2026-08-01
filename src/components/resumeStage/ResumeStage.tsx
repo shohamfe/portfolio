@@ -50,4 +50,3 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
 };
 
 export default ResumeStage;
-

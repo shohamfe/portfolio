@@ -6,7 +6,9 @@ const NotFound: React.FC = () => {
     <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
       <p className="font-code text-code text-text-muted">404</p>
 
-      <h1 className="font-display text-h2 text-text-strong">This page does not exist</h1>
+      <h1 className="font-display text-h2 text-text-strong">
+        This page does not exist
+      </h1>
 
       <Link
         href="/"
