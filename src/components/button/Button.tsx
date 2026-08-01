@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   const label = <Magnetic>{children}</Magnetic>;
 
   const linkComponent = (
-    <a href={href} className={classes}>
+    <a href={href} onClick={onClick} className={classes}>
       {label}
     </a>
   );
