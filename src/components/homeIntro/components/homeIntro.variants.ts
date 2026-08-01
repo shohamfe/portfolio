@@ -5,7 +5,7 @@ export const introFixed = "flex shrink-0 flex-col gap-8";
 
 export const introHeader = "flex flex-col gap-3";
 
-export const introName = "font-display text-h1 font-bold text-text-strong";
+export const introName = "font-display text-h2 font-extrabold text-text-strong";
 
 export const introRole = "font-display text-h5 text-text-strong";
 
