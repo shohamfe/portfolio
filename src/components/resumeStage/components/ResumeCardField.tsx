@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef, useState } from "react";
 import StickyCard from "@/components/stickyCard/StickyCard";
 import TutorialSpotlight from "@/components/tutorialSpotlight/TutorialSpotlight";
 import {
@@ -11,8 +10,9 @@ import {
 } from "@/constants/resume";
 import { RESUME_CARDS } from "@/content/resume";
 import { cn } from "@/lib/cn";
-import { cardFieldItem, cardFieldRoot } from "./resumeStage.variants";
+import { useRef, useState } from "react";
 import type { ResumeCardFieldProps } from "../types/resumeStage.types";
+import { cardFieldItem, cardFieldRoot } from "./resumeStage.variants";
 
 const CARDS_BY_ID = new Map(RESUME_CARDS.map((card) => [card.id, card]));
 

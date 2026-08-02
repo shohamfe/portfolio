@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
-import { canvasIntroMask } from "@/components/homeCanvas/components/homeCanvas.variants";
 import HomeIntro from "@/components/homeIntro/HomeIntro";
 import MobileHome from "@/components/mobileHome/MobileHome";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
@@ -11,6 +9,7 @@ import {
   ROLE_QUERY_PARAM,
   SITE,
 } from "@/constants/site";
+import type { Metadata } from "next";
 import {
   homeCanvasSlot,
   homeIntroSlot,
@@ -46,8 +45,6 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
     <ViewportSwitch mobile={<MobileHome roleLabel={roleLabel} />}>
       <main id="home" className={homePageRoot}>
         <HomeIntro className={homeIntroSlot} roleLabel={roleLabel} />
-
-        <div id="home-intro-mask" aria-hidden className={canvasIntroMask} />
 
         <HomeCanvas className={homeCanvasSlot} />
       </main>

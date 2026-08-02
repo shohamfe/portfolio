@@ -1,16 +1,11 @@
 import { CONTACT, LINKS } from "@/constants/site";
-import {
-  PiEnvelopeSimple,
-  PiFigmaLogo,
-  PiGithubLogo,
-  PiLinkedinLogo,
-  PiPhone,
-} from "react-icons/pi";
+import { FaFigma, FaGithub, FaLinkedin } from "react-icons/fa6";
+import { PiEnvelopeSimple, PiPhone } from "react-icons/pi";
 
 export const EXTERNAL_LINKS = [
-  { href: LINKS.linkedin, label: "LinkedIn profile", icon: <PiLinkedinLogo /> },
-  { href: LINKS.github, label: "GitHub profile", icon: <PiGithubLogo /> },
-  { href: LINKS.figma, label: "Figma profile", icon: <PiFigmaLogo /> },
+  { href: LINKS.linkedin, label: "LinkedIn profile", icon: <FaLinkedin /> },
+  { href: LINKS.github, label: "GitHub profile", icon: <FaGithub /> },
+  { href: LINKS.figma, label: "Figma profile", icon: <FaFigma /> },
 ];
 
 export const CONTACT_ITEMS = [
