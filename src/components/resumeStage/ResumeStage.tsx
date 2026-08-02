@@ -25,7 +25,7 @@ const ResumeStage: React.FC<ResumeStageProps> = ({ className, roleLabel }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const progress = useSmoothScrollProgress(wrapperRef, contentRef);
+  const { progress } = useSmoothScrollProgress(wrapperRef, contentRef);
   useScrollFocus(wrapperRef);
 
   return (

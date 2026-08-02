@@ -1,4 +1,6 @@
-import { RULER_TICK_COUNT } from "@/constants/resume";
+"use client";
+
+import { useRef } from "react";
 import { cn } from "@/lib/cn";
 import {
   rulerRoot,
@@ -8,17 +10,24 @@ import {
   getActiveTickIndex,
   getTickDistanceBucket,
 } from "./helpers/rulerScrollbar.helpers";
+import { useTickCount } from "./hooks/rulerScrollbar.hooks";
 import type { RulerScrollbarProps } from "./types/rulerScrollbar.types";
 
 const RulerScrollbar: React.FC<RulerScrollbarProps> = ({
   progress,
-  tickCount = RULER_TICK_COUNT,
   className,
 }) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const tickCount = useTickCount(rootRef);
   const activeIndex = getActiveTickIndex(progress, tickCount);
 
   return (
-    <div id="ruler-scrollbar" aria-hidden className={cn(rulerRoot, className)}>
+    <div
+      id="ruler-scrollbar"
+      ref={rootRef}
+      aria-hidden
+      className={cn(rulerRoot, className)}
+    >
       {Array.from({ length: tickCount }, (_, index) => {
         const distance = Math.abs(index - activeIndex);
         const bucket = getTickDistanceBucket(distance);
