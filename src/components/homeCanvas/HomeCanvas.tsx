@@ -49,6 +49,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
   const dragControls = useDragControls();
   const [reactFolderMoved, setReactFolderMoved] = useState(false);
   const [canvasPanned, setCanvasPanned] = useState(false);
+  const [isPanning, setIsPanning] = useState(false);
 
   const { offsets, moveBy } = usePersistedOffsets();
 
@@ -72,6 +73,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
       ref={viewportRef}
       className={cn(
         paintDots ? canvasViewport : canvasViewportPlain,
+        isPanning && "select-none",
         className,
       )}
     >
@@ -84,6 +86,8 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
           height: CONTENT_HEIGHT,
           left: panOrigin?.x,
           top: panOrigin?.y,
+          marginLeft: panOrigin ? undefined : -CONTENT_WIDTH / 2,
+          marginTop: panOrigin ? undefined : -CONTENT_HEIGHT / 2,
         }}
         drag
         dragListener={false}
@@ -92,7 +96,10 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({
         dragElastic={prefersReducedMotion ? 0 : DRAG_ELASTIC}
         dragMomentum={!prefersReducedMotion}
         onPointerDown={startPan}
+        onDragStart={() => setIsPanning(true)}
         onDragEnd={(_, info) => {
+          setIsPanning(false);
+
           if (info.offset.x !== 0 || info.offset.y !== 0) {
             setCanvasPanned(true);
           }
