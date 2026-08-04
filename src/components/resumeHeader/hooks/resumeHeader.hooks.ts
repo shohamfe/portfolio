@@ -11,9 +11,6 @@ export const useCvDownload = () => {
 
     try {
       const response = await fetch(url);
-
-      // fetch only rejects on network errors, so a failed response would
-      // otherwise be saved as a .pdf containing the error body.
       if (!response.ok || !response.body) throw new Error(response.statusText);
 
       const total = Number(response.headers.get("content-length")) || 0;

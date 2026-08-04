@@ -30,8 +30,6 @@ export const useSmoothScrollProgress = (
     const observer = new ResizeObserver(handleScroll);
     observer.observe(wrapper);
 
-    // The wrapper's own box is height-constrained, so it never resizes when
-    // the content grows (late-loading fonts) - observe the content as well.
     if (content) observer.observe(content);
 
     return () => {

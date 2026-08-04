@@ -15,8 +15,6 @@ export const GET = async (request: NextRequest) => {
   const headers = new Headers({ "Content-Type": "application/pdf" });
   const contentLength = upstream.headers.get("content-length");
 
-  // Omitted rather than sent empty when upstream doesn't report a size;
-  // the client falls back to an indeterminate progress bar.
   if (contentLength) headers.set("Content-Length", contentLength);
 
   return new NextResponse(upstream.body, { headers });
