@@ -20,18 +20,18 @@ import {
 } from "./hooks/resumeStage.hooks";
 import type { ResumeStageProps } from "./types/resumeStage.types";
 
-const ResumeStage: React.FC<ResumeStageProps> = ({ className }) => {
+const ResumeStage: React.FC<ResumeStageProps> = ({ className, roleLabel }) => {
   const stageRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const progress = useSmoothScrollProgress(wrapperRef, contentRef);
+  const { progress } = useSmoothScrollProgress(wrapperRef, contentRef);
   useScrollFocus(wrapperRef);
 
   return (
     <div id="resume-stage" ref={stageRef} className={cn(stageRoot, className)}>
       <div id="resume-left-section" className={stageLeftSection}>
-        <ResumeHeader />
+        <ResumeHeader roleLabel={roleLabel} />
 
         <div id="resume-left-body" className={stageLeftBody}>
           <RulerScrollbar progress={progress} className={stageRuler} />

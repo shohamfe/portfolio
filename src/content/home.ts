@@ -4,16 +4,16 @@ export const HOME_CONTENT = {
   passion: {
     title: "My Passion",
     bullets: [
-      "Taking a concept and making it the best reality",
+      "Turning a concept into the best reality",
       "Working on data-heavy, complex projects",
     ],
   },
   howIWork: {
     title: "How I Work",
     bullets: [
-      "See the full picture",
-      "Plan the architecture before building",
-      "Read the codebase before adding to it",
+      "Approaching problems with a comprehensive systemic view",
+      "Prioritizing user experience in every development decision",
+      "Maintaining a broad perspective on project requirements",
     ],
   },
   about: {

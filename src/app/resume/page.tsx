@@ -31,7 +31,7 @@ const ResumePage = async ({ searchParams }: ResumePageProps) => {
   return (
     <ViewportSwitch mobile={<MobileResume roleLabel={roleLabel} />}>
       <main id="resume" className={resumePageRoot}>
-        <ResumeStage />
+        <ResumeStage roleLabel={roleLabel} />
       </main>
     </ViewportSwitch>
   );

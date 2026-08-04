@@ -13,6 +13,8 @@ import {
   PiCursor,
   PiDatabase,
   PiDownloadSimple,
+  PiFilmSlate,
+  PiFlask,
   PiFrameCorners,
   PiGitBranch,
   PiGlobe,
@@ -27,6 +29,7 @@ import {
   PiPath,
   PiPenNib,
   PiPuzzlePiece,
+  PiRocketLaunch,
   PiShieldCheck,
   PiSignpost,
   PiSparkle,
@@ -35,6 +38,7 @@ import {
   PiStackSimple,
   PiStarFour,
   PiTerminal,
+  PiTreeStructure,
   PiUsersThree,
   PiVectorTwo,
 } from "react-icons/pi";
@@ -227,6 +231,60 @@ export const TECH_FOLDERS: readonly TechFolder[] = [
     sheets: [
       { color: "purple", Icon: PiStarFour },
       { color: "blue", Icon: PiMagicWand },
+    ],
+  },
+  {
+    id: "nextjs",
+    label: "Next.js",
+    logo: "/logos/nextjs.svg",
+    sheets: [
+      { color: "grey", Icon: PiRocketLaunch },
+      { color: "blue", Icon: PiTreeStructure },
+    ],
+  },
+  {
+    id: "tailwind",
+    label: "Tailwind CSS",
+    logo: "/logos/tailwind-CSS.svg",
+    sheets: [
+      { color: "blue", Icon: PiPaintBrush },
+      { color: "grey", Icon: PiSquaresFour },
+    ],
+  },
+  {
+    id: "mongodb",
+    label: "MongoDB",
+    logo: "/logos/mongoDB.svg",
+    sheets: [
+      { color: "green", Icon: PiDatabase },
+      { color: "grey", Icon: PiStack },
+    ],
+  },
+  {
+    id: "vite",
+    label: "Vite",
+    logo: "/logos/vite.svg",
+    sheets: [
+      { color: "purple", Icon: PiLightning },
+      { color: "yellow", Icon: PiPackage },
+    ],
+  },
+  {
+    id: "vitest",
+    label: "Vitest",
+    logo: "/logos/vitest.svg",
+    sheets: [
+      { color: "green", Icon: PiFlask },
+      { color: "yellow", Icon: PiCheckSquare },
+    ],
+  },
+  {
+    id: "framer",
+    label: "Framer",
+    logo: "/logos/framer.svg",
+    sheets: [
+      { color: "purple", Icon: PiFilmSlate },
+      { color: "pink", Icon: PiCursor },
     ],
   },
 ];

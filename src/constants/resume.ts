@@ -17,10 +17,6 @@ export const RESUME_CARD_PLACEMENTS: readonly ResumeCardPlacement[] = [
   { id: "execution", topPercent: 85, left: 184, rotation: 3, depth: 0.4 },
 ];
 
-/** Number of ticks on the resume ruler. Enough that the bulge moves smoothly
- *  rather than jumping a visible step per scroll. */
-export const RULER_TICK_COUNT = 56;
-
 /** Shared between the desktop (ResumeCardField) and mobile (MobileNoteCanvas)
  *  note tutorial mounts, so seeing it on one breakpoint doesn't show it again
  *  on the other. */

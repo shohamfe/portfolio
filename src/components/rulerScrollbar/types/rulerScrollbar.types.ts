@@ -1,8 +1,6 @@
 export interface RulerScrollbarProps {
   /** 0 to 1. Which point of the scrollable content is currently shown. */
   progress: number;
-  /** How many ticks to render. Default to something sensible like 48. */
-  tickCount?: number;
   className?: string;
 }
 

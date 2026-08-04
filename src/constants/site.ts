@@ -28,8 +28,23 @@ export const SITE = {
   role: getRoleTitle(ROLE_LABELS.default),
   tagline: "// From concept to experience",
   description: getSiteDescription(ROLE_LABELS.default),
-  cvPath: "/Shoham-Fellner-CV.pdf",
 } as const;
+
+/** Hosted in Drive, not /public, so updating the resume needs no redeploy. */
+export const CV_URLS = {
+  default:
+    "https://drive.google.com/uc?export=download&id=1JRrUFJZtyo1w2Mu02Mav4TpG4ZkXOaaY",
+  frontend:
+    "https://drive.google.com/uc?export=download&id=1f3jVcSBzo_UKbzlKw4ptcR3jFfcgYYrZ",
+} as const;
+
+/** Goes through /api/cv, not CV_URLS directly - Drive 403s on fetch(). */
+export const getCvUrl = (
+  roleLabel: (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS],
+) =>
+  roleLabel === ROLE_LABELS.frontend
+    ? `/api/cv?${ROLE_QUERY_PARAM}=${ROLE_QUERY_VALUE}`
+    : "/api/cv";
 
 /** Search keyword targets for the root metadata's `keywords` field. */
 export const SITE_KEYWORDS = [
