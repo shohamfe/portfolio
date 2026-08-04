@@ -15,6 +15,7 @@ export const useSmoothScrollProgress = (
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
+    const content = contentRef.current;
     if (!wrapper) return;
 
     const handleScroll = () => {
@@ -29,11 +30,13 @@ export const useSmoothScrollProgress = (
     const observer = new ResizeObserver(handleScroll);
     observer.observe(wrapper);
 
+    if (content) observer.observe(content);
+
     return () => {
       wrapper.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, contentRef]);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;

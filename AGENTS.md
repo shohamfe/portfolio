@@ -76,7 +76,12 @@ Always follow these rules unless explicitly instructed otherwise:
   * All React Query `queryKey` values must be centralised in a single file: `src/constants/queryKeys.ts`. Never inline query keys at the call site.
 
 * **Best Practices:**
-  * Comments: All code comments must always be written in English. Comment only what the code cannot say itself — a non-obvious constraint, a bug being prevented, a deliberate trade-off. Never narrate what the code plainly does, never leave progress/reasoning notes ("now we do X", "this used to be Y"), and never reference external documents the reader does not have (spec sections, ticket numbers, chat history).
+  * Comments: **The default is no comment.** Write code that explains itself through naming and structure instead. A comment is the exception, and the bar is high: only when the code cannot say it itself — a non-obvious constraint, a bug being prevented, a deliberate trade-off. Before writing one, ask "would a competent reader be confused without this?" If no, delete it.
+    * Do NOT explain what the code does, restate a name, justify a change, or narrate reasoning ("now we do X", "this used to be Y", "fetch only rejects on network errors, so...").
+    * Do NOT add a doc block to every function, type, hook, or component just because one exists elsewhere. Most need none.
+    * Do NOT reference things the reader does not have: spec sections, ticket numbers, review comments, chat history.
+    * When a comment IS warranted, one line. Never a multi-line block explaining a one-line change.
+    * All comments must be written in English.
   * Keep files small and focused. Split large components into sub-components in the `components/` sub-folder; move pure logic to `helpers/`, React logic to `hooks/`. A component file that needs scrolling to understand is a signal to split.
   * Optimization: Use `useMemo` and `useCallback` only when necessary for performance, not by default.
   * Constants: Avoid hardcoded strings and magic numbers. Extract them to a `constants.ts` file.

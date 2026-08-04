@@ -12,10 +12,10 @@ export const GET = async (request: NextRequest) => {
     return new NextResponse("Failed to fetch CV", { status: 502 });
   }
 
-  return new NextResponse(upstream.body, {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Length": upstream.headers.get("content-length") ?? "",
-    },
-  });
+  const headers = new Headers({ "Content-Type": "application/pdf" });
+  const contentLength = upstream.headers.get("content-length");
+
+  if (contentLength) headers.set("Content-Length", contentLength);
+
+  return new NextResponse(upstream.body, { headers });
 };
