@@ -11,21 +11,24 @@ export const useCvDownload = () => {
 
     try {
       const response = await fetch(url);
+
+      // fetch only rejects on network errors, so a failed response would
+      // otherwise be saved as a .pdf containing the error body.
+      if (!response.ok || !response.body) throw new Error(response.statusText);
+
       const total = Number(response.headers.get("content-length")) || 0;
-      const reader = response.body?.getReader();
+      const reader = response.body.getReader();
       const chunks: Uint8Array<ArrayBuffer>[] = [];
       let received = 0;
 
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-          chunks.push(new Uint8Array(value));
-          received += value.length;
+        chunks.push(new Uint8Array(value));
+        received += value.length;
 
-          if (total) setProgress(received / total);
-        }
+        if (total) setProgress(received / total);
       }
 
       const blob = new Blob(chunks);
