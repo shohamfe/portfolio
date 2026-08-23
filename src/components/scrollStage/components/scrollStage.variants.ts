@@ -18,3 +18,12 @@ export const stageRuler =
 
 export const stageScroller =
   "min-h-0 flex-1 overflow-x-hidden overflow-y-hidden";
+
+/** Pulls a scroller back across the ruler to the stage's own left edge, so
+ *  content inside it can paint and cast shadows the whole width instead of
+ *  being clipped at the ruler. The offset is the ruler's inset (40px) plus
+ *  its width (40px) plus the body gap (24px); pair it with contentInset so
+ *  the content still lands where it would have. */
+export const scrollerFullBleed = "lg:-ml-26";
+
+export const contentInset = "lg:pl-26";

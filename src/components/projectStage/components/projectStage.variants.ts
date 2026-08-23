@@ -1,13 +1,18 @@
+import {
+  contentInset,
+  scrollerFullBleed,
+} from "@/components/scrollStage/components/scrollStage.variants";
+import { cn } from "@/lib/cn";
 import { PAGE_SURFACE } from "@/lib/variants";
 
-export const stageRootOverrides = PAGE_SURFACE;
+export const stageScrollerOverrides = scrollerFullBleed;
 
-/** The two cancel out: the scroller reaches back to the ruler and the padding
- *  returns the content to where the list page starts it, leaving a gutter the
- *  hero window can cast its hover shadow into instead of being clipped. */
-export const stageScrollerOverrides = "lg:-ml-16";
+/** Spans the stage edge to edge, covering the page's dot grid from the bottom
+ *  of the hero down. The hero itself gets no surface, which is what leaves it
+ *  on the dots. */
+export const bodySurface = PAGE_SURFACE;
 
-export const sectionBleed = "w-full px-5 lg:pr-10 lg:pl-16";
+export const sectionBleed = cn("w-full px-5 lg:pr-10", contentInset);
 
 export const sectionInner = "w-full max-w-[1200px]";
 
@@ -41,9 +46,7 @@ export const calloutTag = "font-code text-accent";
 export const calloutNote =
   "text-[16px] leading-[1.5] text-pretty text-text-muted";
 
-/** Keeps the dot grid the page surface behind it would otherwise cover, which
- *  is what marks the hero off from the body below. */
-export const heroRoot = "dot-grid w-full pt-6 pb-8 lg:pb-10";
+export const heroRoot = "w-full pt-6 pb-8 lg:pb-10";
 
 export const heroBack =
   "mb-8 flex lg:mb-10 w-fit items-center gap-2 font-code text-small text-text-muted transition-colors hover:text-accent";
