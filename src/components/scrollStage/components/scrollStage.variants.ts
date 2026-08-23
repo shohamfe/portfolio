@@ -11,7 +11,10 @@ export const headerName =
 
 export const stageBody = "relative flex min-h-0 flex-1 gap-6";
 
-export const stageRuler = "ml-10 hidden shrink-0 self-stretch pb-8 lg:flex";
+/** Stays above the scroller, which reaches back under it so content can cast
+ *  a shadow into the gutter without being clipped. */
+export const stageRuler =
+  "relative z-10 ml-10 hidden shrink-0 self-stretch pb-8 lg:flex";
 
 export const stageScroller =
   "min-h-0 flex-1 overflow-x-hidden overflow-y-hidden";

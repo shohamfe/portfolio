@@ -27,7 +27,7 @@ const ScrollStage: React.FC<ScrollStageProps> = ({
   const { progress } = useSmoothScrollProgress(wrapperRef, contentRef, "page");
 
   return (
-    <div id={id} className={cn(stageRoot, className)}>
+    <div id={`${id}-stage`} className={cn(stageRoot, className)}>
       <StageHeader />
 
       <div id={`${id}-body`} className={stageBody}>
