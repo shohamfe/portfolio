@@ -20,7 +20,9 @@ export const sectionInner = "w-full max-w-[1200px]";
 export const sectionGrid =
   "grid grid-cols-1 gap-8 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12";
 
-export const sectionLabel = "flex flex-col gap-1.5";
+// Grid items stretch to row height by default, so self-start constrains the sticky item.
+export const sectionLabel =
+  "flex flex-col gap-1.5 lg:sticky lg:top-8 lg:self-start";
 
 export const sectionIndex = "font-code text-small text-accent";
 
