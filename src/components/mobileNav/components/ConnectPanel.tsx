@@ -52,7 +52,7 @@ const ConnectPanel: React.FC = () => {
             href={link.href}
             aria-label={link.label}
             icon={link.icon}
-            size="sm"
+            size="lg"
             target="_blank"
             rel="noreferrer"
           />
