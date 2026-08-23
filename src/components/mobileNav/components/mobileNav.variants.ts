@@ -8,7 +8,7 @@ const glassSurface =
 
 export const navCard = `pointer-events-auto relative z-10 flex h-[88px] flex-1 items-center justify-between px-6 pb-1 pt-2 shadow-nav ${glassSurface}`;
 
-export const navItem = "flex w-16 flex-col items-center justify-center";
+export const navItem = "flex min-w-16 flex-col items-center justify-center";
 
 export const navIconWrap = cva(
   "flex size-10 items-center justify-center rounded-xl text-[20px]",
@@ -23,7 +23,7 @@ export const navIconWrap = cva(
   },
 );
 
-export const navLabel = cva("text-center font-ui text-tiny", {
+export const navLabel = cva("text-center font-ui text-tiny whitespace-nowrap", {
   variants: {
     active: {
       true: "text-accent",

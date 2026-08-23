@@ -83,8 +83,8 @@ export const CONTACT = {
 /** Public GA4 measurement ID - not a secret, safe to ship in client code. */
 export const GA_MEASUREMENT_ID = "G-Q2MY5GERZT";
 
-/** Portfolio route exists but is intentionally left out of nav while it's a stub. */
 export const ROUTES = [
   { href: "/", label: "Home" },
   { href: "/resume", label: "Resume" },
+  { href: "/case-study", label: "Case Study" },
 ] as const;
