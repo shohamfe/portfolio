@@ -9,8 +9,10 @@ import {
 } from "@/components/mobileHome/components/mobileHome.variants";
 import MobileHero from "@/components/mobileHero/MobileHero";
 import MobileNav from "@/components/mobileNav/MobileNav";
+import DownloadCvButton from "@/components/resumeHeader/components/DownloadCvButton";
 import MobileNoteCanvas from "./components/MobileNoteCanvas";
 import MobileTimeline from "./components/MobileTimeline";
+import { downloadRow } from "./components/mobileResume.variants";
 import type { MobileResumeProps } from "./types/mobileResume.types";
 
 const MobileResume: React.FC<MobileResumeProps> = ({ roleLabel }) => {
@@ -19,6 +21,13 @@ const MobileResume: React.FC<MobileResumeProps> = ({ roleLabel }) => {
   return (
     <main id="resume" className={mobileRoot}>
       <MobileHero roleLabel={roleLabel} />
+
+      <div className={downloadRow}>
+        <DownloadCvButton
+          roleLabel={roleLabel}
+          className="min-h-12 justify-center"
+        />
+      </div>
 
       <motion.div
         id="mobile-resume-scroll"
