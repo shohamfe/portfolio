@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Chip from "@/components/chip/Chip";
 import MagicCard from "@/components/magicCard/MagicCard";
 import Magnetic from "@/components/magnetic/Magnetic";
@@ -14,6 +15,7 @@ import {
   projectCardRoleGroup,
   projectCardTech,
   projectCardTitle,
+  projectCardTitleLink,
   projectCardTitleRow,
   projectCardVariants,
 } from "./components/projectCard.variants";
@@ -21,6 +23,7 @@ import {
   PROJECT_CARD_GLOW_COLORS,
   PROJECT_CARD_IMAGE_SIZES,
 } from "./constants/projectCard.constants";
+import { getProjectHref } from "./helpers/projectCard.helpers";
 import { getProjectLinkIcon } from "./helpers/projectCard.helpers";
 import type { ProjectCardProps } from "./types/projectCard.types";
 
@@ -30,6 +33,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   className,
 }) => {
   const { title, meta, blurb, role, tech, image, accent, link } = project;
+
+  const caseStudyHref = getProjectHref(project.id);
 
   const linkChip = (
     <Chip
@@ -61,7 +66,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className={projectCardHeaderGroup}>
           <div className={projectCardTitleRow}>
             <Magnetic actionArea="global" range={240} intensity={0.25}>
-              <p className={projectCardTitle}>{title}</p>
+              {caseStudyHref ? (
+                <Link href={caseStudyHref} className={projectCardTitleLink}>
+                  {title}
+                </Link>
+              ) : (
+                <p className={projectCardTitle}>{title}</p>
+              )}
             </Magnetic>
 
             <Magnetic actionArea="global" range={200} intensity={0.35}>

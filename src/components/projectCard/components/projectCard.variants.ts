@@ -1,4 +1,5 @@
 import { ACCENT_SURFACES } from "@/lib/variants";
+import { cn } from "@/lib/cn";
 import { cva } from "class-variance-authority";
 
 export const projectCardVariants = cva(
@@ -24,6 +25,11 @@ export const projectCardTitleRow =
 
 export const projectCardTitle =
   "min-w-0 font-display text-[18px] leading-none text-text-strong 2xl:text-h5";
+
+export const projectCardTitleLink = cn(
+  projectCardTitle,
+  "transition-colors hover:text-accent",
+);
 
 export const projectCardMeta =
   "w-full text-small text-text-muted 2xl:text-body";
