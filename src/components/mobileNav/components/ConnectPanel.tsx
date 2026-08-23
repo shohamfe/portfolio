@@ -2,9 +2,9 @@
 
 import IconButton from "@/components/iconButton/IconButton";
 import { CONTACT_ITEMS, SOCIAL_LINKS } from "@/constants/contact";
+import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { PiCheck, PiCopy } from "react-icons/pi";
 import { COPIED_MESSAGE } from "../constants/mobileNav.constants";
-import { useCopyToClipboard } from "../hooks/mobileNav.hooks";
 import {
   connectDivider,
   connectRow,
@@ -15,19 +15,19 @@ import {
 } from "./mobileNav.variants";
 
 const ConnectPanel: React.FC = () => {
-  const { copiedValue, copy } = useCopyToClipboard();
+  const [copiedText, copyToClipboard] = useCopyToClipboard();
 
   return (
     <>
       {CONTACT_ITEMS.map((item) => {
-        const copied = copiedValue === item.text;
+        const copied = copiedText === item.text;
 
         return (
           <button
             key={item.text}
             type="button"
             aria-label={item.copyLabel}
-            onClick={() => copy(item.text)}
+            onClick={() => copyToClipboard(item.text)}
             className={connectRow}
           >
             <span aria-hidden className={connectRowIcon}>
@@ -60,7 +60,7 @@ const ConnectPanel: React.FC = () => {
       </div>
 
       <span role="status" aria-live="polite" className="sr-only">
-        {copiedValue ? COPIED_MESSAGE : ""}
+        {copiedText ? COPIED_MESSAGE : ""}
       </span>
     </>
   );

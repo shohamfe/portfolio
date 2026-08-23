@@ -13,7 +13,7 @@ import {
 } from "@floating-ui/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { PiLink, PiLinkFill } from "react-icons/pi";
+import { PiLink, PiLinkBold } from "react-icons/pi";
 import {
   CONNECT_LABEL,
   PANEL_EDGE_PADDING,
@@ -66,7 +66,7 @@ const MobileNavConnect: React.FC = () => {
         {...getReferenceProps()}
       >
         <span aria-hidden className={navIconWrap({ active: isOpen })}>
-          {isOpen ? <PiLinkFill /> : <PiLink />}
+          {isOpen ? <PiLinkBold /> : <PiLink />}
         </span>
 
         <span className={navLabel({ active: isOpen })}>{CONNECT_LABEL}</span>
