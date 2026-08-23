@@ -1,14 +1,16 @@
 import { ACCENT_SURFACES } from "@/lib/variants";
-import { cn } from "@/lib/cn";
 import { cva } from "class-variance-authority";
 
 export const projectCardVariants = cva(
-  "overflow-hidden rounded-2xl border border-solid shadow-folder",
+  "overflow-hidden rounded-2xl border border-solid shadow-folder transition-[box-shadow,transform] duration-200 hover:-translate-y-1 hover:shadow-logo-card",
   {
     variants: { color: ACCENT_SURFACES },
     defaultVariants: { color: "blue" },
   },
 );
+
+export const projectCardStretchedLink =
+  "absolute inset-0 z-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export const projectCardImageSlot =
   "relative aspect-[923/517] w-full shrink-0 overflow-hidden";
@@ -25,11 +27,6 @@ export const projectCardTitleRow =
 
 export const projectCardTitle =
   "min-w-0 font-display text-[18px] leading-none text-text-strong 2xl:text-h5";
-
-export const projectCardTitleLink = cn(
-  projectCardTitle,
-  "transition-colors hover:text-accent",
-);
 
 export const projectCardMeta =
   "w-full text-small text-text-muted 2xl:text-body";

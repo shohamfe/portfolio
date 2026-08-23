@@ -32,7 +32,7 @@ const ProjectWindow: React.FC<ProjectWindowProps> = ({
       <div className={windowBar}>
         <div className={windowDots}>
           {WINDOW_DOTS.map((dot) => (
-            <span key={dot} className={windowDot} />
+            <span key={dot.id} className={cn(windowDot, dot.hoverClass)} />
           ))}
         </div>
 

@@ -1,17 +1,6 @@
-export const stageRoot =
-  "relative z-0 flex min-h-0 flex-1 flex-col overflow-hidden";
+export const sectionBleed = "w-full px-5 lg:pr-10 lg:pl-0";
 
-export const stageBody = "relative flex min-h-0 flex-1 gap-6";
-
-export const stageRuler = "ml-10 hidden shrink-0 self-stretch pb-8 lg:flex";
-
-export const stageScroller =
-  "min-h-0 flex-1 overflow-x-hidden overflow-y-hidden";
-
-/** Full-bleed band; the inner column below re-centres the content inside it. */
-export const sectionBleed = "w-full px-5 md:px-12 xl:px-20";
-
-export const sectionInner = "mx-auto w-full max-w-[1200px]";
+export const sectionInner = "w-full max-w-[1200px]";
 
 /** Label column plus prose column, matching the design's 200px / 48px grid. */
 export const sectionGrid =
@@ -44,7 +33,7 @@ export const calloutNote =
   "text-[16px] leading-[1.5] text-pretty text-text-muted";
 
 export const heroRoot =
-  "dot-grid w-full border-b border-solid border-border-subtle bg-surface-raised pt-10 pb-12 lg:pb-18";
+  "w-full border-b border-solid border-border-subtle pt-10 pb-12 lg:pb-18";
 
 export const heroBack =
   "mb-8 flex lg:mb-14 w-fit items-center gap-2 font-code text-small text-text-muted transition-colors hover:text-accent";
@@ -68,7 +57,7 @@ export const heroFacts =
 export const heroFactGroup = "flex flex-col gap-1.5";
 
 export const heroFactLabel =
-  "font-code text-tiny tracking-[0.08em] uppercase text-text-muted";
+  "font-code text-tiny tracking-[0.08em] uppercase text-accent";
 
 export const heroFactValue = "text-body text-text-strong";
 
@@ -80,14 +69,15 @@ export const heroFactDivider =
 export const heroFactSpacer = "grow";
 
 export const windowRoot =
-  "overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder";
+  "group overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.015] hover:shadow-logo-card";
 
 export const windowBar =
   "flex items-center gap-2.5 border-b border-solid border-border-subtle bg-surface-page px-4 py-3";
 
 export const windowDots = "flex gap-1.5";
 
-export const windowDot = "size-2.5 rounded-full bg-default-300";
+export const windowDot =
+  "size-2.5 rounded-full bg-default-300 transition-colors duration-300";
 
 export const windowCaption = "font-code text-tiny text-text-muted";
 

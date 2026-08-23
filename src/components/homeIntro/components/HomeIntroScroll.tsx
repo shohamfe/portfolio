@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import RulerScrollbar from "@/components/rulerScrollbar/RulerScrollbar";
-import { useSmoothScrollProgress } from "@/components/resumeStage/hooks/resumeStage.hooks";
+import { useSmoothScrollProgress } from "@/hooks/smoothScroll.hooks";
 import { HOME_CONTENT } from "@/content/home";
 import type { HomeIntroScrollProps } from "../types/homeIntro.types";
 import HomeIntroAboutSection from "./HomeIntroAboutSection";

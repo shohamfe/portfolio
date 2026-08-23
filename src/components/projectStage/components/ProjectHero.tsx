@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PiArrowLeft } from "react-icons/pi";
 import Chip from "@/components/chip/Chip";
 import { getProjectLinkIcon } from "@/components/projectCard/helpers/projectCard.helpers";
+import TechStack from "@/components/techStack/TechStack";
 import { cn } from "@/lib/cn";
 import {
   heroBack,
@@ -63,9 +64,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, detail }) => {
 
           <div className={heroFactGroup}>
             <span className={heroFactLabel}>Stack</span>
-            <span className={heroFactCode}>
-              {project.tech.map((technology) => `[${technology}]`).join(" ")}
-            </span>
+            <TechStack tech={project.tech} className={heroFactCode} />
           </div>
 
           <div className={heroFactSpacer} />

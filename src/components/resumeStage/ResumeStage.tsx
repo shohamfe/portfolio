@@ -14,10 +14,8 @@ import {
   stageScroller,
   stageTimeline,
 } from "./components/resumeStage.variants";
-import {
-  useScrollFocus,
-  useSmoothScrollProgress,
-} from "./hooks/resumeStage.hooks";
+import { useScrollFocus } from "./hooks/resumeStage.hooks";
+import { useSmoothScrollProgress } from "@/hooks/smoothScroll.hooks";
 import type { ResumeStageProps } from "./types/resumeStage.types";
 
 const ResumeStage: React.FC<ResumeStageProps> = ({ className, roleLabel }) => {

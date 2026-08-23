@@ -3,6 +3,7 @@ import Link from "next/link";
 import Chip from "@/components/chip/Chip";
 import MagicCard from "@/components/magicCard/MagicCard";
 import Magnetic from "@/components/magnetic/Magnetic";
+import TechStack from "@/components/techStack/TechStack";
 import { cn } from "@/lib/cn";
 import {
   projectCardBlurb,
@@ -13,9 +14,9 @@ import {
   projectCardMeta,
   projectCardRole,
   projectCardRoleGroup,
+  projectCardStretchedLink,
   projectCardTech,
   projectCardTitle,
-  projectCardTitleLink,
   projectCardTitleRow,
   projectCardVariants,
 } from "./components/projectCard.variants";
@@ -23,8 +24,10 @@ import {
   PROJECT_CARD_GLOW_COLORS,
   PROJECT_CARD_IMAGE_SIZES,
 } from "./constants/projectCard.constants";
-import { getProjectHref } from "./helpers/projectCard.helpers";
-import { getProjectLinkIcon } from "./helpers/projectCard.helpers";
+import {
+  getProjectHref,
+  getProjectLinkIcon,
+} from "./helpers/projectCard.helpers";
 import type { ProjectCardProps } from "./types/projectCard.types";
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -66,13 +69,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className={projectCardHeaderGroup}>
           <div className={projectCardTitleRow}>
             <Magnetic actionArea="global" range={240} intensity={0.25}>
-              {caseStudyHref ? (
-                <Link href={caseStudyHref} className={projectCardTitleLink}>
-                  {title}
-                </Link>
-              ) : (
-                <p className={projectCardTitle}>{title}</p>
-              )}
+              <p className={projectCardTitle}>{title}</p>
             </Magnetic>
 
             <Magnetic actionArea="global" range={200} intensity={0.35}>
@@ -86,6 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${link.label} for ${title}`}
+                  className="relative z-10"
                 >
                   {linkChip}
                 </a>
@@ -108,12 +106,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </Magnetic>
 
           <Magnetic actionArea="global" range={200} intensity={0.25}>
-            <p className={projectCardTech}>
-              {tech.map((technology) => `[${technology}]`).join(" ")}
-            </p>
+            <TechStack tech={tech} className={projectCardTech} />
           </Magnetic>
         </div>
       </div>
+
+      {caseStudyHref && (
+        <Link
+          href={caseStudyHref}
+          aria-label={`${title} case study`}
+          className={projectCardStretchedLink}
+        />
+      )}
     </MagicCard>
   );
 };

@@ -1,5 +1,12 @@
-/** Three inert traffic-light dots in the window chrome. */
-export const WINDOW_DOTS = ["close", "minimise", "zoom"] as const;
+/** Traffic-light dots in the window chrome; grey until the window is
+ *  hovered. Hover classes are spelled out rather than built from an accent
+ *  name: Tailwind generates classes by scanning source text, so an
+ *  interpolated `group-hover:bg-${accent}` produces no CSS at all. */
+export const WINDOW_DOTS = [
+  { id: "close", hoverClass: "group-hover:bg-danger" },
+  { id: "minimise", hoverClass: "group-hover:bg-warning" },
+  { id: "zoom", hoverClass: "group-hover:bg-success" },
+] as const;
 
 export const WINDOW_IMAGE_SIZES = "(max-width: 1279px) 100vw, 1200px";
 

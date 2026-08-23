@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { isRouteActive } from "@/lib/routes";
 import MobileNavConnect from "./components/MobileNavConnect";
 import MobileNavItem from "./components/MobileNavItem";
 import { navCard, navRoot } from "./components/mobileNav.variants";
@@ -16,7 +17,7 @@ const MobileNav: React.FC = () => {
           <MobileNavItem
             key={item.href}
             item={item}
-            active={pathname === item.href}
+            active={isRouteActive(pathname, item.href)}
           />
         ))}
 
