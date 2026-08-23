@@ -1,3 +1,5 @@
+export const downloadRow = "shrink-0 px-5 pt-3";
+
 export const timelineRoot = "flex flex-col pt-4";
 
 export const timelineItem = "flex w-full items-start gap-4";
