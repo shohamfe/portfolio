@@ -10,7 +10,7 @@ export const iconButtonVariants = cva(
       size: {
         sm: "size-8 text-small",
         md: "size-10 text-body",
-        lg: "size-11 text-body",
+        lg: "size-12 text-code",
       },
     },
     defaultVariants: {

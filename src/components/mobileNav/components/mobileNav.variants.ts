@@ -34,12 +34,12 @@ export const navLabel = cva("text-center font-ui text-tiny", {
 export const connectAnchor = "z-40";
 
 export const connectPanel =
-  "flex w-max origin-bottom-right flex-col gap-1.5 rounded-3xl border border-solid border-default-300 bg-white/90 p-2.5 shadow-folder backdrop-blur-xl";
+  "flex w-max origin-bottom-right flex-col gap-2 rounded-3xl border border-solid border-default-300 bg-white/90 p-3 shadow-folder backdrop-blur-xl";
 
 export const connectRow =
-  "flex min-h-11 items-center gap-3 rounded-2xl px-3 text-left font-ui text-small text-text-strong active:bg-default-300";
+  "flex min-h-12 items-center gap-3 rounded-2xl px-3 text-left font-ui text-body text-text-strong active:bg-default-300";
 
-export const connectRowIcon = "text-[18px] text-text-muted";
+export const connectRowIcon = "text-[22px] text-text-muted";
 
 export const connectRowValue = "flex-1 whitespace-nowrap";
 
@@ -55,4 +55,4 @@ export const connectRowStatus = cva("text-[16px]", {
 
 export const connectDivider = "h-px w-full bg-border-subtle";
 
-export const connectSocials = "flex items-center justify-center gap-2";
+export const connectSocials = "flex items-center justify-center gap-3";
