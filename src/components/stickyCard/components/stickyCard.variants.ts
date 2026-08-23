@@ -1,17 +1,10 @@
+import { ACCENT_SURFACES } from "@/lib/variants";
 import { cva } from "class-variance-authority";
 
 export const stickyCardVariants = cva(
   "group relative flex w-[190px] flex-col gap-2 rounded-2xl border border-solid p-4 shadow-note [transform-style:preserve-3d]",
   {
-    variants: {
-      color: {
-        blue: "bg-primary-50 border-primary-300",
-        purple: "bg-secondary-50 border-secondary-300",
-        pink: "bg-danger-50 border-danger-300",
-        yellow: "bg-warning-50 border-warning-300",
-        green: "bg-success-50 border-success-300",
-      },
-    },
+    variants: { color: ACCENT_SURFACES },
     defaultVariants: { color: "blue" },
   },
 );

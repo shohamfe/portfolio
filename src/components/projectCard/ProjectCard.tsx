@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Chip from "@/components/chip/Chip";
+import MagicCard from "@/components/magicCard/MagicCard";
 import Magnetic from "@/components/magnetic/Magnetic";
 import { cn } from "@/lib/cn";
 import {
   projectCardBlurb,
   projectCardBody,
-  projectCardGradientOverlay,
   projectCardHeaderGroup,
   projectCardImage,
   projectCardImageSlot,
@@ -17,7 +17,10 @@ import {
   projectCardTitleRow,
   projectCardVariants,
 } from "./components/projectCard.variants";
-import { PROJECT_CARD_IMAGE_SIZES } from "./constants/projectCard.constants";
+import {
+  PROJECT_CARD_GLOW_COLORS,
+  PROJECT_CARD_IMAGE_SIZES,
+} from "./constants/projectCard.constants";
 import { getProjectLinkIcon } from "./helpers/projectCard.helpers";
 import type { ProjectCardProps } from "./types/projectCard.types";
 
@@ -39,7 +42,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   );
 
   return (
-    <div className={cn(projectCardVariants({ color: accent }), className)}>
+    <MagicCard
+      glowColor={PROJECT_CARD_GLOW_COLORS[accent]}
+      className={cn(projectCardVariants({ color: accent }), className)}
+    >
       <div className={projectCardImageSlot}>
         <Image
           src={image}
@@ -49,8 +55,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           priority={priority}
           className={projectCardImage}
         />
-
-        <div className={projectCardGradientOverlay({ color: accent })} />
       </div>
 
       <div className={projectCardBody}>
@@ -99,7 +103,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </Magnetic>
         </div>
       </div>
-    </div>
+    </MagicCard>
   );
 };
 
