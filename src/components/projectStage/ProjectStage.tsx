@@ -1,5 +1,6 @@
 import ScrollStage from "@/components/scrollStage/ScrollStage";
 import ProjectContent from "./components/ProjectContent";
+import { stageScrollerOverrides } from "./components/projectStage.variants";
 import type { ProjectStageProps } from "./types/projectStage.types";
 
 const ProjectStage: React.FC<ProjectStageProps> = ({
@@ -8,7 +9,7 @@ const ProjectStage: React.FC<ProjectStageProps> = ({
   nextProject,
 }) => {
   return (
-    <ScrollStage id="project">
+    <ScrollStage id="project" scrollerClassName={stageScrollerOverrides}>
       <ProjectContent
         project={project}
         detail={detail}

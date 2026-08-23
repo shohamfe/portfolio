@@ -2,7 +2,7 @@ import { ACCENT_SURFACES } from "@/lib/variants";
 import { cva } from "class-variance-authority";
 
 export const projectCardVariants = cva(
-  "overflow-hidden rounded-2xl border border-solid shadow-folder transition-[box-shadow,transform] duration-200 hover:-translate-y-1 hover:shadow-logo-card",
+  "overflow-hidden rounded-2xl border border-solid shadow-folder transition duration-200 hover:-translate-y-1 hover:shadow-logo-card",
   {
     variants: { color: ACCENT_SURFACES },
     defaultVariants: { color: "blue" },

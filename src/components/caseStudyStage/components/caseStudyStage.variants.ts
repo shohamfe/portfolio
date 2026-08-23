@@ -1,6 +1,12 @@
+import { cn } from "@/lib/cn";
+import { PAGE_SURFACE } from "@/lib/variants";
+
 /** Only what differs from the shared ScrollStage shell: the list page keeps
  *  a right-hand gutter so the dot grid stays visible beside the cards. */
-export const stageRootOverrides = "lg:mr-[400px] 2xl:mr-[600px]";
+export const stageRootOverrides = cn(
+  PAGE_SURFACE,
+  "lg:mr-[400px] 2xl:mr-[600px]",
+);
 
 export const stageScrollerOverrides = "pr-10 pb-8";
 

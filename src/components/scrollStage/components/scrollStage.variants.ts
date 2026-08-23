@@ -1,5 +1,7 @@
+/** The shell paints no surface of its own; each page supplies one, so a page
+ *  can start its surface below a full-bleed hero. */
 export const stageRoot =
-  "relative z-0 flex min-h-0 flex-1 flex-col overflow-hidden bg-gradient-to-r from-surface-page from-80% to-transparent xl:from-60%";
+  "relative z-0 flex min-h-0 flex-1 flex-col overflow-hidden";
 
 export const headerRoot =
   "pointer-events-none inset-x-0 flex min-h-40 flex-col justify-between gap-4 px-10 pt-12 pb-8";

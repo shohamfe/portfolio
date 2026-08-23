@@ -1,4 +1,15 @@
-export const sectionBleed = "w-full px-5 lg:pr-10 lg:pl-0";
+import { PAGE_SURFACE } from "@/lib/variants";
+
+/** The left padding is cancelled by a negative margin on the scroller, so the
+ *  content still starts flush with the list page while the hero window keeps
+ *  room inside the scroller for its hover shadow. */
+export const sectionBleed = "w-full px-5 lg:pr-10 lg:pl-6";
+
+export const bodySurface = PAGE_SURFACE;
+
+/** Cancels sectionBleed's left padding, so the clipped scroller still has
+ *  room for the hero window's hover shadow without shifting the content. */
+export const stageScrollerOverrides = "lg:-ml-6";
 
 export const sectionInner = "w-full max-w-[1200px]";
 
@@ -32,11 +43,10 @@ export const calloutTag = "font-code text-accent";
 export const calloutNote =
   "text-[16px] leading-[1.5] text-pretty text-text-muted";
 
-export const heroRoot =
-  "w-full border-b border-solid border-border-subtle pt-10 pb-12 lg:pb-18";
+export const heroRoot = "w-full pt-6 pb-8 lg:pb-10";
 
 export const heroBack =
-  "mb-8 flex lg:mb-14 w-fit items-center gap-2 font-code text-small text-text-muted transition-colors hover:text-accent";
+  "mb-8 flex lg:mb-10 w-fit items-center gap-2 font-code text-small text-text-muted transition-colors hover:text-accent";
 
 export const heroHead = "flex max-w-[900px] flex-col gap-5";
 
@@ -69,7 +79,7 @@ export const heroFactDivider =
 export const heroFactSpacer = "grow";
 
 export const windowRoot =
-  "group overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.015] hover:shadow-logo-card";
+  "group overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder transition duration-300 ease-out hover:scale-[1.015] hover:shadow-logo-card";
 
 export const windowBar =
   "flex items-center gap-2.5 border-b border-solid border-border-subtle bg-surface-page px-4 py-3";

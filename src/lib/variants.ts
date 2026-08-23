@@ -23,3 +23,8 @@ export const ACCENT_SURFACES = {
   yellow: "bg-warning-50 border-warning-300",
   green: "bg-success-50 border-success-300",
 };
+
+/** The page surface every long-form view sits on: solid to the left, fading
+ *  out so the dot grid behind it reads through on the right. */
+export const PAGE_SURFACE =
+  "bg-gradient-to-r from-surface-page from-80% to-transparent xl:from-60%";
