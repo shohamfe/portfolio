@@ -58,24 +58,24 @@ const PROCUREMENT_DETAIL: ProjectDetail = {
   eyebrow: "Case Study",
   backLabel: "Selected Work",
   visual: {
-    caption: "Requirement planning — catalogue view",
+    caption: "Requirement planning - catalogue view",
     badge: "Reconstruction",
     note: "Interface reconstructed with generic labels and sample data. Not the production system.",
-    image: "/case-study/procurement-planning-system.png",
-    placeholder: "[ hero screenshot — Figma frame, English labels ]",
+    image: "/case-study/procurement-system/main.png",
+    placeholder: "[ hero screenshot - Figma frame, English labels ]",
   },
   stakes: {
     title: "The Stakes",
     emphasis: "lead",
     paragraphs: [
-      "Roughly twenty people use this system. What they enter becomes the annual procurement plan for the IDF Ground Forces — what gets bought, what gets repaired, what sits in reserve.",
+      "Roughly twenty people use this system. What they enter becomes the annual procurement plan for the IDF Ground Forces - what gets bought, what gets repaired, what sits in reserve.",
       "The user count is not the measure here. The budget behind each line is. And it replaced the legacy platform outright rather than a module at a time, which meant the new system had to carry the whole planning process on its own from the day it went in.",
     ],
   },
   role: {
     title: "My Role",
     paragraphs: [
-      "I led frontend development inside an Agile team and owned the UX/UI process end to end — research, Figma, and the implementation that followed it.",
+      "I led frontend development inside an Agile team and owned the UX/UI process end to end - research, Figma, and the implementation that followed it.",
       "The backend was a separate SAP Gateway team. The data contracts between us were designed together rather than handed down, which is the reason several of the decisions below were possible at all.",
     ],
   },
@@ -139,12 +139,12 @@ const PROCUREMENT_DETAIL: ProjectDetail = {
       {
         id: "dashboard",
         caption: "Each widget loads and fails on its own.",
-        placeholder: "[ dashboard — multi-source widgets ]",
+        placeholder: "[ dashboard - multi-source widgets ]",
       },
       {
         id: "requirement-table",
         caption: "Tens of thousands of rows, constant scroll cost.",
-        placeholder: "[ requirement table — virtualized ]",
+        placeholder: "[ requirement table - virtualized ]",
       },
       {
         id: "schema-form",
@@ -163,14 +163,15 @@ const PROCUREMENT_DETAIL: ProjectDetail = {
     emphasis: "lead",
     paragraphs: [
       "Delivered as the replacement for the legacy platform, taken from research through to production inside an Agile cycle.",
+      "The MVP was deployed to production, with planners executing the annual procurement cycle in parallel with the legacy system to validate data integrity and workflows under real-world conditions.",
     ],
-    todo: "What state was the system in when you left — live with users, in rollout, in acceptance? One honest sentence. No invented percentages.",
   },
   whatIdChange: {
     title: "What I'd Change",
-    paragraphs: [],
-    todo: "I have no material for this section yet — it is the one part of the spine I cannot write from your CV, and I am not going to invent it. One or two sentences: something you would build differently knowing what you know now.",
-    note: "This is the section that reads as seniority. Juniors present projects with nothing they would redo.",
+    paragraphs: [
+      "I would introduce a Backend-for-Frontend (BFF) layer to offload heavy data parsing. We handled complex calculations on the client due to infrastructure constraints, which introduced unavoidable overhead to initial load times.",
+      "Additionally, rather than stretching a rigid SAP Gateway data structure to serve multiple dashboard components, I would enforce purpose-built data contracts. Reusing a single structure across too many contexts added unnecessary complexity to the client-side state.",
+    ],
   },
 };
 

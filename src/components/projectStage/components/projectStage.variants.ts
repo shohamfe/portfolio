@@ -10,7 +10,7 @@ export const stageScrollerOverrides = scrollerFullBleed;
 /** Spans the stage edge to edge, covering the page's dot grid from the bottom
  *  of the hero down. The hero itself gets no surface, which is what leaves it
  *  on the dots. */
-export const bodySurface = PAGE_SURFACE;
+export const bodySurface = `${PAGE_SURFACE} pb-15`;
 
 export const sectionBleed = cn("w-full px-5 lg:pr-10", contentInset);
 

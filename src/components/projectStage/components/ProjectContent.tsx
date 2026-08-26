@@ -28,7 +28,7 @@ const ProjectContent: React.FC<ProjectStageProps> = ({
       <ProjectHero project={project} detail={detail} />
 
       <div id="project-body-surface" className={bodySurface}>
-        <div className={cn(sectionBleed, "pt-10")}>
+        <div className={cn(sectionBleed, "pt-5")}>
           <div className={sectionInner}>
             <ProjectWindow
               caption={detail.visual.caption}

@@ -53,6 +53,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <MagicCard
       glowColor={PROJECT_CARD_GLOW_COLORS[accent]}
       className={cn(projectCardVariants({ color: accent }), className)}
+      gradientSize={620}
     >
       <div className={projectCardImageSlot}>
         <Image
@@ -65,14 +66,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         />
       </div>
 
-      <div className={projectCardBody}>
-        <div className={projectCardHeaderGroup}>
-          <div className={projectCardTitleRow}>
-            <Magnetic actionArea="global" range={240} intensity={0.25}>
+      <Magnetic actionArea="global" range={240} intensity={0.25}>
+        <div className={projectCardBody}>
+          <div className={projectCardHeaderGroup}>
+            <div className={projectCardTitleRow}>
               <p className={projectCardTitle}>{title}</p>
-            </Magnetic>
 
-            <Magnetic actionArea="global" range={200} intensity={0.35}>
               {link.href === "#" ? (
                 <span aria-label={`${link.label} (coming soon)`}>
                   {linkChip}
@@ -88,28 +87,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   {linkChip}
                 </a>
               )}
-            </Magnetic>
+            </div>
+
+            <p className={projectCardMeta}>{meta}</p>
           </div>
 
-          <Magnetic actionArea="global" range={200} intensity={0.15}>
-            <p className={projectCardMeta}>{meta}</p>
-          </Magnetic>
-        </div>
-
-        <Magnetic actionArea="global" range={200} intensity={0.2}>
           <p className={projectCardBlurb}>{blurb}</p>
-        </Magnetic>
 
-        <div className={projectCardRoleGroup}>
-          <Magnetic actionArea="global" range={200} intensity={0.15}>
+          <div className={projectCardRoleGroup}>
             <p className={projectCardRole}>{role}</p>
-          </Magnetic>
 
-          <Magnetic actionArea="global" range={200} intensity={0.25}>
             <TechStack tech={tech} className={projectCardTech} />
-          </Magnetic>
+          </div>
         </div>
-      </div>
+      </Magnetic>
 
       {caseStudyHref && (
         <Link
