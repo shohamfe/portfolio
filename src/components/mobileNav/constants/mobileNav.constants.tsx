@@ -16,16 +16,16 @@ export const NAV_ITEMS: readonly MobileNavItem[] = [
     activeIcon: <PiHouseFill />,
   },
   {
-    href: "/resume",
-    label: "Resume",
-    icon: <PiReadCvLogo />,
-    activeIcon: <PiReadCvLogoFill />,
-  },
-  {
     href: "/case-study",
     label: "Case Study",
     icon: <PiFileMagnifyingGlass />,
     activeIcon: <PiFileMagnifyingGlassFill />,
+  },
+  {
+    href: "/resume",
+    label: "Resume",
+    icon: <PiReadCvLogo />,
+    activeIcon: <PiReadCvLogoFill />,
   },
 ];
 

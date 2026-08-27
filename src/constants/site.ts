@@ -85,6 +85,6 @@ export const GA_MEASUREMENT_ID = "G-Q2MY5GERZT";
 
 export const ROUTES = [
   { href: "/", label: "Home" },
-  { href: "/resume", label: "Resume" },
   { href: "/case-study", label: "Case Study" },
+  { href: "/resume", label: "Resume" },
 ] as const;

@@ -26,6 +26,7 @@ import {
 } from "./constants/projectCard.constants";
 import {
   getProjectHref,
+  getProjectLinkAriaLabel,
   getProjectLinkIcon,
 } from "./helpers/projectCard.helpers";
 import type { ProjectCardProps } from "./types/projectCard.types";
@@ -73,7 +74,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               <p className={projectCardTitle}>{title}</p>
 
               {link.href === "#" ? (
-                <span aria-label={`${link.label} (coming soon)`}>
+                <span aria-label={getProjectLinkAriaLabel(link)}>
                   {linkChip}
                 </span>
               ) : (

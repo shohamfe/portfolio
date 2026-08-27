@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { PiArrowLeft } from "react-icons/pi";
 import Chip from "@/components/chip/Chip";
-import { getProjectLinkIcon } from "@/components/projectCard/helpers/projectCard.helpers";
+import {
+  getProjectLinkAriaLabel,
+  getProjectLinkIcon,
+} from "@/components/projectCard/helpers/projectCard.helpers";
 import TechStack from "@/components/techStack/TechStack";
 import { cn } from "@/lib/cn";
 import {
@@ -70,7 +73,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, detail }) => {
           <div className={heroFactSpacer} />
 
           {project.link.href === "#" ? (
-            <span aria-label={`${project.link.label} (coming soon)`}>
+            <span aria-label={getProjectLinkAriaLabel(project.link)}>
               {linkChip}
             </span>
           ) : (

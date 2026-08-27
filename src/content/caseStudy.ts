@@ -13,7 +13,13 @@ export interface CaseStudyProject {
   /** e.g. "/case-study/octseven.png" */
   image: string;
   accent: CaseStudyAccent;
-  link: { label: string; href: string };
+  link: {
+    label: string;
+    href: string;
+    /** Shown to screen readers in place of the default "coming soon" when
+     *  there will never be a link - e.g. a site that's been taken down. */
+    unavailableReason?: string;
+  };
 }
 
 export interface CaseStudyThread {
@@ -62,12 +68,17 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
     title: "OctSeven",
     meta: "October 7th Memorial Platform · Volunteer · 2023-2026",
     blurb:
-      "A public platform where families build memorial pages for the people they lost. Development started two weeks after October 7th",
+      "A public platform where families build memorial pages for the people they lost. Development started two weeks after October 7th.",
     role: "Core Frontend Developer",
     tech: ["Next.js", "Redux", "MUI"],
     image: "/case-study/octseven.png",
     accent: "pink",
-    link: { label: "Archive", href: "#" },
+    link: {
+      label: "Archive",
+      href: "#",
+      unavailableReason:
+        "the site was retired and its data merged into another platform",
+    },
   },
   {
     id: "aura-cloud",
