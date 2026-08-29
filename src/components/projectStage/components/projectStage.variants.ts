@@ -83,8 +83,12 @@ export const heroFactDivider =
 
 export const heroFactSpacer = "grow";
 
-export const windowRoot =
-  "group overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder transition duration-300 ease-out hover:scale-[1.015] hover:shadow-logo-card";
+/** Shared by the hero window and the evidence cards, so a screenshot always
+ *  lifts the same way whether it's the one big image or one of several. */
+const hoverLift =
+  "transition duration-300 ease-out hover:scale-[1.015] hover:shadow-logo-card";
+
+export const windowRoot = `group overflow-hidden rounded-[14px] border border-solid border-border-subtle bg-surface-raised shadow-folder ${hoverLift}`;
 
 export const windowBar =
   "flex items-center gap-2.5 border-b border-solid border-border-subtle bg-surface-page px-4 py-3";
@@ -141,8 +145,7 @@ export const evidenceIntro =
 
 export const evidenceGrid = "grid grid-cols-1 gap-6 md:grid-cols-2";
 
-export const evidenceCard =
-  "overflow-hidden rounded-xl border border-solid border-border-subtle bg-surface-raised";
+export const evidenceCard = `group overflow-hidden rounded-xl border border-solid border-border-subtle bg-surface-raised ${hoverLift}`;
 
 export const evidenceStage =
   "dot-grid relative flex h-65 items-center justify-center bg-surface-raised";

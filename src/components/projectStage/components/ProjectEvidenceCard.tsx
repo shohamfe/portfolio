@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ImageLightbox from "@/components/imageLightbox/ImageLightbox";
 import { cn } from "@/lib/cn";
 import ProjectPlaceholder from "./ProjectPlaceholder";
 import {
@@ -24,13 +25,15 @@ const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({ item }) => {
             className={cn(windowImage, "absolute inset-0 size-full")}
           />
         ) : item.image ? (
-          <Image
-            src={item.image}
-            alt={item.caption}
-            fill
-            sizes={EVIDENCE_IMAGE_SIZES}
-            className={windowImage}
-          />
+          <ImageLightbox src={item.image} alt={item.caption}>
+            <Image
+              src={item.image}
+              alt={item.caption}
+              fill
+              sizes={EVIDENCE_IMAGE_SIZES}
+              className={windowImage}
+            />
+          </ImageLightbox>
         ) : (
           <ProjectPlaceholder label={item.placeholder} />
         )}

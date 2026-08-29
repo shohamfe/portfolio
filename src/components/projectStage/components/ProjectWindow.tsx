@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ImageLightbox from "@/components/imageLightbox/ImageLightbox";
 import { cn } from "@/lib/cn";
 import ProjectPlaceholder from "./ProjectPlaceholder";
 import {
@@ -47,14 +48,16 @@ const ProjectWindow: React.FC<ProjectWindowProps> = ({
 
       <div className={cn(windowStage, "h-60 sm:h-80 lg:h-110")}>
         {image ? (
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            sizes={WINDOW_IMAGE_SIZES}
-            priority
-            className={windowImage}
-          />
+          <ImageLightbox src={image} alt={imageAlt}>
+            <Image
+              src={image}
+              alt={imageAlt}
+              fill
+              sizes={WINDOW_IMAGE_SIZES}
+              priority
+              className={windowImage}
+            />
+          </ImageLightbox>
         ) : (
           <ProjectPlaceholder label={placeholder} note={placeholderNote} />
         )}
