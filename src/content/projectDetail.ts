@@ -34,6 +34,8 @@ export interface ProjectEvidenceItem {
   id: string;
   caption: string;
   image?: string;
+  /** Takes over from `image` when set - an autoplaying, muted loop. */
+  video?: string;
   placeholder: string;
 }
 
@@ -139,21 +141,25 @@ const PROCUREMENT_DETAIL: ProjectDetail = {
       {
         id: "dashboard",
         caption: "Each widget loads and fails on its own.",
+        video: "/case-study/procurement-system/dashboard.mp4",
         placeholder: "[ dashboard - multi-source widgets ]",
       },
       {
         id: "requirement-table",
         caption: "Tens of thousands of rows, constant scroll cost.",
+        image: "/case-study/procurement-system/requirement-table.png",
         placeholder: "[ requirement table - virtualized ]",
       },
       {
         id: "schema-form",
         caption: "Fields resolve from the material type.",
+        image: "/case-study/procurement-system/schema-form.png",
         placeholder: "[ schema-driven form ]",
       },
       {
         id: "architecture",
         caption: "Query boundaries between UI and SAP Gateway.",
+        image: "/case-study/procurement-system/architecture.png",
         placeholder: "[ architecture diagram ]",
       },
     ],
@@ -182,6 +188,7 @@ const DRONE_DETAIL: ProjectDetail = {
     caption: "Live console - map, video feed and telemetry",
     badge: "Reconstruction",
     note: "Interface reconstructed with a generic site and an AI-generated drone feed. Not a real client's data.",
+    image: "/case-study/drone/main.png",
     placeholder: "[ hero screenshot - map, video feed, telemetry panel ]",
   },
   stakes: {
@@ -250,17 +257,20 @@ const DRONE_DETAIL: ProjectDetail = {
         id: "main-console",
         caption:
           "Guard and command room share this same live view - map, video feed and telemetry together.",
+        image: "/case-study/drone/main-console.png",
         placeholder: "[ main console - map, video feed, telemetry ]",
       },
       {
         id: "command-room-editing",
         caption:
           "The command room's added controls - waypoints, gates, fences, flight presets.",
+        image: "/case-study/drone/command-room-editing.png",
         placeholder: "[ command room - map editing tools ]",
       },
       {
         id: "mobile-view",
         caption: "The guard's view in the field.",
+        image: "/case-study/drone/mobile-view.png",
         placeholder: "[ mobile view - guard in the field ]",
       },
     ],
@@ -287,6 +297,7 @@ const OCTSEVEN_DETAIL: ProjectDetail = {
     caption: "Home page - memorial grid",
     badge: "Live Site",
     note: "octseven.com is live and public. Shown here are the grid page and a blank creation form - deliberately not an individual memorial page, out of respect for the families whose stories they hold.",
+    image: "/case-study/octseven/main.png",
     placeholder: "[ hero screenshot - home page, profile grid ]",
   },
   stakes: {
@@ -354,11 +365,13 @@ const OCTSEVEN_DETAIL: ProjectDetail = {
       {
         id: "home-grid",
         caption: "The full memorial grid, with filtering.",
+        image: "/case-study/octseven/home-grid.png",
         placeholder: "[ home page - profile grid ]",
       },
       {
         id: "create-profile-form",
         caption: "The schema-driven form used to create a profile.",
+        image: "/case-study/octseven/create-profile-form.png",
         placeholder: "[ create profile - schema-driven form ]",
       },
     ],
@@ -386,6 +399,7 @@ const AURA_CLOUD_DETAIL: ProjectDetail = {
     caption: "Dashboard - identity permission status",
     badge: "Academic Project",
     note: "Real screenshots from the working app, run locally against our own test AWS account - not a hosted, public product yet.",
+    image: "/case-study/aura-cloud/main.png",
     placeholder: "[ hero screenshot - dashboard, permission status ]",
   },
   stakes: {
@@ -453,21 +467,25 @@ const AURA_CLOUD_DETAIL: ProjectDetail = {
       {
         id: "dashboard",
         caption: "Permission status per identity, resolved from IAM.",
+        image: "/case-study/aura-cloud/dashboard.png",
         placeholder: "[ dashboard - permission status ]",
       },
       {
         id: "mcp-tools",
         caption: "The same evaluator, queried conversationally through MCP.",
+        image: "/case-study/aura-cloud/mcp-tools.png",
         placeholder: "[ MCP client - permission query ]",
       },
       {
         id: "watchlist",
         caption: "The watchlist a user manages, resources tracked over time.",
+        image: "/case-study/aura-cloud/watchlist.png",
         placeholder: "[ watchlist - manage page ]",
       },
       {
         id: "manager-view",
         caption: "A manager's view across the company's users and permissions.",
+        image: "/case-study/aura-cloud/manager-view.png",
         placeholder: "[ manager view ]",
       },
     ],

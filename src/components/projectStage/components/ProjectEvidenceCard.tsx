@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { cn } from "@/lib/cn";
 import ProjectPlaceholder from "./ProjectPlaceholder";
 import {
   evidenceCaption,
@@ -13,7 +14,16 @@ const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({ item }) => {
   return (
     <figure className={evidenceCard}>
       <div className={evidenceStage}>
-        {item.image ? (
+        {item.video ? (
+          <video
+            src={item.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={cn(windowImage, "absolute inset-0 size-full")}
+          />
+        ) : item.image ? (
           <Image
             src={item.image}
             alt={item.caption}
