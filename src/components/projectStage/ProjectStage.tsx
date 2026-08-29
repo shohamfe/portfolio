@@ -6,6 +6,7 @@ import type { ProjectStageProps } from "./types/projectStage.types";
 const ProjectStage: React.FC<ProjectStageProps> = ({
   project,
   detail,
+  previousProject,
   nextProject,
 }) => {
   return (
@@ -13,6 +14,7 @@ const ProjectStage: React.FC<ProjectStageProps> = ({
       <ProjectContent
         project={project}
         detail={detail}
+        previousProject={previousProject}
         nextProject={nextProject}
       />
     </ScrollStage>

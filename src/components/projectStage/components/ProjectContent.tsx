@@ -2,7 +2,7 @@ import { cn } from "@/lib/cn";
 import ProjectDecisionCard from "./ProjectDecisionCard";
 import ProjectEvidenceCard from "./ProjectEvidenceCard";
 import ProjectHero from "./ProjectHero";
-import ProjectNext from "./ProjectNext";
+import ProjectPager from "./ProjectPager";
 import ProjectProse from "./ProjectProse";
 import ProjectSection from "./ProjectSection";
 import ProjectWindow from "./ProjectWindow";
@@ -21,11 +21,17 @@ import type { ProjectStageProps } from "../types/projectStage.types";
 const ProjectContent: React.FC<ProjectStageProps> = ({
   project,
   detail,
+  previousProject,
   nextProject,
 }) => {
   return (
     <div id="project-content" className="flex w-full flex-col">
-      <ProjectHero project={project} detail={detail} />
+      <ProjectHero
+        project={project}
+        detail={detail}
+        previousProject={previousProject}
+        nextProject={nextProject}
+      />
 
       <div id="project-body-surface" className={bodySurface}>
         <div className={cn(sectionBleed, "pt-5")}>
@@ -70,7 +76,11 @@ const ProjectContent: React.FC<ProjectStageProps> = ({
         <ProjectProse index={6} section={detail.outcome} />
         <ProjectProse index={7} section={detail.whatIdChange} />
 
-        {nextProject && <ProjectNext project={nextProject} />}
+        <ProjectPager
+          variant="card"
+          previousProject={previousProject}
+          nextProject={nextProject}
+        />
       </div>
     </div>
   );

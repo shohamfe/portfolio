@@ -12,6 +12,7 @@ const MobileProject: React.FC<MobileProjectProps> = ({
   roleLabel,
   project,
   detail,
+  previousProject,
   nextProject,
 }) => {
   return (
@@ -26,6 +27,7 @@ const MobileProject: React.FC<MobileProjectProps> = ({
         <ProjectContent
           project={project}
           detail={detail}
+          previousProject={previousProject}
           nextProject={nextProject}
         />
       </div>

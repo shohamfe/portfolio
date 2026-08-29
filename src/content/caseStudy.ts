@@ -73,19 +73,14 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
     tech: ["Next.js", "Redux", "MUI"],
     image: "/case-study/octseven.png",
     accent: "pink",
-    link: {
-      label: "Archive",
-      href: "#",
-      unavailableReason:
-        "the site was retired and its data merged into another platform",
-    },
+    link: { label: "Visit Site", href: "https://www.octseven.com" },
   },
   {
     id: "aura-cloud",
     title: "Aura Cloud",
     meta: "AWS Resource Monitoring · Academic Project · 2026",
     blurb:
-      "Maps how AWS resources connect, and surfaces the permission mismatches hiding between them.",
+      "Resolves who can actually do what across AWS, and flags where identity and policy disagree.",
     role: "Full-Stack Developer & UX/UI",
     tech: ["React", "Node.js", "AWS", "MCP"],
     image: "/case-study/aura-cloud.png",

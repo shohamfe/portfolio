@@ -7,6 +7,7 @@ import {
 } from "@/components/projectCard/helpers/projectCard.helpers";
 import TechStack from "@/components/techStack/TechStack";
 import { cn } from "@/lib/cn";
+import ProjectPager from "./ProjectPager";
 import {
   heroBack,
   heroEyebrow,
@@ -28,7 +29,12 @@ import {
 import { CASE_STUDY_ROUTE } from "../constants/projectStage.constants";
 import type { ProjectHeroProps } from "../types/projectStage.types";
 
-const ProjectHero: React.FC<ProjectHeroProps> = ({ project, detail }) => {
+const ProjectHero: React.FC<ProjectHeroProps> = ({
+  project,
+  detail,
+  previousProject,
+  nextProject,
+}) => {
   const linkChip = (
     <Chip
       color={project.accent}
@@ -40,52 +46,60 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, detail }) => {
   );
 
   return (
-    <div className={cn(heroRoot, sectionBleed)}>
-      <div className={sectionInner}>
-        <Link href={CASE_STUDY_ROUTE} className={heroBack}>
-          <PiArrowLeft aria-hidden />
-          {detail.backLabel}
-        </Link>
+    <div className={heroRoot}>
+      <ProjectPager
+        variant="bar"
+        previousProject={previousProject}
+        nextProject={nextProject}
+      />
 
-        <div className={heroHead}>
-          <span className={heroEyebrow}>{detail.eyebrow}</span>
+      <div className={cn(sectionBleed, "pt-6 lg:pt-10")}>
+        <div className={sectionInner}>
+          <Link href={CASE_STUDY_ROUTE} className={heroBack}>
+            <PiArrowLeft aria-hidden />
+            {detail.backLabel}
+          </Link>
 
-          <h1 className={heroTitle}>{project.title}</h1>
+          <div className={heroHead}>
+            <span className={heroEyebrow}>{detail.eyebrow}</span>
 
-          <p className={heroMeta}>{project.meta}</p>
+            <h1 className={heroTitle}>{project.title}</h1>
 
-          <p className={heroHook}>{project.blurb}</p>
-        </div>
+            <p className={heroMeta}>{project.meta}</p>
 
-        <div className={heroFacts}>
-          <div className={heroFactGroup}>
-            <span className={heroFactLabel}>Role</span>
-            <span className={heroFactValue}>{project.role}</span>
+            <p className={heroHook}>{project.blurb}</p>
           </div>
 
-          <div className={heroFactDivider} />
+          <div className={heroFacts}>
+            <div className={heroFactGroup}>
+              <span className={heroFactLabel}>Role</span>
+              <span className={heroFactValue}>{project.role}</span>
+            </div>
 
-          <div className={heroFactGroup}>
-            <span className={heroFactLabel}>Stack</span>
-            <TechStack tech={project.tech} className={heroFactCode} />
+            <div className={heroFactDivider} />
+
+            <div className={heroFactGroup}>
+              <span className={heroFactLabel}>Stack</span>
+              <TechStack tech={project.tech} className={heroFactCode} />
+            </div>
+
+            <div className={heroFactSpacer} />
+
+            {project.link.href === "#" ? (
+              <span aria-label={getProjectLinkAriaLabel(project.link)}>
+                {linkChip}
+              </span>
+            ) : (
+              <a
+                href={project.link.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${project.link.label} for ${project.title}`}
+              >
+                {linkChip}
+              </a>
+            )}
           </div>
-
-          <div className={heroFactSpacer} />
-
-          {project.link.href === "#" ? (
-            <span aria-label={getProjectLinkAriaLabel(project.link)}>
-              {linkChip}
-            </span>
-          ) : (
-            <a
-              href={project.link.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${project.link.label} for ${project.title}`}
-            >
-              {linkChip}
-            </a>
-          )}
         </div>
       </div>
     </div>

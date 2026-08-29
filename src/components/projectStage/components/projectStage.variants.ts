@@ -10,7 +10,7 @@ export const stageScrollerOverrides = scrollerFullBleed;
 /** Spans the stage edge to edge, covering the page's dot grid from the bottom
  *  of the hero down. The hero itself gets no surface, which is what leaves it
  *  on the dots. */
-export const bodySurface = `${PAGE_SURFACE} pb-15`;
+export const bodySurface = PAGE_SURFACE;
 
 export const sectionBleed = cn("w-full px-5 lg:pr-10", contentInset);
 
@@ -48,10 +48,10 @@ export const calloutTag = "font-code text-accent";
 export const calloutNote =
   "text-[16px] leading-[1.5] text-pretty text-text-muted";
 
-export const heroRoot = "w-full pt-6 pb-8 lg:pb-10";
+export const heroRoot = "w-full pb-8 lg:pb-10";
 
 export const heroBack =
-  "mb-8 flex lg:mb-10 w-fit items-center gap-2 font-code text-small text-text-muted transition-colors hover:text-accent";
+  "-ml-3 mb-8 lg:mb-10 inline-flex w-fit items-center gap-2 rounded-full px-3 py-2 font-code text-small text-text-muted transition-colors hover:bg-accent/5 hover:text-accent";
 
 export const heroHead = "flex max-w-[900px] flex-col gap-5";
 
@@ -150,13 +150,31 @@ export const evidenceStage =
 export const evidenceCaption =
   "border-t border-solid border-border-subtle px-5 py-4 text-small text-text-muted";
 
-export const nextRoot =
-  "mt-24 w-full border-t border-solid border-border-subtle bg-surface-raised py-10";
+export const pagerCardRoot =
+  "mt-24 w-full border-t border-solid border-border-subtle bg-surface-raised";
 
-export const nextRow = "flex items-center gap-6";
+export const pagerBarRoot = "w-full border-b border-solid border-border-subtle";
 
-export const nextLabel =
+export const pagerRow = "flex items-stretch";
+
+export const pagerTile =
+  "group flex min-w-0 flex-1 items-center gap-4 bg-transparent transition-colors duration-150 hover:bg-primary-50 active:bg-primary-300/40 focus-visible:bg-primary-50 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent";
+
+export const pagerTilePaddingCard = "py-8 lg:py-10";
+
+export const pagerTilePaddingBar = "py-4";
+
+export const pagerTilePrevious = "justify-start pr-4";
+
+export const pagerTileNext = "justify-end pl-4 text-right";
+
+export const pagerDivider = "w-px shrink-0 self-stretch bg-border-subtle";
+
+export const pagerArrow =
+  "shrink-0 text-2xl text-text-muted transition-colors group-hover:text-accent";
+
+export const pagerLabel =
   "font-code text-tiny tracking-[0.08em] uppercase text-text-muted";
 
-export const nextTitle =
-  "font-display text-[24px] font-semibold text-text-strong transition-colors hover:text-accent";
+export const pagerTitle =
+  "min-w-0 truncate font-display text-[20px] font-semibold text-text-strong transition-colors group-hover:text-accent lg:text-[24px]";

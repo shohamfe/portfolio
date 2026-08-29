@@ -9,12 +9,15 @@ import type {
 export interface ProjectStageProps {
   project: CaseStudyProject;
   detail: ProjectDetail;
+  previousProject?: CaseStudyProject;
   nextProject?: CaseStudyProject;
 }
 
 export interface ProjectHeroProps {
   project: CaseStudyProject;
   detail: ProjectDetail;
+  previousProject?: CaseStudyProject;
+  nextProject?: CaseStudyProject;
 }
 
 export interface ProjectSectionProps {
@@ -49,8 +52,10 @@ export interface ProjectEvidenceCardProps {
   item: ProjectEvidenceItem;
 }
 
-export interface ProjectNextProps {
-  project: CaseStudyProject;
+export interface ProjectPagerProps {
+  previousProject?: CaseStudyProject;
+  nextProject?: CaseStudyProject;
+  variant: "card" | "bar";
 }
 
 export interface ProjectPlaceholderProps {

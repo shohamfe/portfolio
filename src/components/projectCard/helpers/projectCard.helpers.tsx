@@ -2,12 +2,13 @@ import { CASE_STUDY_ROUTE } from "@/components/projectStage/constants/projectSta
 import type { CaseStudyProject } from "@/content/caseStudy";
 import { PROJECT_DETAILS } from "@/content/projectDetail";
 import { FaFigma, FaGithub } from "react-icons/fa6";
-import { PiArchive } from "react-icons/pi";
+import { PiArchive, PiArrowSquareOut } from "react-icons/pi";
 
 const PROJECT_LINK_ICONS: Record<string, React.ReactNode> = {
   "Design Files": <FaFigma aria-hidden />,
   "Source Code": <FaGithub aria-hidden />,
   Archive: <PiArchive aria-hidden />,
+  "Visit Site": <PiArrowSquareOut aria-hidden />,
 };
 
 export const getProjectLinkIcon = (label: string): React.ReactNode =>

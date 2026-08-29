@@ -5,6 +5,7 @@ import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
 import { CASE_STUDY_PROJECTS } from "@/content/caseStudy";
 import {
   getNextProject,
+  getPreviousProject,
   getProject,
   PROJECT_DETAILS,
 } from "@/content/projectDetail";
@@ -39,6 +40,7 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
   const detail = PROJECT_DETAILS[slug];
   if (!project || !detail) notFound();
 
+  const previousProject = getPreviousProject(slug);
   const nextProject = getNextProject(slug);
   const roleLabel = resolveRoleLabel(query[ROLE_QUERY_PARAM]);
 
@@ -49,6 +51,7 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
           roleLabel={roleLabel}
           project={project}
           detail={detail}
+          previousProject={previousProject}
           nextProject={nextProject}
         />
       }
@@ -57,6 +60,7 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
         <ProjectStage
           project={project}
           detail={detail}
+          previousProject={previousProject}
           nextProject={nextProject}
         />
       </main>
