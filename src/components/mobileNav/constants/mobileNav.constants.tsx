@@ -1,4 +1,6 @@
 import {
+  PiFileMagnifyingGlass,
+  PiFileMagnifyingGlassFill,
   PiHouse,
   PiHouseFill,
   PiReadCvLogo,
@@ -12,6 +14,12 @@ export const NAV_ITEMS: readonly MobileNavItem[] = [
     label: "Home",
     icon: <PiHouse />,
     activeIcon: <PiHouseFill />,
+  },
+  {
+    href: "/case-study",
+    label: "Case Study",
+    icon: <PiFileMagnifyingGlass />,
+    activeIcon: <PiFileMagnifyingGlassFill />,
   },
   {
     href: "/resume",

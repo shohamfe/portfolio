@@ -5,6 +5,7 @@ import NavPill from "@/components/navPill/NavPill";
 import { CONTACT_ITEMS, SOCIAL_LINKS } from "@/constants/contact";
 import { ROUTES } from "@/constants/site";
 import { cn } from "@/lib/cn";
+import { isRouteActive } from "@/lib/routes";
 import { usePathname } from "next/navigation";
 import type { SiteNavProps } from "./types/siteNav.types";
 
@@ -35,7 +36,10 @@ const SiteNav: React.FC<SiteNavProps> = ({ trailing, className }) => {
         <ul className="flex items-center gap-2">
           {ROUTES.map((route) => (
             <li key={route.href}>
-              <NavPill href={route.href} active={pathname === route.href}>
+              <NavPill
+                href={route.href}
+                active={isRouteActive(pathname, route.href)}
+              >
                 {route.label}
               </NavPill>
             </li>

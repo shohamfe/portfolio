@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const chipVariants = cva(
-  "inline-flex items-center rounded-full px-3 py-1 font-ui text-tiny font-medium",
+  "inline-flex shrink-0 items-center gap-1 rounded-full whitespace-nowrap px-3 py-1 font-ui text-tiny font-medium",
   {
     variants: {
       color: {
@@ -14,6 +14,7 @@ export const chipVariants = cva(
       variant: {
         flat: "",
         solid: "",
+        bordered: "border-2 border-solid bg-surface-raised",
       },
     },
     compoundVariants: [
@@ -51,6 +52,32 @@ export const chipVariants = cva(
         color: "green",
         variant: "solid",
         class: "bg-success text-success-foreground",
+      },
+
+      {
+        color: "blue",
+        variant: "bordered",
+        class: "border-primary-300 text-primary",
+      },
+      {
+        color: "purple",
+        variant: "bordered",
+        class: "border-secondary-300 text-secondary",
+      },
+      {
+        color: "pink",
+        variant: "bordered",
+        class: "border-danger-300 text-danger",
+      },
+      {
+        color: "yellow",
+        variant: "bordered",
+        class: "border-warning-300 text-warning",
+      },
+      {
+        color: "green",
+        variant: "bordered",
+        class: "border-success-300 text-success",
       },
     ],
     defaultVariants: {
