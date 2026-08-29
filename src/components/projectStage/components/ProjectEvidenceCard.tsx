@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ImageLightbox from "@/components/imageLightbox/ImageLightbox";
+import { galleryTrigger } from "@/components/imageLightbox/components/imageLightbox.variants";
 import { cn } from "@/lib/cn";
 import ProjectPlaceholder from "./ProjectPlaceholder";
 import {
@@ -11,7 +11,11 @@ import {
 import { EVIDENCE_IMAGE_SIZES } from "../constants/projectStage.constants";
 import type { ProjectEvidenceCardProps } from "../types/projectStage.types";
 
-const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({ item }) => {
+const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({
+  item,
+  gallery,
+  galleryIndex,
+}) => {
   return (
     <figure className={evidenceCard}>
       <div className={evidenceStage}>
@@ -25,7 +29,7 @@ const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({ item }) => {
             className={cn(windowImage, "absolute inset-0 size-full")}
           />
         ) : item.image ? (
-          <ImageLightbox src={item.image} alt={item.caption}>
+          <>
             <Image
               src={item.image}
               alt={item.caption}
@@ -33,7 +37,16 @@ const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({ item }) => {
               sizes={EVIDENCE_IMAGE_SIZES}
               className={windowImage}
             />
-          </ImageLightbox>
+
+            {gallery && galleryIndex !== undefined && (
+              <button
+                type="button"
+                aria-label={`View ${item.caption} full size`}
+                className={galleryTrigger}
+                onClick={() => gallery.open(galleryIndex)}
+              />
+            )}
+          </>
         ) : (
           <ProjectPlaceholder label={item.placeholder} />
         )}

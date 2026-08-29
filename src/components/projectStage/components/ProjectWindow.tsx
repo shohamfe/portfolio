@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ImageLightbox from "@/components/imageLightbox/ImageLightbox";
+import { galleryTrigger } from "@/components/imageLightbox/components/imageLightbox.variants";
 import { cn } from "@/lib/cn";
 import ProjectPlaceholder from "./ProjectPlaceholder";
 import {
@@ -27,6 +27,8 @@ const ProjectWindow: React.FC<ProjectWindowProps> = ({
   imageAlt,
   placeholder,
   placeholderNote,
+  gallery,
+  galleryIndex,
 }) => {
   return (
     <div className={windowRoot}>
@@ -48,7 +50,7 @@ const ProjectWindow: React.FC<ProjectWindowProps> = ({
 
       <div className={cn(windowStage, "h-60 sm:h-80 lg:h-110")}>
         {image ? (
-          <ImageLightbox src={image} alt={imageAlt}>
+          <>
             <Image
               src={image}
               alt={imageAlt}
@@ -57,7 +59,16 @@ const ProjectWindow: React.FC<ProjectWindowProps> = ({
               priority
               className={windowImage}
             />
-          </ImageLightbox>
+
+            {gallery && galleryIndex !== undefined && (
+              <button
+                type="button"
+                aria-label={`View ${imageAlt} full size`}
+                className={galleryTrigger}
+                onClick={() => gallery.open(galleryIndex)}
+              />
+            )}
+          </>
         ) : (
           <ProjectPlaceholder label={placeholder} note={placeholderNote} />
         )}

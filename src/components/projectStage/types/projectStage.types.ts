@@ -1,3 +1,4 @@
+import type { ImageGallery } from "@/components/imageLightbox/types/imageLightbox.types";
 import type { CaseStudyProject } from "@/content/caseStudy";
 import type {
   ProjectDecision,
@@ -42,6 +43,9 @@ export interface ProjectWindowProps {
   imageAlt: string;
   placeholder: string;
   placeholderNote?: string;
+  /** Omitted when `image` is, since there's nothing to open. */
+  gallery?: ImageGallery;
+  galleryIndex?: number;
 }
 
 export interface ProjectDecisionCardProps {
@@ -50,6 +54,8 @@ export interface ProjectDecisionCardProps {
 
 export interface ProjectEvidenceCardProps {
   item: ProjectEvidenceItem;
+  gallery?: ImageGallery;
+  galleryIndex?: number;
 }
 
 export interface ProjectPagerProps {

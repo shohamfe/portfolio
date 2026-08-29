@@ -1,9 +1,26 @@
-export interface ImageLightboxProps {
-  /** Full-size image shown in the modal - the trigger's own thumbnail can be
-   *  a different crop/size. */
+export interface GalleryImage {
   src: string;
   alt: string;
-  /** The clickable thumbnail - typically a next/image with `fill`. */
-  children: React.ReactNode;
-  triggerClassName?: string;
+}
+
+export interface ImageGallery {
+  items: readonly GalleryImage[];
+  openIndex: number | null;
+  isOpen: boolean;
+  open: (index: number) => void;
+  close: () => void;
+  next: () => void;
+  previous: () => void;
+}
+
+export interface ImageGalleryModalProps {
+  gallery: ImageGallery;
+}
+
+export interface GlassTransitionCanvasProps {
+  /** The image to show. Changing this from a previous value crossfades to
+   *  it with the glass effect instead of cutting directly. */
+  src: string;
+  alt: string;
+  className?: string;
 }
