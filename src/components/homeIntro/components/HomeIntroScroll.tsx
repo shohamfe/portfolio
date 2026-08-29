@@ -19,7 +19,7 @@ const { passion, howIWork, about } = HOME_CONTENT;
 const HomeIntroScroll: React.FC<HomeIntroScrollProps> = ({ roleLabel }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { progress, hasOverflow } = useSmoothScrollProgress(
+  const { progress, hasOverflow, scrollToPercent } = useSmoothScrollProgress(
     wrapperRef,
     contentRef,
   );
@@ -27,7 +27,12 @@ const HomeIntroScroll: React.FC<HomeIntroScrollProps> = ({ roleLabel }) => {
   return (
     <div id="home-intro-scroll" className={introScroll}>
       {hasOverflow && (
-        <RulerScrollbar progress={progress} className={introRuler} />
+        <RulerScrollbar
+          progress={progress}
+          onSeek={scrollToPercent}
+          controlsId="home-intro-scroller"
+          className={introRuler}
+        />
       )}
 
       <div id="home-intro-scroller" ref={wrapperRef} className={introScroller}>

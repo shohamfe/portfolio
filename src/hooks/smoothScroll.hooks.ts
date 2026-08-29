@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, type RefObject } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "motion/react";
 
@@ -12,10 +18,18 @@ export const useSmoothScrollProgress = (
   wrapperRef: RefObject<HTMLElement | null>,
   contentRef: RefObject<HTMLElement | null>,
   eventsTarget: ScrollEventsTarget = "wrapper",
-): { progress: number; hasOverflow: boolean } => {
+): {
+  progress: number;
+  hasOverflow: boolean;
+  /** Animates to a 0-1 point in the scrollable range via Lenis; falls back
+   *  to an instant jump when Lenis is off (prefers-reduced-motion) or hasn't
+   *  mounted yet. */
+  scrollToPercent: (percent: number) => void;
+} => {
   const prefersReducedMotion = useReducedMotion();
   const [progress, setProgress] = useState(0);
   const [hasOverflow, setHasOverflow] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -55,8 +69,30 @@ export const useSmoothScrollProgress = (
         eventsTarget === "page" ? document.documentElement : wrapper,
     });
 
-    return () => lenis.destroy();
+    lenisRef.current = lenis;
+
+    return () => {
+      lenisRef.current = null;
+      lenis.destroy();
+    };
   }, [wrapperRef, contentRef, eventsTarget, prefersReducedMotion]);
 
-  return { progress, hasOverflow };
+  const scrollToPercent = useCallback(
+    (percent: number) => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+
+      const clamped = Math.min(1, Math.max(0, percent));
+      const target = clamped * (wrapper.scrollHeight - wrapper.clientHeight);
+
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(target);
+      } else {
+        wrapper.scrollTop = target;
+      }
+    },
+    [wrapperRef],
+  );
+
+  return { progress, hasOverflow, scrollToPercent };
 };

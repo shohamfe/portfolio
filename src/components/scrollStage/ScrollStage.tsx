@@ -24,14 +24,23 @@ const ScrollStage: React.FC<ScrollStageProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const { progress } = useSmoothScrollProgress(wrapperRef, contentRef, "page");
+  const { progress, scrollToPercent } = useSmoothScrollProgress(
+    wrapperRef,
+    contentRef,
+    "page",
+  );
 
   return (
     <div id={`${id}-stage`} className={cn(stageRoot, className)}>
       <StageHeader />
 
       <div id={`${id}-body`} className={stageBody}>
-        <RulerScrollbar progress={progress} className={stageRuler} />
+        <RulerScrollbar
+          progress={progress}
+          onSeek={scrollToPercent}
+          controlsId={`${id}-scroller`}
+          className={stageRuler}
+        />
 
         <div
           id={`${id}-scroller`}
