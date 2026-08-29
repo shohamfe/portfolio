@@ -2,7 +2,7 @@
 
 import ImageGalleryModal from "@/components/imageLightbox/ImageGalleryModal";
 import { useImageGallery } from "@/components/imageLightbox/hooks/imageGallery.hooks";
-import type { GalleryImage } from "@/components/imageLightbox/types/imageLightbox.types";
+import type { GalleryItem } from "@/components/imageLightbox/types/imageLightbox.types";
 import { cn } from "@/lib/cn";
 import { useMemo } from "react";
 import ProjectDecisionCard from "./ProjectDecisionCard";
@@ -32,13 +32,17 @@ const ProjectContent: React.FC<ProjectStageProps> = ({
 }) => {
   const heroAlt = `${project.title} interface`;
 
-  const galleryItems = useMemo<GalleryImage[]>(() => {
+  const galleryItems = useMemo<GalleryItem[]>(() => {
     const hero = detail.visual.image
-      ? [{ src: detail.visual.image, alt: heroAlt }]
+      ? [{ src: detail.visual.image, alt: heroAlt, type: "image" as const }]
       : [];
-    const evidence = detail.evidence.items
-      .filter((item): item is typeof item & { image: string } => !!item.image)
-      .map((item) => ({ src: item.image, alt: item.caption }));
+    const evidence = detail.evidence.items.flatMap((item): GalleryItem[] => {
+      if (item.video)
+        return [{ src: item.video, alt: item.caption, type: "video" }];
+      if (item.image)
+        return [{ src: item.image, alt: item.caption, type: "image" }];
+      return [];
+    });
 
     return [...hero, ...evidence];
   }, [detail, heroAlt]);
@@ -99,8 +103,10 @@ const ProjectContent: React.FC<ProjectStageProps> = ({
                   item={item}
                   gallery={gallery}
                   galleryIndex={
-                    item.image
-                      ? galleryItems.findIndex((g) => g.src === item.image)
+                    item.image || item.video
+                      ? galleryItems.findIndex(
+                          (g) => g.src === (item.image ?? item.video),
+                        )
                       : undefined
                   }
                 />

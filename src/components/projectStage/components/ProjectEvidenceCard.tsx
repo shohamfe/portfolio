@@ -20,14 +20,25 @@ const ProjectEvidenceCard: React.FC<ProjectEvidenceCardProps> = ({
     <figure className={evidenceCard}>
       <div className={evidenceStage}>
         {item.video ? (
-          <video
-            src={item.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={cn(windowImage, "absolute inset-0 size-full")}
-          />
+          <>
+            <video
+              src={item.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={cn(windowImage, "absolute inset-0 size-full")}
+            />
+
+            {gallery && galleryIndex !== undefined && (
+              <button
+                type="button"
+                aria-label={`View ${item.caption} full size`}
+                className={galleryTrigger}
+                onClick={() => gallery.open(galleryIndex)}
+              />
+            )}
+          </>
         ) : item.image ? (
           <>
             <Image

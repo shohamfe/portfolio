@@ -8,8 +8,14 @@ export const lightboxBackdrop = "absolute inset-0 bg-black/70 backdrop-blur-md";
 
 export const lightboxFigure = "relative z-10 h-[85vh] w-[90vw] max-w-5xl";
 
+// absolute (anchored to lightboxOverlay, itself fixed) rather than fixed
+// directly - iOS Safari can misplace `fixed` + `right-*` elements while the
+// modal has the body's scroll locked. No backdrop-blur here either: the
+// full-screen backdrop is already blurred, and stacking a second
+// backdrop-filter on a small rounded element on top of it is a known Safari
+// bug that can hide the button's own contents.
 const lightboxControl =
-  "fixed z-20 flex size-11 items-center justify-center rounded-full bg-black/70 text-2xl text-white backdrop-blur-md transition-colors hover:bg-black/85";
+  "absolute z-20 flex size-11 items-center justify-center rounded-full bg-black/80 text-2xl text-white transition-colors hover:bg-black/90";
 
 export const lightboxClose = `${lightboxControl} top-6 right-6`;
 

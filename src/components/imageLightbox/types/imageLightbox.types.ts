@@ -1,10 +1,11 @@
-export interface GalleryImage {
+export interface GalleryItem {
   src: string;
   alt: string;
+  type: "image" | "video";
 }
 
 export interface ImageGallery {
-  items: readonly GalleryImage[];
+  items: readonly GalleryItem[];
   openIndex: number | null;
   isOpen: boolean;
   open: (index: number) => void;

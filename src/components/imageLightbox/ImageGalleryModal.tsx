@@ -69,11 +69,14 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ gallery }) => {
 
             {/* Everything a click shouldn't dismiss through - the image and
              *  its controls - shares one floating ref, so useDismiss only
-             *  treats the backdrop itself as "outside". */}
+             *  treats the backdrop itself as "outside". Sized and centered
+             *  itself (rather than display:contents passing that through to
+             *  the grid parent) since Safari has long-standing bugs placing
+             *  absolutely positioned descendants of a display:contents box. */}
             <FloatingFocusManager context={context}>
               <div
                 ref={setFloating}
-                className="contents"
+                className="absolute inset-0 grid place-items-center"
                 onKeyDown={handleKeyDown}
                 {...getFloatingProps()}
               >
@@ -84,11 +87,32 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ gallery }) => {
                   exit={{ opacity: 0, scale: 0.92 }}
                   transition={LIGHTBOX_TRANSITION}
                 >
-                  <GlassTransitionCanvas
-                    src={current.src}
-                    alt={current.alt}
-                    className="size-full"
-                  />
+                  {/* The glass shader only composites image textures - a
+                   *  video plays natively instead of wiping between frames.
+                   *  Sized to its own aspect ratio rather than stretched with
+                   *  object-contain: a video element paints its own
+                   *  letterboxing opaque black, so leaving the surrounding
+                   *  space to this transparent wrapper instead keeps the
+                   *  modal's blurred backdrop visible around it. */}
+                  {current.type === "video" ? (
+                    <div className="flex size-full items-center justify-center">
+                      <video
+                        key={current.src}
+                        src={current.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="max-h-full max-w-full"
+                      />
+                    </div>
+                  ) : (
+                    <GlassTransitionCanvas
+                      src={current.src}
+                      alt={current.alt}
+                      className="size-full"
+                    />
+                  )}
                 </motion.div>
 
                 {hasMultiple && (
