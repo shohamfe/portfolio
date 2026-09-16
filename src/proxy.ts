@@ -65,9 +65,11 @@ export function proxy(request: NextRequest) {
     return notAcceptable(PRODUCIBLE_MEDIA_TYPES);
   }
 
-  /** Next owns `Vary` on rendered pages: it overwrites whatever Proxy sets,
-   *  whether via `set`, `append`, `next()` or `rewrite()`. Adding `Accept` to
-   *  the HTML branch therefore has to happen in `next.config.ts` `headers()`. */
+  /** Next owns `Vary` on rendered pages and overwrites whatever anything else
+   *  sets - Proxy via `set`, `append`, `next()` or `rewrite()`, and
+   *  `next.config.ts` `headers()` too, which lands its other headers but not
+   *  this one. So the HTML branch cannot advertise `Vary: Accept`; the markdown
+   *  branch does, and Vercel's CDN keys on `Accept` by default regardless. */
   return NextResponse.next();
 }
 
