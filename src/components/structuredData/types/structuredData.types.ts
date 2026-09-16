@@ -18,6 +18,7 @@ export interface PersonNode {
   email: string;
   telephone: string;
   knowsAbout: string[];
+  knowsLanguage: string[];
   sameAs: string[];
   address: PostalAddressNode;
 }

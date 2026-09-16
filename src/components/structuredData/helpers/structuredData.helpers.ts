@@ -5,6 +5,7 @@ import {
   HOME_BREADCRUMB_LABEL,
   SCHEMA_CONTEXT,
   SCHEMA_IDS,
+  SCHEMA_KNOWN_LANGUAGES,
   SCHEMA_LANGUAGE,
 } from "@/constants/structuredData";
 import {
@@ -49,6 +50,7 @@ export const buildPersonNode = (): PersonNode => ({
   email: CONTACT.email,
   telephone: LINKS.phone.replace("tel:", ""),
   knowsAbout: getKnowsAbout(),
+  knowsLanguage: [...SCHEMA_KNOWN_LANGUAGES],
   sameAs: [LINKS.linkedin, LINKS.github],
   address: {
     "@type": "PostalAddress",
