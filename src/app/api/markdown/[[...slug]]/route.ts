@@ -1,9 +1,9 @@
 import { ROLE_QUERY_PARAM } from "@/constants/site";
+import { applyVaryAccept } from "@/lib/markdown/acceptNegotiation";
 import {
-  ACCEPT_HEADER,
   MARKDOWN_CACHE_CONTROL,
   MARKDOWN_CONTENT_TYPE,
-  VARY_HEADER,
+  MARKDOWN_NOT_FOUND_CACHE_CONTROL,
 } from "@/lib/markdown/constants";
 import { buildNotFoundMarkdown } from "@/lib/markdown/notFoundMarkdown";
 import { buildPageMarkdown } from "@/lib/markdown/pageMarkdown";
@@ -14,11 +14,15 @@ interface MarkdownRouteContext {
   params: Promise<{ slug?: string[] }>;
 }
 
-const markdownHeaders = (): HeadersInit => ({
-  "Content-Type": MARKDOWN_CONTENT_TYPE,
-  "Cache-Control": MARKDOWN_CACHE_CONTROL,
-  [VARY_HEADER]: ACCEPT_HEADER,
-});
+const markdownHeaders = (cacheControl: string): Headers => {
+  const headers = new Headers({
+    "Content-Type": MARKDOWN_CONTENT_TYPE,
+    "Cache-Control": cacheControl,
+  });
+  applyVaryAccept(headers);
+
+  return headers;
+};
 
 export const GET = async (
   request: NextRequest,
@@ -30,7 +34,7 @@ export const GET = async (
   if (href === null) {
     return new Response(buildNotFoundMarkdown(`/${slug.join("/")}`), {
       status: 404,
-      headers: markdownHeaders(),
+      headers: markdownHeaders(MARKDOWN_NOT_FOUND_CACHE_CONTROL),
     });
   }
 
@@ -38,6 +42,6 @@ export const GET = async (
     request.nextUrl.searchParams.get(ROLE_QUERY_PARAM) ?? undefined;
 
   return new Response(buildPageMarkdown(href, roleParam), {
-    headers: markdownHeaders(),
+    headers: markdownHeaders(MARKDOWN_CACHE_CONTROL),
   });
 };

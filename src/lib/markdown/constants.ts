@@ -27,5 +27,9 @@ export const ROOT_MARKDOWN_SLUG = "index";
 export const MARKDOWN_CACHE_CONTROL =
   "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
 
+/** A guessed URL must not pin a 404 at the edge for an hour, in case a page
+ *  later appears at that path. */
+export const MARKDOWN_NOT_FOUND_CACHE_CONTROL = "no-store";
+
 export const VARY_HEADER = "Vary";
 export const ACCEPT_HEADER = "Accept";

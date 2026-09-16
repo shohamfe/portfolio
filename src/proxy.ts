@@ -65,11 +65,10 @@ export function proxy(request: NextRequest) {
     return notAcceptable(PRODUCIBLE_MEDIA_TYPES);
   }
 
-  const response = NextResponse.rewrite(request.nextUrl.clone());
-  response.headers.set("x-probe-set", "yes");
-  applyVaryAccept(response.headers);
-
-  return response;
+  /** Next owns `Vary` on rendered pages: it overwrites whatever Proxy sets,
+   *  whether via `set`, `append`, `next()` or `rewrite()`. Adding `Accept` to
+   *  the HTML branch therefore has to happen in `next.config.ts` `headers()`. */
+  return NextResponse.next();
 }
 
 export const config = {
