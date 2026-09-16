@@ -11,7 +11,7 @@ export const ABOUT_CONTENT: ProsePageProps = {
       id: "about-summary",
       title: "Summary",
       paragraphs: [
-        "I am Shoham Fellner, a software developer with a frontend focus and more than four years of experience building complex, data-heavy React applications. My background is equally split between engineering and UX/UI, which means I tend to take ownership of a feature from the first Figma frame through to the version running in production.",
+        "I am Shoham Fellner, a software developer with a frontend focus, specializing in building complex, data-heavy React applications. My background is equally split between engineering and UX/UI, which means I tend to take ownership of a feature from the first Figma frame through to the version running in production.",
         `I am based in ${LOCATION.locality}, Israel, and I work mostly in React and TypeScript on products where the hard part is the data: many sources, large volumes, and users who need an answer quickly.`,
       ],
     },

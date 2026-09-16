@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion } from "motion/react";
 import { useMagnetic } from "./hooks/magnetic.hooks";
 import type { MagneticProps } from "./types/magnetic.types";
+import { useIsMobile } from "../viewportSwitch/hooks/viewportSwitch.hooks";
 
 /** Pulls its child toward the cursor on hover, spring-returning to rest on
  *  mouse leave. Ported from https://21st.dev/@ibelick/components/magnetic/nested. */
@@ -15,6 +16,7 @@ const Magnetic: React.FC<MagneticProps> = ({
   springOptions,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const { springX, springY, handleMouseEnter, handleMouseLeave } = useMagnetic(
     ref,
@@ -25,6 +27,8 @@ const Magnetic: React.FC<MagneticProps> = ({
       springOptions,
     },
   );
+
+  if (isMobile) return children;
 
   return (
     <motion.div

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildLlmsTxt } from "@/lib/llmsTxt";
+import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
 import { absoluteUrl, SITE, SITE_PAGES } from "@/constants/site";
 
 const body = buildLlmsTxt();
@@ -58,6 +59,17 @@ describe("buildLlmsTxt", () => {
       expect(body).toContain(
         `- [${page.label}](${absoluteUrl(page.href)}): ${page.summary}`,
       );
+    });
+  });
+
+  it("lists every case study with its blurb as the note", () => {
+    expect(CASE_STUDY_PAGES.length).toBeGreaterThan(0);
+
+    CASE_STUDY_PAGES.forEach((page) => {
+      const url = absoluteUrl(page.href);
+
+      expect(body.split(`(${url})`).length - 1).toBe(1);
+      expect(body).toContain(`- [${page.label}](${url}): ${page.summary}`);
     });
   });
 });

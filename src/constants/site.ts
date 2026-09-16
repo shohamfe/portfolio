@@ -14,7 +14,7 @@ export const getSiteDescription = (roleLabel: {
   primary: string;
   secondary: string | null;
 }) =>
-  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
+  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} specializing in building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
 
 export const getRoleTitle = (roleLabel: {
   primary: string;
@@ -90,9 +90,9 @@ export const LOCATION = {
   country: "IL",
 } as const;
 
-/** Portfolio route exists but is intentionally left out of nav while it's a stub. */
 export const ROUTES = [
   { href: "/", label: "Home" },
+  { href: "/case-study", label: "Case Study" },
   { href: "/resume", label: "Resume" },
 ] as const;
 
@@ -128,10 +128,11 @@ export const SITE_PAGES = [
     priority: 0.7,
   },
   {
-    href: "/portfolio",
-    label: "Portfolio",
-    summary: "Selected work. Currently in progress.",
-    priority: 0.3,
+    href: "/case-study",
+    label: "Case Study",
+    summary:
+      "Four projects in depth - the problem, the constraints, what shipped, and what I would change.",
+    priority: 0.9,
   },
   {
     href: "/privacy",

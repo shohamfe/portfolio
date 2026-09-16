@@ -94,7 +94,7 @@ describe("buildPageGraph", () => {
   });
 
   it("resolves every @id reference within the graph", () => {
-    for (const path of ["/", "/resume", "/portfolio"]) {
+    for (const path of ["/", "/resume", "/case-study/octseven"]) {
       const graph = buildPageGraph({
         path,
         title: "Title",
@@ -111,7 +111,9 @@ describe("buildPageGraph", () => {
 
 describe("buildBreadcrumbListNode", () => {
   it("starts at the home URL and ends at the page URL", () => {
-    const breadcrumb = buildBreadcrumbListNode("/portfolio", "Portfolio");
+    const breadcrumb = buildBreadcrumbListNode("/case-study", [
+      { path: "/case-study", name: "Case Study" },
+    ]);
 
     expect(breadcrumb.itemListElement).toEqual([
       {
@@ -123,10 +125,27 @@ describe("buildBreadcrumbListNode", () => {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Portfolio",
-        item: `${SITE_URL}/portfolio`,
+        name: "Case Study",
+        item: `${SITE_URL}/case-study`,
       },
     ]);
+  });
+
+  it("numbers a nested trail from home through to the leaf", () => {
+    const breadcrumb = buildBreadcrumbListNode("/case-study/octseven", [
+      { path: "/case-study", name: "Case Study" },
+      { path: "/case-study/octseven", name: "OctSeven" },
+    ]);
+
+    expect(breadcrumb.itemListElement.map((item) => item.position)).toEqual([
+      1, 2, 3,
+    ]);
+    expect(breadcrumb.itemListElement[2]).toEqual({
+      "@type": "ListItem",
+      position: 3,
+      name: "OctSeven",
+      item: `${SITE_URL}/case-study/octseven`,
+    });
   });
 });
 

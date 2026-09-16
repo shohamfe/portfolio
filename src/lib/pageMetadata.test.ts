@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { ROLE_LABELS, SITE_URL } from "@/constants/site";
+import { CASE_STUDY_PROJECTS } from "@/content/caseStudy";
 import {
   buildPageMetadata,
+  CASE_STUDY_DESCRIPTION,
   canonicalUrl,
+  getProjectDescription,
   getResumeDescription,
-  PORTFOLIO_DESCRIPTION,
 } from "@/lib/pageMetadata";
 
 describe("canonicalUrl", () => {
@@ -75,9 +77,23 @@ describe("page descriptions", () => {
     );
   });
 
-  it("gives the portfolio a description of its own", () => {
-    expect(PORTFOLIO_DESCRIPTION).not.toBe(
+  it("gives the case study index a description of its own", () => {
+    expect(CASE_STUDY_DESCRIPTION).not.toBe(
       getResumeDescription(ROLE_LABELS.default),
     );
+
+    CASE_STUDY_PROJECTS.forEach((project) => {
+      expect(CASE_STUDY_DESCRIPTION).toContain(project.title);
+    });
+  });
+
+  it("describes each project from its own copy", () => {
+    CASE_STUDY_PROJECTS.forEach((project) => {
+      const description = getProjectDescription(project);
+
+      expect(description).toContain(project.title);
+      expect(description).toContain(project.blurb);
+      expect(description).toContain(project.role);
+    });
   });
 });

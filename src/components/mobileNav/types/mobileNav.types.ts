@@ -1,7 +1,14 @@
+import type { ReactNode } from "react";
+
 export interface MobileNavItem {
   href: string;
   label: string;
-  icon: React.ReactNode;
-  /** Outbound links open in a new tab and never read as the active tab. */
-  external?: boolean;
+  icon: ReactNode;
+  /** Rendered instead of `icon` on the current route - same glyph, filled weight. */
+  activeIcon: ReactNode;
+}
+
+export interface MobileNavItemProps {
+  item: MobileNavItem;
+  active: boolean;
 }

@@ -19,6 +19,7 @@ import { TECH_FOLDERS } from "@/constants/tech";
 import { canonicalUrl } from "@/lib/pageMetadata";
 import type {
   BreadcrumbListNode,
+  BreadcrumbTrailItem,
   PageGraphInput,
   PersonNode,
   StructuredDataGraph,
@@ -94,7 +95,7 @@ export const buildWebPageNode = ({
 
 export const buildBreadcrumbListNode = (
   path: string,
-  label: string,
+  trail: readonly BreadcrumbTrailItem[],
 ): BreadcrumbListNode => ({
   "@type": "BreadcrumbList",
   "@id": getBreadcrumbId(path),
@@ -105,12 +106,12 @@ export const buildBreadcrumbListNode = (
       name: HOME_BREADCRUMB_LABEL,
       item: canonicalUrl(HOME_PATH),
     },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: label,
-      item: canonicalUrl(path),
-    },
+    ...trail.map((step, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 2,
+      name: step.name,
+      item: canonicalUrl(step.path),
+    })),
   ],
 });
 
@@ -118,9 +119,11 @@ export const buildPageGraph = ({
   path,
   title,
   description,
+  breadcrumbTrail,
 }: PageGraphInput): StructuredDataGraph => {
   const webPage = buildWebPageNode({ path, title, description });
   const isHome = path === HOME_PATH;
+  const trail = breadcrumbTrail ?? [{ path, name: getPageLabel(path) }];
 
   return {
     "@context": SCHEMA_CONTEXT,
@@ -130,7 +133,7 @@ export const buildPageGraph = ({
           buildPersonNode(),
           buildWebSiteNode(),
           webPage,
-          buildBreadcrumbListNode(path, getPageLabel(path)),
+          buildBreadcrumbListNode(path, trail),
         ],
   };
 };

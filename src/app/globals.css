@@ -167,7 +167,8 @@
 
   a,
   button,
-  [role="button"] {
+  [role="button"],
+  [role="scrollbar"] {
     cursor:
       url("/cursors/pointer.svg") 10 5,
       pointer;
@@ -189,6 +190,7 @@
   a *,
   button *,
   [role="button"] *,
+  [role="scrollbar"] *,
   [data-grabbable] * {
     cursor: inherit;
   }

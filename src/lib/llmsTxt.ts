@@ -1,9 +1,11 @@
 import {
+  LLMS_TXT_CASE_STUDIES_HEADING,
   LLMS_TXT_ELSEWHERE_HEADING,
   LLMS_TXT_ELSEWHERE_LINKS,
   LLMS_TXT_INTRO_PARAGRAPHS,
   LLMS_TXT_PAGES_HEADING,
 } from "@/constants/llmsTxt";
+import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
 import { absoluteUrl, SITE, SITE_PAGES } from "@/constants/site";
 
 const linkLine = (label: string, url: string, note: string): string =>
@@ -20,6 +22,10 @@ export const buildLlmsTxt = (): string => {
     linkLine(page.label, absoluteUrl(page.href), page.summary),
   );
 
+  const caseStudyLinks = CASE_STUDY_PAGES.map((page) =>
+    linkLine(page.label, absoluteUrl(page.href), page.summary),
+  );
+
   const elsewhereLinks = LLMS_TXT_ELSEWHERE_LINKS.map((link) =>
     linkLine(link.label, link.url, link.note),
   );
@@ -29,6 +35,7 @@ export const buildLlmsTxt = (): string => {
     summary,
     ...LLMS_TXT_INTRO_PARAGRAPHS,
     `## ${LLMS_TXT_PAGES_HEADING}\n${pageLinks.join("\n")}`,
+    `## ${LLMS_TXT_CASE_STUDIES_HEADING}\n${caseStudyLinks.join("\n")}`,
     `## ${LLMS_TXT_ELSEWHERE_HEADING}\n${elsewhereLinks.join("\n")}`,
   ];
 

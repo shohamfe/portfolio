@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { absoluteUrl, SITE } from "@/constants/site";
+import {
+  CASE_STUDY_PROJECTS,
+  type CaseStudyProject,
+} from "@/content/caseStudy";
 import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 
 export interface RoleLabel {
@@ -37,7 +41,10 @@ const formatRole = (roleLabel: RoleLabel): string =>
 export const getResumeDescription = (roleLabel: RoleLabel): string =>
   `Resume of ${SITE.name}, ${formatRole(roleLabel)}: lead frontend and UX/UI work on a mission-critical IDF procurement system, real-time drone awareness dashboards at Nando, the OctSeven.com memorial site, and a B.Sc. in Computer Science - plus a downloadable CV.`;
 
-export const PORTFOLIO_DESCRIPTION = `Selected work by ${SITE.name}. The case studies are still in the works - until then, the resume covers the projects, the systems behind them, and the stack they were built with.`;
+export const CASE_STUDY_DESCRIPTION = `Case studies by ${SITE.name}: ${CASE_STUDY_PROJECTS.map((project) => project.title).join(", ")} - the stakes behind each one, the decisions taken, their trade-offs, and what I would change.`;
+
+export const getProjectDescription = (project: CaseStudyProject): string =>
+  `${project.title} - ${project.meta}. ${project.blurb} Role: ${project.role}. Built with ${project.tech.join(", ")}.`;
 
 /** Every route re-declares the full OpenGraph object because metadata from
  *  nested segments replaces the parent's rather than merging into it. */

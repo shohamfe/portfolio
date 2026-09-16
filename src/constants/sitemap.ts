@@ -14,7 +14,7 @@ export const PAGE_LAST_MODIFIED: Record<SitePageHref, string> = {
   "/resume": "2026-09-16",
   "/about": "2026-09-16",
   "/contact": "2026-09-16",
-  "/portfolio": "2026-09-16",
+  "/case-study": "2026-09-16",
   "/privacy": "2026-09-16",
 };
 
@@ -23,6 +23,16 @@ export const PAGE_CHANGE_FREQUENCY: Record<SitePageHref, ChangeFrequency> = {
   "/resume": "monthly",
   "/about": "yearly",
   "/contact": "yearly",
-  "/portfolio": "monthly",
+  "/case-study": "monthly",
   "/privacy": "yearly",
 };
+
+/** The detail routes are derived from the project list, so they cannot be keyed
+ *  by a literal href union the way the fixed pages are. They ship as one set and
+ *  share a single hand-maintained date, which keeps the build clock out of it
+ *  while still making a new project impossible to miss. */
+export const CASE_STUDY_LAST_MODIFIED = "2026-09-16";
+
+export const CASE_STUDY_CHANGE_FREQUENCY: ChangeFrequency = "monthly";
+
+export const CASE_STUDY_PRIORITY = 0.8;

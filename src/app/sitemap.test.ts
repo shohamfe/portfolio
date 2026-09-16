@@ -1,16 +1,33 @@
 import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
-import { absoluteUrl, SITE_PAGES } from "@/constants/site";
+import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
+import { absoluteUrl, SITE_PAGES, SITE_URL } from "@/constants/site";
 
 describe("sitemap", () => {
   it("includes every site page exactly once, as an absolute URL", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    expect(urls).toEqual(SITE_PAGES.map((page) => absoluteUrl(page.href)));
+    expect(urls).toEqual([
+      ...SITE_PAGES.map((page) => absoluteUrl(page.href)),
+      ...CASE_STUDY_PAGES.map((page) => absoluteUrl(page.href)),
+    ]);
 
     urls.forEach((url) => {
       expect(() => new URL(url)).not.toThrow();
       expect(url).toMatch(/^https?:\/\//);
+    });
+  });
+
+  it("lists every case study detail route exactly once, as an absolute URL", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    expect(CASE_STUDY_PAGES.length).toBeGreaterThan(0);
+
+    CASE_STUDY_PAGES.forEach((page) => {
+      const url = absoluteUrl(page.href);
+
+      expect(url).toBe(`${SITE_URL}${page.href}`);
+      expect(urls.filter((entry) => entry === url)).toHaveLength(1);
     });
   });
 

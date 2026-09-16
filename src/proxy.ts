@@ -79,6 +79,6 @@ export const config = {
    *  negotiating them would only risk a spurious 406. `.md` is deliberately not
    *  in the excluded extension list. */
   matcher: [
-    "/((?!api/|_next/|_vercel/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml|json|pdf|js|css|map|woff|woff2|ttf)$).*)",
+    "/((?!api/|_next/|_vercel/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml|json|pdf|js|css|map|woff|woff2|ttf|mp4|webm)$).*)",
   ],
 };

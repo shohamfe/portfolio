@@ -6,8 +6,8 @@ import {
   MARKDOWN_NOT_FOUND_CACHE_CONTROL,
 } from "@/lib/markdown/constants";
 import { buildNotFoundMarkdown } from "@/lib/markdown/notFoundMarkdown";
-import { buildPageMarkdown } from "@/lib/markdown/pageMarkdown";
-import { resolveSitePageHref } from "@/lib/markdown/markdownRoutes";
+import { buildMarkdownForTarget } from "@/lib/markdown/pageMarkdown";
+import { resolveMarkdownTarget } from "@/lib/markdown/markdownRoutes";
 import type { NextRequest } from "next/server";
 
 interface MarkdownRouteContext {
@@ -29,19 +29,21 @@ export const GET = async (
   { params }: MarkdownRouteContext,
 ) => {
   const { slug = [] } = await params;
-  const href = resolveSitePageHref(slug);
+  const target = resolveMarkdownTarget(slug);
 
-  if (href === null) {
+  const roleParam =
+    request.nextUrl.searchParams.get(ROLE_QUERY_PARAM) ?? undefined;
+
+  const markdown = target && buildMarkdownForTarget(target, roleParam);
+
+  if (markdown === null) {
     return new Response(buildNotFoundMarkdown(`/${slug.join("/")}`), {
       status: 404,
       headers: markdownHeaders(MARKDOWN_NOT_FOUND_CACHE_CONTROL),
     });
   }
 
-  const roleParam =
-    request.nextUrl.searchParams.get(ROLE_QUERY_PARAM) ?? undefined;
-
-  return new Response(buildPageMarkdown(href, roleParam), {
+  return new Response(markdown, {
     headers: markdownHeaders(MARKDOWN_CACHE_CONTROL),
   });
 };

@@ -1,3 +1,4 @@
+import { findCaseStudyPage } from "@/constants/caseStudyPages";
 import { SITE_PAGES } from "@/constants/site";
 import {
   MARKDOWN_EXTENSION,
@@ -7,7 +8,14 @@ import {
 
 export type SitePageHref = (typeof SITE_PAGES)[number]["href"];
 
+/** A site page and a case study resolve to different generators, so the route
+ *  layer hands back which one it found rather than a bare href. */
+export type MarkdownTarget =
+  { kind: "page"; href: SitePageHref } | { kind: "caseStudy"; slug: string };
+
 const HOME_HREF = "/";
+
+const CASE_STUDY_SEGMENT = "case-study";
 
 const isSitePageHref = (href: string): href is SitePageHref =>
   SITE_PAGES.some((page) => page.href === href);
@@ -35,14 +43,24 @@ export const hrefFromMarkdownUrlPath = (pathname: string): string => {
 
 /** Resolves the catch-all segments the route handler receives back to a site
  *  route, or `null` when nothing on this site answers to it. */
-export const resolveSitePageHref = (
+export const resolveMarkdownTarget = (
   slugSegments: readonly string[],
-): SitePageHref | null => {
+): MarkdownTarget | null => {
   const joined = slugSegments.join("/");
 
-  if (joined.length === 0 || joined === ROOT_MARKDOWN_SLUG) return HOME_HREF;
+  if (joined.length === 0 || joined === ROOT_MARKDOWN_SLUG) {
+    return { kind: "page", href: HOME_HREF };
+  }
+
+  if (slugSegments.length === 2 && slugSegments[0] === CASE_STUDY_SEGMENT) {
+    const caseStudyPage = findCaseStudyPage(slugSegments[1]);
+
+    return caseStudyPage
+      ? { kind: "caseStudy", slug: caseStudyPage.slug }
+      : null;
+  }
 
   const href = `/${joined}`;
 
-  return isSitePageHref(href) ? href : null;
+  return isSitePageHref(href) ? { kind: "page", href } : null;
 };

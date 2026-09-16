@@ -1,0 +1,13 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 5600,
+      "title": "Procurement — Case Study"
+    }
+  ],
+  "launch": { "view": "focused", "file": "Main.dc.html" }
+}

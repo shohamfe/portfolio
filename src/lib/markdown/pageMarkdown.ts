@@ -2,9 +2,13 @@ import { resolveRoleLabel, SITE } from "@/constants/site";
 import { ABOUT_CONTENT } from "@/content/about";
 import { CONTACT_CONTENT } from "@/content/contact";
 import { PRIVACY_CONTENT } from "@/content/privacy";
+import { buildCaseStudyMarkdown } from "@/lib/markdown/caseStudyMarkdown";
 import { buildHomeMarkdown } from "@/lib/markdown/homeMarkdown";
-import type { SitePageHref } from "@/lib/markdown/markdownRoutes";
-import { buildPortfolioMarkdown } from "@/lib/markdown/portfolioMarkdown";
+import type {
+  MarkdownTarget,
+  SitePageHref,
+} from "@/lib/markdown/markdownRoutes";
+import { buildProjectMarkdown } from "@/lib/markdown/projectMarkdown";
 import { buildProsePageMarkdown } from "@/lib/markdown/prosePageMarkdown";
 import { buildResumeMarkdown } from "@/lib/markdown/resumeMarkdown";
 
@@ -39,7 +43,15 @@ export const buildPageMarkdown = (
         PRIVACY_CONTENT,
         `Privacy - ${SITE.name}`,
       );
-    case "/portfolio":
-      return buildPortfolioMarkdown();
+    case "/case-study":
+      return buildCaseStudyMarkdown();
   }
 };
+
+export const buildMarkdownForTarget = (
+  target: MarkdownTarget,
+  roleParam: string | undefined,
+): string | null =>
+  target.kind === "page"
+    ? buildPageMarkdown(target.href, roleParam)
+    : buildProjectMarkdown(target.slug);

@@ -67,10 +67,18 @@ export interface StructuredDataGraph {
   "@graph": StructuredDataNode[];
 }
 
+export interface BreadcrumbTrailItem {
+  path: string;
+  name: string;
+}
+
 export interface PageGraphInput {
   path: string;
   title: string;
   description: string;
+  /** Every step after Home. Defaults to the page itself, so only a nested route
+   *  has to spell its trail out. */
+  breadcrumbTrail?: readonly BreadcrumbTrailItem[];
 }
 
 export interface StructuredDataProps {
