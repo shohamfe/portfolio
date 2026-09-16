@@ -58,8 +58,8 @@ export function proxy(request: NextRequest) {
     return rewriteToMarkdown(request, hrefFromMarkdownUrlPath(pathname));
   }
 
-  /** Flight payloads are Next's to answer, and neither the RSC header nor the
-   *  _rsc param survives into Proxy, so the media type is the signal left. */
+  /** A client that asks for the Flight payload gets Next's answer, not a
+   *  negotiated one - without this it would fall through to a 406. */
   if (namesMediaType(acceptHeader, RSC_MEDIA_TYPE)) return NextResponse.next();
 
   const chosenType = negotiateMediaType(acceptHeader, PRODUCIBLE_MEDIA_TYPES);

@@ -178,9 +178,10 @@ describe("resume CV link", () => {
 
     expect(defaultMarkdown).toContain(getCvUrl(ROLE_LABELS.default));
     expect(frontendMarkdown).toContain(getCvUrl(ROLE_LABELS.frontend));
-    expect(getCvUrl(ROLE_LABELS.frontend)).not.toBe(
-      getCvUrl(ROLE_LABELS.default),
-    );
+
+    /** The default URL is a prefix of the frontend one, so only the absence of
+     *  the frontend URL proves the default role did not emit it. */
+    expect(defaultMarkdown).not.toContain(getCvUrl(ROLE_LABELS.frontend));
   });
 });
 
