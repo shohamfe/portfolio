@@ -106,17 +106,18 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
         href: "https://octseven.com",
         bullets: [
           "Core frontend developer from two weeks after October 7 through post-launch development of a public memorial site where families create and share memorial pages for their loved ones.",
-          "Built the home page, main search, and the user and memorial creation forms, writing the largest share of frontend code (React, Redux, MUI, Uppy, JWT, i18n multilingual support).",
+          "Built the home page, main layout, and the user and memorial creation forms, writing the largest share of frontend code (React, Redux, MUI, Uppy, JWT, i18n multilingual support).",
         ],
       },
       {
         id: "aura-cloud",
         year: "2026",
-        title: "Aura Cloud - Cloud Monitoring System",
+        title: "Aura Cloud - Cloud Resources Monitoring System",
         href: "https://github.com/giladyavneh/AuraCloud",
         subtitle: "Academic Project",
         bullets: [
-          "Led UX/UI and full-stack development (React, Node.js) of a dashboard mapping AWS resource connectivity and surfacing permission mismatches, significantly reducing DevOps investigation time.",
+          "Architected and led full-stack development (React, TypeScript, Node.js) of Aura Cloud, a multi-tenant SaaS platform for AWS infrastructure observability, mapping resource connectivity and surfacing permission mismatches to significantly reduce DevOps investigation time.",
+          "Designed the system's core data/status model — a single-source-of-truth resolver distinguishing local code bugs from cloud environment/permission errors across a microservices architecture (crawlers, cache, API server, dashboard).",
           "Designing an MCP integration so external AI agents can query the system data autonomously.",
         ],
       },
