@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import Script from "next/script";
 import {
   Syne,
   Google_Sans_Flex,
@@ -86,10 +85,16 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
       className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh bg-white antialiased`}
     >
       <head>
-        {/* Detects the real viewport before hydration */}
-        <Script id="viewport-detect" strategy="beforeInteractive">
-          {`try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`}
-        </Script>
+        {/* Hides the document before first paint at mobile widths, where the
+            server has no way to know it rendered the wrong tree; ViewportReveal
+            clears it once the client has picked. Raw and inline because
+            next/script's beforeInteractive is deferred into the __next_s queue,
+            which drains after paint - too late to gate anything. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`,
+          }}
+        />
 
         {/* llms.txt v2: points agents at the index that describes this page. */}
         <link rel="describedby" href="/llms.txt" />
