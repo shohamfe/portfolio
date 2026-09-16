@@ -208,6 +208,18 @@ describe("namesMediaType", () => {
     expect(namesMediaType("text/x-component;q=0.9", RSC_MEDIA_TYPE)).toBe(true);
   });
 
+  it("matches a candidate given in any case", () => {
+    expect(namesMediaType("text/x-component", "TEXT/X-COMPONENT")).toBe(true);
+    expect(explicitlyRejects("text/markdown;q=0", "TEXT/MARKDOWN")).toBe(true);
+  });
+
+  it("treats q=0 as a refusal, not a request", () => {
+    expect(namesMediaType("text/x-component;q=0", RSC_MEDIA_TYPE)).toBe(false);
+    expect(
+      namesMediaType("text/x-component;q=0, text/html", RSC_MEDIA_TYPE),
+    ).toBe(false);
+  });
+
   it("does not count a wildcard as naming the type", () => {
     expect(namesMediaType("*/*", RSC_MEDIA_TYPE)).toBe(false);
     expect(namesMediaType("text/*", RSC_MEDIA_TYPE)).toBe(false);
