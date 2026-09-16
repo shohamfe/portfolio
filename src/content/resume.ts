@@ -136,9 +136,9 @@ export const RESUME_SECTIONS: readonly ResumeSection[] = [
     entries: [
       {
         id: "bsc",
+        year: "2026",
         title: "B.Sc. Computer Science",
-        subtitle:
-          "The Academic College of Tel Aviv-Yaffo - Expected October 2026 (final course)",
+        subtitle: "The Academic College of Tel Aviv-Yaffo",
         bullets: [],
       },
       {

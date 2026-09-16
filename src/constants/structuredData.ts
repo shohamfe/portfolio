@@ -7,6 +7,8 @@ export const SCHEMA_LANGUAGE = "en";
 /** Matches what the contact page promises about correspondence. */
 export const SCHEMA_KNOWN_LANGUAGES = ["en", "he"] as const;
 
+export const SCHEMA_ALMA_MATER = "The Academic College of Tel Aviv-Yaffo";
+
 /** Stable node identifiers so every page can reference the same Person and
  *  WebSite instead of repeating them. */
 export const SCHEMA_IDS = {

@@ -4,6 +4,7 @@ import {
   getWebPageId,
   HOME_BREADCRUMB_LABEL,
   SCHEMA_CONTEXT,
+  SCHEMA_ALMA_MATER,
   SCHEMA_IDS,
   SCHEMA_KNOWN_LANGUAGES,
   SCHEMA_LANGUAGE,
@@ -51,6 +52,10 @@ export const buildPersonNode = (): PersonNode => ({
   telephone: LINKS.phone.replace("tel:", ""),
   knowsAbout: getKnowsAbout(),
   knowsLanguage: [...SCHEMA_KNOWN_LANGUAGES],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: SCHEMA_ALMA_MATER,
+  },
   sameAs: [LINKS.linkedin, LINKS.github],
   address: {
     "@type": "PostalAddress",

@@ -19,6 +19,10 @@ export interface PersonNode {
   telephone: string;
   knowsAbout: string[];
   knowsLanguage: string[];
+  alumniOf: {
+    "@type": "CollegeOrUniversity";
+    name: string;
+  };
   sameAs: string[];
   address: PostalAddressNode;
 }
