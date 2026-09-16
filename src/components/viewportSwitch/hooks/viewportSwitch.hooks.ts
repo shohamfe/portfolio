@@ -12,7 +12,6 @@ export const useIsMobile = (): boolean => {
 
     sync();
     mql.addEventListener("change", sync);
-    document.documentElement.style.visibility = "";
 
     return () => mql.removeEventListener("change", sync);
   }, []);

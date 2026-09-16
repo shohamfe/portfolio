@@ -10,7 +10,11 @@ const ProjectStage: React.FC<ProjectStageProps> = ({
   nextProject,
 }) => {
   return (
-    <ScrollStage id="project" scrollerClassName={stageScrollerOverrides}>
+    <ScrollStage
+      id="project"
+      scrollerClassName={stageScrollerOverrides}
+      pageHasOwnHeading
+    >
       <ProjectContent
         project={project}
         detail={detail}

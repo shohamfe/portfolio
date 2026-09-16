@@ -1,7 +1,14 @@
 import MobileProject from "@/components/mobileProject/MobileProject";
 import ProjectStage from "@/components/projectStage/ProjectStage";
+import { buildPageGraph } from "@/components/structuredData/helpers/structuredData.helpers";
+import StructuredData from "@/components/structuredData/StructuredData";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
+import {
+  CASE_STUDY_INDEX_HREF,
+  caseStudyHref,
+} from "@/constants/caseStudyPages";
 import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
+import { getPageLabel } from "@/constants/structuredData";
 import { CASE_STUDY_PROJECTS } from "@/content/caseStudy";
 import {
   getNextProject,
@@ -9,10 +16,13 @@ import {
   getProject,
   PROJECT_DETAILS,
 } from "@/content/projectDetail";
+import { buildPageMetadata, getProjectDescription } from "@/lib/pageMetadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { caseStudyPageRoot } from "../styles/caseStudyPage.variants";
 import type { ProjectPageProps } from "./types/projectPage.types";
+
+const projectTitle = (title: string): string => `${title} - ${SITE.name}`;
 
 export const generateStaticParams = async () =>
   CASE_STUDY_PROJECTS.filter(({ id }) => id in PROJECT_DETAILS).map(
@@ -27,10 +37,11 @@ export const generateMetadata = async ({
 
   if (!project) return { title: `Case Study - ${SITE.name}` };
 
-  return {
-    title: `${project.title} - ${SITE.name}`,
-    description: project.blurb,
-  };
+  return buildPageMetadata({
+    path: caseStudyHref(slug),
+    title: projectTitle(project.title),
+    description: getProjectDescription(project),
+  });
 };
 
 const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
@@ -44,27 +55,45 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
   const nextProject = getNextProject(slug);
   const roleLabel = resolveRoleLabel(query[ROLE_QUERY_PARAM]);
 
+  const path = caseStudyHref(slug);
+  const graph = buildPageGraph({
+    path,
+    title: projectTitle(project.title),
+    description: getProjectDescription(project),
+    breadcrumbTrail: [
+      {
+        path: CASE_STUDY_INDEX_HREF,
+        name: getPageLabel(CASE_STUDY_INDEX_HREF),
+      },
+      { path, name: project.title },
+    ],
+  });
+
   return (
-    <ViewportSwitch
-      mobile={
-        <MobileProject
-          roleLabel={roleLabel}
-          project={project}
-          detail={detail}
-          previousProject={previousProject}
-          nextProject={nextProject}
-        />
-      }
-    >
-      <main id="project" className={caseStudyPageRoot}>
-        <ProjectStage
-          project={project}
-          detail={detail}
-          previousProject={previousProject}
-          nextProject={nextProject}
-        />
-      </main>
-    </ViewportSwitch>
+    <>
+      <StructuredData graph={graph} />
+
+      <ViewportSwitch
+        mobile={
+          <MobileProject
+            roleLabel={roleLabel}
+            project={project}
+            detail={detail}
+            previousProject={previousProject}
+            nextProject={nextProject}
+          />
+        }
+      >
+        <main id="project" className={caseStudyPageRoot}>
+          <ProjectStage
+            project={project}
+            detail={detail}
+            previousProject={previousProject}
+            nextProject={nextProject}
+          />
+        </main>
+      </ViewportSwitch>
+    </>
   );
 };
 

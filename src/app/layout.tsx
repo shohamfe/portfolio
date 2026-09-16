@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import Script from "next/script";
 import {
   Syne,
   Google_Sans_Flex,
@@ -9,6 +8,7 @@ import {
   Heebo,
 } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
+import ViewportReveal from "@/components/viewportReveal/ViewportReveal";
 import { MOBILE_QUERY } from "@/constants/mobile";
 import {
   GA_MEASUREMENT_ID,
@@ -16,6 +16,7 @@ import {
   SITE_KEYWORDS,
   SITE_URL,
 } from "@/constants/site";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import "./globals.css";
 
 const syne = Syne({
@@ -59,21 +60,12 @@ const heebo = Heebo({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${SITE.name} - ${SITE.role}`,
-  description: SITE.description,
   keywords: [...SITE_KEYWORDS],
-  openGraph: {
+  ...buildPageMetadata({
+    path: "/",
     title: `${SITE.name} - ${SITE.role}`,
     description: SITE.description,
-    siteName: SITE.name,
-    type: "website",
-  },
-  // summary_large_image 1200x630 banner
-  twitter: {
-    card: "summary_large_image",
-    title: `${SITE.name} - ${SITE.role}`,
-    description: SITE.description,
-  },
+  }),
 };
 
 // viewport-fit=cover required for env(safe-area-inset-*) to work on iOS.
@@ -93,10 +85,19 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
       className={`${syne.variable} ${googleSansFlex.variable} ${googleSansCode.variable} ${inter.variable} ${heebo.variable} h-dvh bg-white antialiased`}
     >
       <head>
-        {/* Detects the real viewport before hydration */}
-        <Script id="viewport-detect" strategy="beforeInteractive">
-          {`try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`}
-        </Script>
+        {/* Hides the document before first paint at mobile widths, where the
+            server has no way to know it rendered the wrong tree; ViewportReveal
+            clears it once the client has picked. Raw and inline because
+            next/script's beforeInteractive is deferred into the __next_s queue,
+            which drains after paint - too late to gate anything. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`,
+          }}
+        />
+
+        {/* llms.txt v2: points agents at the index that describes this page. */}
+        <link rel="describedby" href="/llms.txt" />
 
         <link rel="preload" as="image" href="/cursors/arrow.svg" />
         <link rel="preload" as="image" href="/cursors/pointer.svg" />
@@ -105,6 +106,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
       </head>
       <body className="flex h-dvh flex-col overflow-hidden">
         {children}
+        <ViewportReveal />
         <GAClickTracker />
       </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />

@@ -19,6 +19,7 @@ const ScrollStage: React.FC<ScrollStageProps> = ({
   id,
   className,
   scrollerClassName,
+  pageHasOwnHeading,
   children,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ const ScrollStage: React.FC<ScrollStageProps> = ({
 
   return (
     <div id={`${id}-stage`} className={cn(stageRoot, className)}>
-      <StageHeader />
+      <StageHeader pageHasOwnHeading={pageHasOwnHeading} />
 
       <div id={`${id}-body`} className={stageBody}>
         <RulerScrollbar
