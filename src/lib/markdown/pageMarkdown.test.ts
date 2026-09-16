@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
-import { ROLE_QUERY_VALUE, SITE_PAGES, absoluteUrl } from "@/constants/site";
+import {
+  getCvUrl,
+  ROLE_LABELS,
+  ROLE_QUERY_VALUE,
+  SITE_PAGES,
+  absoluteUrl,
+} from "@/constants/site";
 import { buildPageMarkdown } from "@/lib/markdown/pageMarkdown";
 import { buildProjectMarkdown } from "@/lib/markdown/projectMarkdown";
 import {
@@ -162,5 +168,18 @@ describe("markdown route mapping", () => {
     expect(
       resolveMarkdownTarget(["case-study", "octseven", "extra"]),
     ).toBeNull();
+  });
+});
+
+describe("resume CV link", () => {
+  it("downloads the CV the rendered page would, for each role", () => {
+    const defaultMarkdown = buildPageMarkdown("/resume", undefined);
+    const frontendMarkdown = buildPageMarkdown("/resume", ROLE_QUERY_VALUE);
+
+    expect(defaultMarkdown).toContain(getCvUrl(ROLE_LABELS.default));
+    expect(frontendMarkdown).toContain(getCvUrl(ROLE_LABELS.frontend));
+    expect(getCvUrl(ROLE_LABELS.frontend)).not.toBe(
+      getCvUrl(ROLE_LABELS.default),
+    );
   });
 });

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import {
   applyVaryAccept,
+  explicitlyRejects,
   negotiateMediaType,
 } from "@/lib/markdown/acceptNegotiation";
 import {
@@ -11,6 +12,7 @@ import {
   MARKDOWN_ROUTE_PREFIX,
   PLAIN_TEXT_CONTENT_TYPE,
   PRODUCIBLE_MEDIA_TYPES,
+  RSC_MEDIA_TYPE,
   VARY_HEADER,
 } from "@/lib/markdown/constants";
 import { hrefFromMarkdownUrlPath } from "@/lib/markdown/markdownRoutes";
@@ -44,11 +46,17 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const acceptHeader = request.headers.get("accept");
 
+  /** A client asking for the Flight payload is not asking for a representation
+   *  of the page, so it is Next's to answer rather than ours to negotiate.
+   *  Neither the RSC header nor the _rsc query param survives into Proxy, so
+   *  the media type is the only signal left to recognise it by. */
+  if (acceptHeader?.includes(RSC_MEDIA_TYPE)) return NextResponse.next();
+
   /** The `.md` sibling is the URL `<link rel="alternate">` points at, and a
    *  crawler following it may send no `Accept` at all - so it serves markdown
    *  regardless, and only an explicit `q=0` rejection turns into a 406. */
   if (pathname.endsWith(MARKDOWN_EXTENSION)) {
-    if (negotiateMediaType(acceptHeader, MARKDOWN_ONLY_MEDIA_TYPES) === null) {
+    if (explicitlyRejects(acceptHeader, MARKDOWN_MEDIA_TYPE)) {
       return notAcceptable(MARKDOWN_ONLY_MEDIA_TYPES);
     }
 

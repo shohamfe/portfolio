@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  explicitlyRejects,
   mergeVaryWithAccept,
   negotiateMediaType,
   parseAcceptHeader,
@@ -170,5 +171,29 @@ describe("mergeVaryWithAccept", () => {
     expect(mergeVaryWithAccept("rsc,  ACCEPT")).toBe("rsc,  ACCEPT");
     expect(mergeVaryWithAccept("accept")).toBe("accept");
     expect(mergeVaryWithAccept("Accept, rsc")).toBe("Accept, rsc");
+  });
+});
+
+describe("explicitlyRejects", () => {
+  it("treats a header that never mentions markdown as no constraint", () => {
+    expect(explicitlyRejects("text/html", MARKDOWN_MEDIA_TYPE)).toBe(false);
+    expect(explicitlyRejects(null, MARKDOWN_MEDIA_TYPE)).toBe(false);
+    expect(explicitlyRejects("*/*", MARKDOWN_MEDIA_TYPE)).toBe(false);
+  });
+
+  it("reports a rejection only when markdown is named with q=0", () => {
+    expect(explicitlyRejects("text/markdown;q=0", MARKDOWN_MEDIA_TYPE)).toBe(
+      true,
+    );
+    expect(
+      explicitlyRejects("text/markdown;q=0, text/html", MARKDOWN_MEDIA_TYPE),
+    ).toBe(true);
+  });
+
+  it("lets a wildcard q=0 reject, and a specific range override it", () => {
+    expect(explicitlyRejects("*/*;q=0", MARKDOWN_MEDIA_TYPE)).toBe(true);
+    expect(
+      explicitlyRejects("*/*;q=0, text/markdown", MARKDOWN_MEDIA_TYPE),
+    ).toBe(false);
   });
 });

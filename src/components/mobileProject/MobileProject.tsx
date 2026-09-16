@@ -17,7 +17,7 @@ const MobileProject: React.FC<MobileProjectProps> = ({
 }) => {
   return (
     <main id="project" className={mobileRoot}>
-      <MobileHero roleLabel={roleLabel} />
+      <MobileHero roleLabel={roleLabel} pageHasOwnHeading />
 
       <div
         id="mobile-project-scroll"

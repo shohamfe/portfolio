@@ -1,4 +1,11 @@
-import { CONTACT, getRoleTitle, LINKS, LOCATION, SITE } from "@/constants/site";
+import {
+  CONTACT,
+  getCvUrl,
+  getRoleTitle,
+  LINKS,
+  LOCATION,
+  SITE,
+} from "@/constants/site";
 import type { ResumeEntry, ResumeSection } from "@/content/resume";
 import { RESUME_CARDS, RESUME_SECTIONS } from "@/content/resume";
 import type { RoleLabel } from "@/lib/pageMetadata";
@@ -16,7 +23,6 @@ const RESUME_HREF = "/resume";
 const CONTACT_HEADING = "Contact";
 const CV_HEADING = "Download the CV";
 const STRENGTHS_HEADING = "What I optimise for";
-const CV_PATH = "/api/cv";
 
 /** The "Present" placeholder cycles through joke company names in the UI. Only
  *  the first reads as a statement of availability, so that is the one an agent
@@ -57,10 +63,10 @@ const contactSection = (): string =>
 
 /** The CV is streamed through this site's own route rather than linked straight
  *  to Drive, which 403s on fetch(). */
-const cvSection = (): string =>
+const cvSection = (roleLabel: RoleLabel): string =>
   joinBlocks([
     heading(2, CV_HEADING),
-    `${link("Download the CV as PDF", CV_PATH)} - served from this domain.`,
+    `${link("Download the CV as PDF", getCvUrl(roleLabel))} - served from this domain.`,
   ]);
 
 const strengthsSection = (): string =>
@@ -81,7 +87,7 @@ export const buildResumeMarkdown = (roleLabel: RoleLabel): string =>
     blocks: [
       getResumeDescription(roleLabel),
       contactSection(),
-      cvSection(),
+      cvSection(roleLabel),
       ...RESUME_SECTIONS.map(sectionBlock),
       strengthsSection(),
     ],

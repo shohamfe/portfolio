@@ -133,6 +133,20 @@ export const negotiateMediaType = (
   return chosenType;
 };
 
+/** True only when the client named this type and gave it `q=0`. A header that
+ *  simply does not mention it is no constraint, which is what lets a `.md` URL
+ *  answer a request that never asked for markdown. */
+export const explicitlyRejects = (
+  acceptHeader: string | null,
+  mediaType: string,
+): boolean => {
+  if (acceptHeader === null || acceptHeader.trim().length === 0) return false;
+
+  const match = bestMatchFor(parseAcceptHeader(acceptHeader), mediaType);
+
+  return match !== null && match.quality <= 0;
+};
+
 /** Next sets its own `vary` (rsc, next-router-state-tree, ...) on App Router
  *  responses, so `Accept` is merged into whatever is already there. */
 export const mergeVaryWithAccept = (existingVary: string | null): string => {

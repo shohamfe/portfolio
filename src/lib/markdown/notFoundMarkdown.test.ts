@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { SITE_PAGES, absoluteUrl } from "@/constants/site";
+import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
+import { ALL_INDEXABLE_PAGES } from "@/constants/pages";
+import { absoluteUrl } from "@/constants/site";
 import { buildNotFoundMarkdown } from "@/lib/markdown/notFoundMarkdown";
 
 describe("buildNotFoundMarkdown", () => {
@@ -22,7 +24,7 @@ describe("buildNotFoundMarkdown", () => {
   it("lists every page on the site so the agent can recover", () => {
     const markdown = buildNotFoundMarkdown("/missing");
 
-    for (const page of SITE_PAGES) {
+    for (const page of ALL_INDEXABLE_PAGES) {
       expect(markdown).toContain(absoluteUrl(page.href));
     }
   });
@@ -39,5 +41,13 @@ describe("buildNotFoundMarkdown", () => {
     expect(buildNotFoundMarkdown("/missing")).toContain(
       "Accept: text/markdown",
     );
+  });
+
+  it("lists the case study routes an agent could have guessed at", () => {
+    const markdown = buildNotFoundMarkdown("/case-study/typo");
+
+    for (const page of CASE_STUDY_PAGES) {
+      expect(markdown).toContain(absoluteUrl(page.href));
+    }
   });
 });

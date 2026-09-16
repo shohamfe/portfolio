@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { absoluteUrl, SITE } from "@/constants/site";
+import { absoluteUrl, ROLE_LABELS, SITE } from "@/constants/site";
 import {
   CASE_STUDY_PROJECTS,
   type CaseStudyProject,
 } from "@/content/caseStudy";
 import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 
-export interface RoleLabel {
-  primary: string;
-  secondary: string | null;
-}
+/** The constants themselves, not a look-alike shape: getCvUrl picks the CV by
+ *  identity, so a structurally equal object would silently get the wrong file. */
+export type RoleLabel = (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS];
 
 const OG_IMAGE_PATH = "/opengraph-image.jpg";
 const TWITTER_IMAGE_PATH = "/twitter-image.jpg";
