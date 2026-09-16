@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl, SITE } from "@/constants/site";
+import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 
 export interface RoleLabel {
   primary: string;
@@ -50,7 +51,10 @@ export const buildPageMetadata = ({
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      types: { "text/markdown": canonicalUrl(markdownUrlPath(path)) },
+    },
     openGraph: {
       type: "website",
       title,

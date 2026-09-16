@@ -9,6 +9,7 @@ import {
   Heebo,
 } from "next/font/google";
 import GAClickTracker from "@/components/analytics/GAClickTracker";
+import ViewportReveal from "@/components/viewportReveal/ViewportReveal";
 import { MOBILE_QUERY } from "@/constants/mobile";
 import {
   GA_MEASUREMENT_ID,
@@ -90,6 +91,9 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
           {`try{if(window.matchMedia('${MOBILE_QUERY}').matches){document.documentElement.style.visibility='hidden'}}catch(e){}`}
         </Script>
 
+        {/* llms.txt v2: points agents at the index that describes this page. */}
+        <link rel="describedby" href="/llms.txt" />
+
         <link rel="preload" as="image" href="/cursors/arrow.svg" />
         <link rel="preload" as="image" href="/cursors/pointer.svg" />
         <link rel="preload" as="image" href="/cursors/hand.svg" />
@@ -97,6 +101,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
       </head>
       <body className="flex h-dvh flex-col overflow-hidden">
         {children}
+        <ViewportReveal />
         <GAClickTracker />
       </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
