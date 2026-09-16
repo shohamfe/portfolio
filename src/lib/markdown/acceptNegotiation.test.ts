@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  explicitlyRejects,
+  namesMediaType,
   mergeVaryWithAccept,
   negotiateMediaType,
   parseAcceptHeader,
@@ -8,6 +10,7 @@ import {
   HTML_MEDIA_TYPE,
   MARKDOWN_MEDIA_TYPE,
   MARKDOWN_ONLY_MEDIA_TYPES,
+  RSC_MEDIA_TYPE,
 } from "@/lib/markdown/constants";
 
 /** The published conformance vectors from acceptmarkdown.com, verbatim. */
@@ -170,5 +173,72 @@ describe("mergeVaryWithAccept", () => {
     expect(mergeVaryWithAccept("rsc,  ACCEPT")).toBe("rsc,  ACCEPT");
     expect(mergeVaryWithAccept("accept")).toBe("accept");
     expect(mergeVaryWithAccept("Accept, rsc")).toBe("Accept, rsc");
+  });
+});
+
+describe("explicitlyRejects", () => {
+  it("treats a header that never mentions markdown as no constraint", () => {
+    expect(explicitlyRejects("text/html", MARKDOWN_MEDIA_TYPE)).toBe(false);
+    expect(explicitlyRejects(null, MARKDOWN_MEDIA_TYPE)).toBe(false);
+    expect(explicitlyRejects("*/*", MARKDOWN_MEDIA_TYPE)).toBe(false);
+  });
+
+  it("reports a rejection only when markdown is named with q=0", () => {
+    expect(explicitlyRejects("text/markdown;q=0", MARKDOWN_MEDIA_TYPE)).toBe(
+      true,
+    );
+    expect(
+      explicitlyRejects("text/markdown;q=0, text/html", MARKDOWN_MEDIA_TYPE),
+    ).toBe(true);
+  });
+
+  it("lets a wildcard q=0 reject, and a specific range override it", () => {
+    expect(explicitlyRejects("*/*;q=0", MARKDOWN_MEDIA_TYPE)).toBe(true);
+    expect(
+      explicitlyRejects("*/*;q=0, text/markdown", MARKDOWN_MEDIA_TYPE),
+    ).toBe(false);
+  });
+});
+
+describe("namesMediaType", () => {
+  it("matches whatever spelling the client used", () => {
+    expect(namesMediaType("text/x-component", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("Text/X-Component", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("TEXT/X-COMPONENT, */*", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("text/x-component;q=0.9", RSC_MEDIA_TYPE)).toBe(true);
+  });
+
+  it("matches a candidate given in any case", () => {
+    expect(namesMediaType("text/x-component", "TEXT/X-COMPONENT")).toBe(true);
+    expect(explicitlyRejects("text/markdown;q=0", "TEXT/MARKDOWN")).toBe(true);
+  });
+
+  it("treats q=0 as a refusal, not a request", () => {
+    expect(namesMediaType("text/x-component;q=0", RSC_MEDIA_TYPE)).toBe(false);
+    expect(
+      namesMediaType("text/x-component;q=0, text/html", RSC_MEDIA_TYPE),
+    ).toBe(false);
+  });
+
+  it("lets an earlier refusal win over a later duplicate", () => {
+    expect(
+      namesMediaType(
+        "text/x-component;q=0, text/x-component;q=1",
+        RSC_MEDIA_TYPE,
+      ),
+    ).toBe(false);
+    expect(
+      namesMediaType(
+        "text/x-component;q=1, text/x-component;q=0",
+        RSC_MEDIA_TYPE,
+      ),
+    ).toBe(true);
+  });
+
+  it("does not count a wildcard as naming the type", () => {
+    expect(namesMediaType("*/*", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType("text/*", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType("text/html", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType(null, RSC_MEDIA_TYPE)).toBe(false);
   });
 });

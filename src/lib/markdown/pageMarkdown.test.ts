@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
-import { ROLE_QUERY_VALUE, SITE_PAGES, absoluteUrl } from "@/constants/site";
+import {
+  getCvUrl,
+  ROLE_LABELS,
+  ROLE_QUERY_VALUE,
+  SITE_PAGES,
+  absoluteUrl,
+} from "@/constants/site";
 import { buildPageMarkdown } from "@/lib/markdown/pageMarkdown";
 import { buildProjectMarkdown } from "@/lib/markdown/projectMarkdown";
 import {
@@ -162,5 +168,30 @@ describe("markdown route mapping", () => {
     expect(
       resolveMarkdownTarget(["case-study", "octseven", "extra"]),
     ).toBeNull();
+  });
+});
+
+describe("resume CV link", () => {
+  it("downloads the CV the rendered page would, for each role", () => {
+    const defaultMarkdown = buildPageMarkdown("/resume", undefined);
+    const frontendMarkdown = buildPageMarkdown("/resume", ROLE_QUERY_VALUE);
+
+    expect(defaultMarkdown).toContain(getCvUrl(ROLE_LABELS.default));
+    expect(frontendMarkdown).toContain(getCvUrl(ROLE_LABELS.frontend));
+
+    /** The default URL is a prefix of the frontend one, so only the absence of
+     *  the frontend URL proves the default role did not emit it. */
+    expect(defaultMarkdown).not.toContain(getCvUrl(ROLE_LABELS.frontend));
+  });
+});
+
+describe("getCvUrl", () => {
+  it("picks by role content, not object identity", () => {
+    const lookAlike = {
+      primary: "Frontend Developer",
+      secondary: null,
+    } as const;
+
+    expect(getCvUrl(lookAlike)).toBe(getCvUrl(ROLE_LABELS.frontend));
   });
 });

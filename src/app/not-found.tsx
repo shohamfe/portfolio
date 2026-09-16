@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE_PAGES } from "@/constants/site";
+import { ALL_INDEXABLE_PAGES } from "@/constants/pages";
 import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 
 const AGENT_SOURCES = [
@@ -20,7 +20,7 @@ const NotFound: React.FC = () => {
       </h1>
 
       <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-        {SITE_PAGES.map((page) => (
+        {ALL_INDEXABLE_PAGES.map((page) => (
           <Link
             key={page.href}
             href={page.href}

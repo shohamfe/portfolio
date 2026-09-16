@@ -59,6 +59,11 @@ export const parseAcceptHeader = (header: string): AcceptEntry[] =>
     })
     .filter((entry) => entry.mediaType.length > 0);
 
+/** Parsed entries are lowercased, so candidates are too - media types are
+ *  case-insensitive on both sides of the comparison. */
+const normalizeMediaType = (mediaType: string): string =>
+  mediaType.toLowerCase();
+
 const entryMatches = (entry: AcceptEntry, candidate: string): boolean => {
   if (entry.mediaType === WILDCARD) return true;
   if (entry.mediaType.endsWith(SUBTYPE_WILDCARD_SUFFIX)) {
@@ -73,8 +78,9 @@ const entryMatches = (entry: AcceptEntry, candidate: string): boolean => {
  *  HTML rather than letting the wildcard revive it. */
 const bestMatchFor = (
   entries: AcceptEntry[],
-  candidate: string,
+  rawCandidate: string,
 ): AcceptEntry | null => {
+  const candidate = normalizeMediaType(rawCandidate);
   let best: AcceptEntry | null = null;
 
   for (const entry of entries) {
@@ -131,6 +137,34 @@ export const negotiateMediaType = (
   }
 
   return chosenType;
+};
+
+/** Asking for a type means naming it and not refusing it: `q=0` is a rejection,
+ *  and a wildcard does not count as naming one. */
+export const namesMediaType = (
+  acceptHeader: string | null,
+  mediaType: string,
+): boolean => {
+  if (acceptHeader === null) return false;
+
+  const candidate = normalizeMediaType(mediaType);
+  const match = bestMatchFor(parseAcceptHeader(acceptHeader), candidate);
+
+  return match !== null && match.mediaType === candidate && match.quality > 0;
+};
+
+/** True when the range that wins for this type gives it `q=0`, named exactly or
+ *  by a wildcard; silence is no constraint, which is what lets a `.md` URL
+ *  answer a request that never asked for markdown. */
+export const explicitlyRejects = (
+  acceptHeader: string | null,
+  mediaType: string,
+): boolean => {
+  if (acceptHeader === null || acceptHeader.trim().length === 0) return false;
+
+  const match = bestMatchFor(parseAcceptHeader(acceptHeader), mediaType);
+
+  return match !== null && match.quality <= 0;
 };
 
 /** Next sets its own `vary` (rsc, next-router-state-tree, ...) on App Router

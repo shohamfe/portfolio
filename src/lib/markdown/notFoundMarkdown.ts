@@ -1,4 +1,5 @@
-import { absoluteUrl, SITE, SITE_PAGES } from "@/constants/site";
+import { ALL_INDEXABLE_PAGES } from "@/constants/pages";
+import { absoluteUrl, SITE } from "@/constants/site";
 import {
   asDocument,
   heading,
@@ -19,7 +20,7 @@ const introFor = (requestedPath: string | null): string =>
 const pagesBlock = (): string =>
   joinBlocks([
     heading(2, PAGES_HEADING),
-    SITE_PAGES.map((page) =>
+    ALL_INDEXABLE_PAGES.map((page) =>
       linkListItem(page.label, page.href, page.summary),
     ).join("\n"),
   ]);

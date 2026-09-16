@@ -33,3 +33,6 @@ export const MARKDOWN_NOT_FOUND_CACHE_CONTROL = "no-store";
 
 export const VARY_HEADER = "Vary";
 export const ACCEPT_HEADER = "Accept";
+
+/** What an App Router Flight request asks for. */
+export const RSC_MEDIA_TYPE = "text/x-component";

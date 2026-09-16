@@ -42,7 +42,7 @@ export const CV_URLS = {
 export const getCvUrl = (
   roleLabel: (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS],
 ) =>
-  roleLabel === ROLE_LABELS.frontend
+  roleLabel.primary === ROLE_LABELS.frontend.primary
     ? `/api/cv?${ROLE_QUERY_PARAM}=${ROLE_QUERY_VALUE}`
     : "/api/cv";
 
