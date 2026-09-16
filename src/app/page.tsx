@@ -1,6 +1,8 @@
 import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
 import HomeIntro from "@/components/homeIntro/HomeIntro";
 import MobileHome from "@/components/mobileHome/MobileHome";
+import { buildPageGraph } from "@/components/structuredData/helpers/structuredData.helpers";
+import StructuredData from "@/components/structuredData/StructuredData";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
 import {
   getRoleTitle,
@@ -9,12 +11,15 @@ import {
   ROLE_QUERY_PARAM,
   SITE,
 } from "@/constants/site";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import type { Metadata } from "next";
 import {
   homeCanvasSlot,
   homeIntroSlot,
   homePageRoot,
 } from "./styles/homePage.variants";
+
+const HOME_PATH = "/";
 
 type HomePageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -29,26 +34,31 @@ export const generateMetadata = async ({
   const description = getSiteDescription(roleLabel);
   const title = `${SITE.name} - ${getRoleTitle(roleLabel)}`;
 
-  return {
-    title,
-    description,
-    openGraph: { title, description },
-    twitter: { title, description },
-  };
+  return buildPageMetadata({ path: HOME_PATH, title, description });
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
   const params = await searchParams;
   const roleLabel = resolveRoleLabel(params[ROLE_QUERY_PARAM]);
 
-  return (
-    <ViewportSwitch mobile={<MobileHome roleLabel={roleLabel} />}>
-      <main id="home" className={homePageRoot}>
-        <HomeIntro className={homeIntroSlot} roleLabel={roleLabel} />
+  const graph = buildPageGraph({
+    path: HOME_PATH,
+    title: `${SITE.name} - ${getRoleTitle(roleLabel)}`,
+    description: getSiteDescription(roleLabel),
+  });
 
-        <HomeCanvas className={homeCanvasSlot} />
-      </main>
-    </ViewportSwitch>
+  return (
+    <>
+      <StructuredData graph={graph} />
+
+      <ViewportSwitch mobile={<MobileHome roleLabel={roleLabel} />}>
+        <main id="home" className={homePageRoot}>
+          <HomeIntro className={homeIntroSlot} roleLabel={roleLabel} />
+
+          <HomeCanvas className={homeCanvasSlot} />
+        </main>
+      </ViewportSwitch>
+    </>
   );
 };
 

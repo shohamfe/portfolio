@@ -83,8 +83,63 @@ export const CONTACT = {
 /** Public GA4 measurement ID - not a secret, safe to ship in client code. */
 export const GA_MEASUREMENT_ID = "G-Q2MY5GERZT";
 
+/** Coarse location for structured data - locality and country only, never a
+ *  street address. */
+export const LOCATION = {
+  locality: "Tel Aviv",
+  country: "IL",
+} as const;
+
 /** Portfolio route exists but is intentionally left out of nav while it's a stub. */
 export const ROUTES = [
   { href: "/", label: "Home" },
   { href: "/resume", label: "Resume" },
 ] as const;
+
+/** Every indexable route, including the ones kept out of ROUTES. Single source
+ *  for the sitemap, llms.txt and the markdown representations. */
+export const SITE_PAGES = [
+  {
+    href: "/",
+    label: "Home",
+    summary:
+      "Introduction, what I care about building, how I work, and the tech stack I reach for.",
+    priority: 1,
+  },
+  {
+    href: "/resume",
+    label: "Resume",
+    summary:
+      "Full professional timeline - roles, projects, education and skills - with a downloadable CV.",
+    priority: 0.9,
+  },
+  {
+    href: "/about",
+    label: "About",
+    summary:
+      "Longer-form background: how I got into frontend, the problems I like, and how I work with design.",
+    priority: 0.7,
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+    summary:
+      "How to reach me, what I am available for, and what to include so I can answer usefully.",
+    priority: 0.7,
+  },
+  {
+    href: "/portfolio",
+    label: "Portfolio",
+    summary: "Selected work. Currently in progress.",
+    priority: 0.3,
+  },
+  {
+    href: "/privacy",
+    label: "Privacy",
+    summary:
+      "What this site measures, which third parties see it, and how to opt out.",
+    priority: 0.3,
+  },
+] as const;
+
+export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();

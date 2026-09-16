@@ -16,6 +16,7 @@ import {
   SITE_KEYWORDS,
   SITE_URL,
 } from "@/constants/site";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import "./globals.css";
 
 const syne = Syne({
@@ -59,21 +60,12 @@ const heebo = Heebo({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${SITE.name} - ${SITE.role}`,
-  description: SITE.description,
   keywords: [...SITE_KEYWORDS],
-  openGraph: {
+  ...buildPageMetadata({
+    path: "/",
     title: `${SITE.name} - ${SITE.role}`,
     description: SITE.description,
-    siteName: SITE.name,
-    type: "website",
-  },
-  // summary_large_image 1200x630 banner
-  twitter: {
-    card: "summary_large_image",
-    title: `${SITE.name} - ${SITE.role}`,
-    description: SITE.description,
-  },
+  }),
 };
 
 // viewport-fit=cover required for env(safe-area-inset-*) to work on iOS.
