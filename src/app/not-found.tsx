@@ -44,8 +44,9 @@ const NotFound: React.FC = () => {
       </p>
 
       <p className="font-code text-code text-text-muted">
-        Every page is also markdown: send <code>Accept: text/markdown</code>, or
-        append <code>.md</code> to the path ({markdownUrlPath("/")} for the
+        Every page is also markdown: send <code>Accept: text/markdown</code>,
+        <br />
+        or append <code>.md</code> to the path ({markdownUrlPath("/")} for the
         root).
       </p>
     </main>
