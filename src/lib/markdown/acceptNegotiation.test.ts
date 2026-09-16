@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   explicitlyRejects,
+  namesMediaType,
   mergeVaryWithAccept,
   negotiateMediaType,
   parseAcceptHeader,
@@ -9,6 +10,7 @@ import {
   HTML_MEDIA_TYPE,
   MARKDOWN_MEDIA_TYPE,
   MARKDOWN_ONLY_MEDIA_TYPES,
+  RSC_MEDIA_TYPE,
 } from "@/lib/markdown/constants";
 
 /** The published conformance vectors from acceptmarkdown.com, verbatim. */
@@ -195,5 +197,21 @@ describe("explicitlyRejects", () => {
     expect(
       explicitlyRejects("*/*;q=0, text/markdown", MARKDOWN_MEDIA_TYPE),
     ).toBe(false);
+  });
+});
+
+describe("namesMediaType", () => {
+  it("matches whatever spelling the client used", () => {
+    expect(namesMediaType("text/x-component", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("Text/X-Component", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("TEXT/X-COMPONENT, */*", RSC_MEDIA_TYPE)).toBe(true);
+    expect(namesMediaType("text/x-component;q=0.9", RSC_MEDIA_TYPE)).toBe(true);
+  });
+
+  it("does not count a wildcard as naming the type", () => {
+    expect(namesMediaType("*/*", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType("text/*", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType("text/html", RSC_MEDIA_TYPE)).toBe(false);
+    expect(namesMediaType(null, RSC_MEDIA_TYPE)).toBe(false);
   });
 });

@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   applyVaryAccept,
   explicitlyRejects,
+  namesMediaType,
   negotiateMediaType,
 } from "@/lib/markdown/acceptNegotiation";
 import {
@@ -50,7 +51,7 @@ export function proxy(request: NextRequest) {
    *  of the page, so it is Next's to answer rather than ours to negotiate.
    *  Neither the RSC header nor the _rsc query param survives into Proxy, so
    *  the media type is the only signal left to recognise it by. */
-  if (acceptHeader?.includes(RSC_MEDIA_TYPE)) return NextResponse.next();
+  if (namesMediaType(acceptHeader, RSC_MEDIA_TYPE)) return NextResponse.next();
 
   /** The `.md` sibling is the URL `<link rel="alternate">` points at, and a
    *  crawler following it may send no `Accept` at all - so it serves markdown
