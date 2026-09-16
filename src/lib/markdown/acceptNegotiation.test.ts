@@ -220,6 +220,21 @@ describe("namesMediaType", () => {
     ).toBe(false);
   });
 
+  it("lets an earlier refusal win over a later duplicate", () => {
+    expect(
+      namesMediaType(
+        "text/x-component;q=0, text/x-component;q=1",
+        RSC_MEDIA_TYPE,
+      ),
+    ).toBe(false);
+    expect(
+      namesMediaType(
+        "text/x-component;q=1, text/x-component;q=0",
+        RSC_MEDIA_TYPE,
+      ),
+    ).toBe(true);
+  });
+
   it("does not count a wildcard as naming the type", () => {
     expect(namesMediaType("*/*", RSC_MEDIA_TYPE)).toBe(false);
     expect(namesMediaType("text/*", RSC_MEDIA_TYPE)).toBe(false);

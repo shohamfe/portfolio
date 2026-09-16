@@ -148,14 +148,14 @@ export const namesMediaType = (
   if (acceptHeader === null) return false;
 
   const candidate = normalizeMediaType(mediaType);
+  const match = bestMatchFor(parseAcceptHeader(acceptHeader), candidate);
 
-  return parseAcceptHeader(acceptHeader).some(
-    (entry) => entry.mediaType === candidate && entry.quality > 0,
-  );
+  return match !== null && match.mediaType === candidate && match.quality > 0;
 };
 
-/** True only when the client named this type and gave it `q=0`; silence is no
- *  constraint, which is what lets a `.md` URL answer a request that never asked. */
+/** True when the range that wins for this type gives it `q=0`, named exactly or
+ *  by a wildcard; silence is no constraint, which is what lets a `.md` URL
+ *  answer a request that never asked for markdown. */
 export const explicitlyRejects = (
   acceptHeader: string | null,
   mediaType: string,
