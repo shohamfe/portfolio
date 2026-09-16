@@ -11,6 +11,7 @@ import {
   CONTACT,
   LINKS,
   LOCATION,
+  ROLE_LABELS,
   SITE,
   SITE_KEYWORDS,
 } from "@/constants/site";
@@ -42,7 +43,7 @@ export const buildPersonNode = (): PersonNode => ({
   "@id": SCHEMA_IDS.person,
   name: SITE.name,
   url: canonicalUrl(HOME_PATH),
-  jobTitle: SITE.role,
+  jobTitle: ROLE_LABELS.default.primary,
   description: SITE.description,
   email: CONTACT.email,
   telephone: LINKS.phone.replace("tel:", ""),

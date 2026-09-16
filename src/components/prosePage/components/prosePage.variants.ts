@@ -1,6 +1,9 @@
 import { PRESSABLE } from "@/lib/variants";
 
-export const proseRoot = "min-h-0 flex-1 overflow-y-auto";
+/** `visible` is load-bearing: the pre-hydration script in the root layout
+ *  hides <html> on mobile widths, and only ViewportSwitch clears it - these
+ *  pages have no mobile variant to switch to, so they opt back in via CSS. */
+export const proseRoot = "visible min-h-0 flex-1 overflow-y-auto";
 
 export const proseContainer =
   "mx-auto flex w-full max-w-2xl flex-col gap-10 px-6 py-12 lg:px-10";

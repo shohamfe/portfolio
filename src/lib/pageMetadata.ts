@@ -6,6 +6,12 @@ export interface RoleLabel {
   secondary: string | null;
 }
 
+const OG_IMAGE_PATH = "/opengraph-image.jpg";
+const TWITTER_IMAGE_PATH = "/twitter-image.jpg";
+
+/** Both share the square source in src/app. */
+const SOCIAL_IMAGE_SIZE = 1200;
+
 export interface PageMetadataInput {
   path: string;
   title: string;
@@ -51,11 +57,20 @@ export const buildPageMetadata = ({
       description,
       siteName: SITE.name,
       url,
+      images: [
+        {
+          url: canonicalUrl(OG_IMAGE_PATH),
+          width: SOCIAL_IMAGE_SIZE,
+          height: SOCIAL_IMAGE_SIZE,
+          alt: `${SITE.name} - ${SITE.role}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [canonicalUrl(TWITTER_IMAGE_PATH)],
     },
   };
 };
