@@ -3,4 +3,4 @@ Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow: /api/
 
-Sitemap: https://portfolio-shohamfe.vercel.app/sitemap.xml
+Sitemap: https://www.shoham-fe.dev/sitemap.xml
