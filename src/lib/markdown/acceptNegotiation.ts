@@ -133,8 +133,7 @@ export const negotiateMediaType = (
   return chosenType;
 };
 
-/** True when the client named this exact type, whatever its spelling - media
- *  types are case-insensitive. A wildcard does not count as naming it. */
+/** Media types are case-insensitive; a wildcard does not count as naming one. */
 export const namesMediaType = (
   acceptHeader: string | null,
   mediaType: string,
@@ -146,9 +145,8 @@ export const namesMediaType = (
   );
 };
 
-/** True only when the client named this type and gave it `q=0`. A header that
- *  simply does not mention it is no constraint, which is what lets a `.md` URL
- *  answer a request that never asked for markdown. */
+/** True only when the client named this type and gave it `q=0`; silence is no
+ *  constraint, which is what lets a `.md` URL answer a request that never asked. */
 export const explicitlyRejects = (
   acceptHeader: string | null,
   mediaType: string,

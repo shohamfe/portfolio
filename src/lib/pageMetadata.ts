@@ -6,8 +6,6 @@ import {
 } from "@/content/caseStudy";
 import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 
-/** The constants themselves, not a look-alike shape: getCvUrl picks the CV by
- *  identity, so a structurally equal object would silently get the wrong file. */
 export type RoleLabel = (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS];
 
 const OG_IMAGE_PATH = "/opengraph-image.jpg";

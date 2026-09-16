@@ -183,3 +183,14 @@ describe("resume CV link", () => {
     );
   });
 });
+
+describe("getCvUrl", () => {
+  it("picks by role content, not object identity", () => {
+    const lookAlike = {
+      primary: "Frontend Developer",
+      secondary: null,
+    } as const;
+
+    expect(getCvUrl(lookAlike)).toBe(getCvUrl(ROLE_LABELS.frontend));
+  });
+});
