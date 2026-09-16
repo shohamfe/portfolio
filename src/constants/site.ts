@@ -14,7 +14,7 @@ export const getSiteDescription = (roleLabel: {
   primary: string;
   secondary: string | null;
 }) =>
-  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} with 4+ years of experience building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
+  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} specializing in building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
 
 export const getRoleTitle = (roleLabel: {
   primary: string;

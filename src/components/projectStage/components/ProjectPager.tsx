@@ -20,10 +20,7 @@ import {
 import { CASE_STUDY_ROUTE } from "../constants/projectStage.constants";
 import type { ProjectPagerProps } from "../types/projectStage.types";
 
-/** Loop navigation between case studies - every tile is a full-size link, not
- *  just the arrow or the title. Renders as a bordered card at the foot of a
- *  page, or as a slim, unfilled bar near the top - same component either way,
- *  so the two can't drift apart. */
+/** Case study nav; renders as a card or a slim bar via `variant`. */
 const ProjectPager: React.FC<ProjectPagerProps> = ({
   previousProject,
   nextProject,
