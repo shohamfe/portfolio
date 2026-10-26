@@ -1,14 +1,6 @@
-import {
-  CONTACT,
-  getRoleTitle,
-  getSiteDescription,
-  LINKS,
-  LOCATION,
-  SITE,
-} from "@/constants/site";
+import { CONTACT, LINKS, LOCATION, SITE } from "@/constants/site";
 import { TECH_FOLDERS } from "@/constants/tech";
 import { HOME_CONTENT } from "@/content/home";
-import type { RoleLabel } from "@/lib/pageMetadata";
 import { buildMarkdownDocument } from "@/lib/markdown/documentFrame";
 import {
   bulletList,
@@ -48,13 +40,13 @@ const contactSection = (): string =>
     ]),
   ]);
 
-export const buildHomeMarkdown = (roleLabel: RoleLabel): string =>
+export const buildHomeMarkdown = (): string =>
   buildMarkdownDocument({
     href: HOME_HREF,
-    title: `${SITE.name} - ${getRoleTitle(roleLabel)}`,
+    title: `${SITE.name} - ${SITE.role}`,
     lede: SITE.tagline,
     blocks: [
-      getSiteDescription(roleLabel),
+      SITE.description,
       bulletSection(HOME_CONTENT.passion.title, HOME_CONTENT.passion.bullets),
       bulletSection(HOME_CONTENT.howIWork.title, HOME_CONTENT.howIWork.bullets),
       paragraphSection(HOME_CONTENT.about.title, HOME_CONTENT.about.paragraphs),

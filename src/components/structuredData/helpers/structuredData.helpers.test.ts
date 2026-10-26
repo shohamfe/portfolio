@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LINKS, ROLE_LABELS, SITE, SITE_URL } from "@/constants/site";
+import { JOB_TITLE, LINKS, SITE, SITE_URL } from "@/constants/site";
 import { SCHEMA_IDS } from "@/constants/structuredData";
 import {
   buildBreadcrumbListNode,
@@ -42,7 +42,7 @@ describe("buildPersonNode", () => {
     expect(person["@id"]).toBe(SCHEMA_IDS.person);
     expect(person.name).toBe(SITE.name);
     expect(person.url).toBe(`${SITE_URL}/`);
-    expect(person.jobTitle).toBe(ROLE_LABELS.default.primary);
+    expect(person.jobTitle).toBe(JOB_TITLE);
     expect(person.description).toBe(SITE.description);
     expect(person.email).toBe("shoham.fe@gmail.com");
     expect(person.telephone).toBe("+972508882689");

@@ -1,4 +1,4 @@
-import { getSiteDescription } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import type { HomeIntroAboutSectionProps } from "../types/homeIntro.types";
 import {
   introHeading,
@@ -7,7 +7,6 @@ import {
 } from "./homeIntro.variants";
 
 const HomeIntroAboutSection: React.FC<HomeIntroAboutSectionProps> = ({
-  roleLabel,
   about,
 }) => {
   return (
@@ -20,7 +19,7 @@ const HomeIntroAboutSection: React.FC<HomeIntroAboutSectionProps> = ({
         {about.title}
       </h2>
 
-      <p className={introParagraph}>{getSiteDescription(roleLabel)}</p>
+      <p className={introParagraph}>{SITE.description}</p>
 
       {about.paragraphs.map((paragraph) => (
         <p key={paragraph} className={introParagraph}>

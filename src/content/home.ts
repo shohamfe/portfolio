@@ -19,9 +19,9 @@ export const HOME_CONTENT = {
   about: {
     title: "About",
     paragraphs: [
-      "Software Developer specializing in building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.",
-      "Lead frontend developer on a mission-critical React-SAP system replacing a legacy platform.",
-      "Experienced in AI-assisted engineering and utilizing autonomous agents (Claude Code, MCP, Agentic Workflows).",
+      "Full-stack developer (React, TypeScript, Node.js) with a product manager's mindset and a UX designer's eye, owning features end to end from discovery to production.",
+      "Front-end lead on a mission-critical IDF platform.",
+      "Builds developer tools and AI agent integrations (Claude Code, MCP, Agentic Workflows).",
     ],
   },
 } as const;

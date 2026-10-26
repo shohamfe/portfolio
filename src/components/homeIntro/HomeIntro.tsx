@@ -4,12 +4,12 @@ import HomeIntroScroll from "./components/HomeIntroScroll";
 import { introRoot } from "./components/homeIntro.variants";
 import type { HomeIntroProps } from "./types/homeIntro.types";
 
-const HomeIntro: React.FC<HomeIntroProps> = ({ className, roleLabel }) => {
+const HomeIntro: React.FC<HomeIntroProps> = ({ className }) => {
   return (
     <div id="home-intro" className={cn(introRoot, className)}>
-      <HomeIntroHeader roleLabel={roleLabel} />
+      <HomeIntroHeader />
 
-      <HomeIntroScroll roleLabel={roleLabel} />
+      <HomeIntroScroll />
     </div>
   );
 };

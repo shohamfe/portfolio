@@ -21,12 +21,11 @@ import {
   sectionList,
   threadList,
 } from "./components/mobileCaseStudy.variants";
-import type { MobileCaseStudyProps } from "./types/mobileCaseStudy.types";
 
-const MobileCaseStudy: React.FC<MobileCaseStudyProps> = ({ roleLabel }) => {
+const MobileCaseStudy: React.FC = () => {
   return (
     <main id="case-study" className={mobileRoot}>
-      <MobileHero roleLabel={roleLabel} />
+      <MobileHero />
 
       <div
         id="mobile-case-study-scroll"

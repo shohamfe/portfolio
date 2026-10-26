@@ -7,16 +7,15 @@ import {
   resumeHeaderName,
   resumeHeaderRoot,
 } from "./styles/resumeHeader.variants";
-import type { ResumeHeaderProps } from "./types/resumeHeader.types";
 
-const ResumeHeader: React.FC<ResumeHeaderProps> = ({ roleLabel }) => {
+const ResumeHeader: React.FC = () => {
   return (
     <header id="resume-header" className={resumeHeaderRoot}>
       <h1 className={resumeHeaderName}>{SITE.name}</h1>
 
       <SiteNav
         className="pointer-events-auto w-fit"
-        trailing={<DownloadCvButton roleLabel={roleLabel} />}
+        trailing={<DownloadCvButton />}
       />
     </header>
   );

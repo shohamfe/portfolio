@@ -1,4 +1,3 @@
-import { ROLE_QUERY_PARAM } from "@/constants/site";
 import { applyVaryAccept } from "@/lib/markdown/acceptNegotiation";
 import {
   MARKDOWN_CACHE_CONTROL,
@@ -8,7 +7,6 @@ import {
 import { buildNotFoundMarkdown } from "@/lib/markdown/notFoundMarkdown";
 import { buildMarkdownForTarget } from "@/lib/markdown/pageMarkdown";
 import { resolveMarkdownTarget } from "@/lib/markdown/markdownRoutes";
-import type { NextRequest } from "next/server";
 
 interface MarkdownRouteContext {
   params: Promise<{ slug?: string[] }>;
@@ -25,16 +23,13 @@ const markdownHeaders = (cacheControl: string): Headers => {
 };
 
 export const GET = async (
-  request: NextRequest,
+  _request: Request,
   { params }: MarkdownRouteContext,
 ) => {
   const { slug = [] } = await params;
   const target = resolveMarkdownTarget(slug);
 
-  const roleParam =
-    request.nextUrl.searchParams.get(ROLE_QUERY_PARAM) ?? undefined;
-
-  const markdown = target && buildMarkdownForTarget(target, roleParam);
+  const markdown = target && buildMarkdownForTarget(target);
 
   if (markdown === null) {
     return new Response(buildNotFoundMarkdown(`/${slug.join("/")}`), {

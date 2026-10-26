@@ -1,6 +1,6 @@
 "use client";
 
-import { getCvUrl, SITE } from "@/constants/site";
+import { CV_API_PATH, JOB_TITLE, SITE } from "@/constants/site";
 import { cn } from "@/lib/cn";
 import { AnimatePresence } from "motion/react";
 import { PiDownloadSimple } from "react-icons/pi";
@@ -10,10 +10,7 @@ import { downloadButton } from "../styles/resumeHeader.variants";
 import type { DownloadCvButtonProps } from "../types/resumeHeader.types";
 import DownloadProgressBar from "./DownloadProgressBar";
 
-const DownloadCvButton: React.FC<DownloadCvButtonProps> = ({
-  roleLabel,
-  className,
-}) => {
+const DownloadCvButton: React.FC<DownloadCvButtonProps> = ({ className }) => {
   const { isDownloading, progress, download } = useCvDownload();
 
   return (
@@ -22,10 +19,7 @@ const DownloadCvButton: React.FC<DownloadCvButtonProps> = ({
         type="button"
         disabled={isDownloading}
         onClick={() =>
-          download(
-            getCvUrl(roleLabel),
-            `${SITE.name} - ${roleLabel.primary} CV.pdf`,
-          )
+          download(CV_API_PATH, `${SITE.name} - ${JOB_TITLE} CV.pdf`)
         }
         className={cn(
           downloadButton,

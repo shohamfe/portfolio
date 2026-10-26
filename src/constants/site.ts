@@ -1,56 +1,27 @@
-/** `?role=frontend` swaps the role copy below to "Frontend Developer" phrasing. */
-export const ROLE_QUERY_PARAM = "role";
-export const ROLE_QUERY_VALUE = "frontend";
-
-export const ROLE_LABELS = {
-  default: { primary: "Software Developer", secondary: "Frontend Oriented" },
-  frontend: { primary: "Frontend Developer", secondary: null },
-} as const;
-
-export const resolveRoleLabel = (roleParam: string | string[] | undefined) =>
-  roleParam === ROLE_QUERY_VALUE ? ROLE_LABELS.frontend : ROLE_LABELS.default;
-
-export const getSiteDescription = (roleLabel: {
-  primary: string;
-  secondary: string | null;
-}) =>
-  `${roleLabel.secondary ? `${roleLabel.primary} (${roleLabel.secondary})` : roleLabel.primary} specializing in building complex, data-heavy React applications, with a strong UX/UI background and ownership from Figma to production.`;
-
-export const getRoleTitle = (roleLabel: {
-  primary: string;
-  secondary: string | null;
-}) => `${roleLabel.primary}++`;
+export const JOB_TITLE = "Product Engineer";
 
 /** Identity and outbound links. Single source for anything that appears in
  *  metadata, the header, and the footer. */
 export const SITE = {
   name: "Shoham Fellner",
-  role: getRoleTitle(ROLE_LABELS.default),
+  role: `${JOB_TITLE}++`,
   tagline: "// From concept to experience",
-  description: getSiteDescription(ROLE_LABELS.default),
+  description: `${JOB_TITLE} specializing in building complex, data-heavy React applications, with a product manager's mindset, a UX designer's eye and ownership from discovery to production.`,
 } as const;
 
 /** Hosted in Drive, not /public, so updating the resume needs no redeploy. */
-export const CV_URLS = {
-  default:
-    "https://drive.google.com/uc?export=download&id=1JRrUFJZtyo1w2Mu02Mav4TpG4ZkXOaaY",
-  frontend:
-    "https://drive.google.com/uc?export=download&id=1f3jVcSBzo_UKbzlKw4ptcR3jFfcgYYrZ",
-} as const;
+export const CV_URL =
+  "https://drive.google.com/uc?export=download&id=1JRrUFJZtyo1w2Mu02Mav4TpG4ZkXOaaY";
 
-/** Goes through /api/cv, not CV_URLS directly - Drive 403s on fetch(). */
-export const getCvUrl = (
-  roleLabel: (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS],
-) =>
-  roleLabel.primary === ROLE_LABELS.frontend.primary
-    ? `/api/cv?${ROLE_QUERY_PARAM}=${ROLE_QUERY_VALUE}`
-    : "/api/cv";
+/** Goes through /api/cv, not CV_URL directly - Drive 403s on fetch(). */
+export const CV_API_PATH = "/api/cv";
 
 /** Search keyword targets for the root metadata's `keywords` field. */
 export const SITE_KEYWORDS = [
   "Shoham Fellner",
+  "Product Engineer",
+  "Full-Stack Developer",
   "Frontend Developer",
-  "Software Developer",
   "React Developer",
   "TypeScript",
   "UX/UI Designer",

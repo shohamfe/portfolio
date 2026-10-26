@@ -77,7 +77,7 @@ const PROCUREMENT_DETAIL: ProjectDetail = {
   role: {
     title: "My Role",
     paragraphs: [
-      "I led frontend development inside an Agile team and owned the UX/UI process end to end - research, Figma, and the implementation that followed it.",
+      "I owned frontend development inside an Agile team, along with the UX/UI process end to end - research, Figma, and the implementation that followed it - partnering with PMs and users from discovery through post-release iteration.",
       "The backend was a separate SAP Gateway team. The data contracts between us were designed together rather than handed down, which is the reason several of the decisions below were possible at all.",
     ],
   },

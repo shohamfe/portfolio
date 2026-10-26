@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { absoluteUrl, ROLE_LABELS, SITE } from "@/constants/site";
+import { absoluteUrl, JOB_TITLE, SITE } from "@/constants/site";
 import {
   CASE_STUDY_PROJECTS,
   type CaseStudyProject,
 } from "@/content/caseStudy";
 import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
-
-export type RoleLabel = (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS];
 
 const OG_IMAGE_PATH = "/opengraph-image.jpg";
 const TWITTER_IMAGE_PATH = "/twitter-image.jpg";
@@ -20,8 +18,8 @@ export interface PageMetadataInput {
   description: string;
 }
 
-/** Canonical URLs point at the bare path: `/` and `/?role=frontend` serve the
- *  same page, so they must not compete as two URLs. */
+/** Canonical URLs point at the bare path: a query string or hash serves the
+ *  same page, so it must not compete as a second URL. */
 export const canonicalUrl = (path: string): string => {
   const url = new URL(absoluteUrl(path));
   url.search = "";
@@ -30,13 +28,7 @@ export const canonicalUrl = (path: string): string => {
   return url.toString();
 };
 
-const formatRole = (roleLabel: RoleLabel): string =>
-  roleLabel.secondary
-    ? `${roleLabel.primary} (${roleLabel.secondary})`
-    : roleLabel.primary;
-
-export const getResumeDescription = (roleLabel: RoleLabel): string =>
-  `Resume of ${SITE.name}, ${formatRole(roleLabel)}: lead frontend and UX/UI work on a mission-critical IDF procurement system, real-time drone awareness dashboards at Nando, the OctSeven.com memorial site, and a B.Sc. in Computer Science - plus a downloadable CV.`;
+export const RESUME_DESCRIPTION = `Resume of ${SITE.name}, ${JOB_TITLE}: end-to-end product engineering on a mission-critical IDF platform, real-time drone awareness dashboards at Nando, Aura Cloud, the OctSeven.com memorial site, and a B.Sc. in Computer Science - plus a downloadable CV.`;
 
 export const CASE_STUDY_DESCRIPTION = `Case studies by ${SITE.name}: ${CASE_STUDY_PROJECTS.map((project) => project.title).join(", ")} - the stakes behind each one, the decisions taken, their trade-offs, and what I would change.`;
 

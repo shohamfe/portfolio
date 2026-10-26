@@ -1,4 +1,4 @@
-import { resolveRoleLabel, SITE } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import { ABOUT_CONTENT } from "@/content/about";
 import { CONTACT_CONTENT } from "@/content/contact";
 import { PRIVACY_CONTENT } from "@/content/privacy";
@@ -12,19 +12,12 @@ import { buildProjectMarkdown } from "@/lib/markdown/projectMarkdown";
 import { buildProsePageMarkdown } from "@/lib/markdown/prosePageMarkdown";
 import { buildResumeMarkdown } from "@/lib/markdown/resumeMarkdown";
 
-/** The role query param swaps the same copy between "Software Developer
- *  (Frontend Oriented)" and "Frontend Developer", exactly as the HTML pages do. */
-export const buildPageMarkdown = (
-  href: SitePageHref,
-  roleParam: string | undefined,
-): string => {
-  const roleLabel = resolveRoleLabel(roleParam);
-
+export const buildPageMarkdown = (href: SitePageHref): string => {
   switch (href) {
     case "/":
-      return buildHomeMarkdown(roleLabel);
+      return buildHomeMarkdown();
     case "/resume":
-      return buildResumeMarkdown(roleLabel);
+      return buildResumeMarkdown();
     case "/about":
       return buildProsePageMarkdown(
         href,
@@ -50,8 +43,7 @@ export const buildPageMarkdown = (
 
 export const buildMarkdownForTarget = (
   target: MarkdownTarget,
-  roleParam: string | undefined,
 ): string | null =>
   target.kind === "page"
-    ? buildPageMarkdown(target.href, roleParam)
+    ? buildPageMarkdown(target.href)
     : buildProjectMarkdown(target.slug);

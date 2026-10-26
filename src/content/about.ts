@@ -5,13 +5,13 @@ import type { ProsePageProps } from "@/components/prosePage/types/prosePage.type
  *  edited without touching JSX. */
 export const ABOUT_CONTENT: ProsePageProps = {
   title: "About",
-  lede: "// Software Developer++, frontend oriented",
+  lede: "// Product Engineer++",
   sections: [
     {
       id: "about-summary",
       title: "Summary",
       paragraphs: [
-        "I am Shoham Fellner, a software developer with a frontend focus, specializing in building complex, data-heavy React applications. My background is equally split between engineering and UX/UI, which means I tend to take ownership of a feature from the first Figma frame through to the version running in production.",
+        "I am Shoham Fellner, a product engineer: a full-stack developer with a product manager's mindset and a UX designer's eye, specializing in complex, data-heavy React applications. My background is equally split between engineering and UX/UI, which means I tend to own a feature end to end, from discovery and the first Figma frame through to the version running in production.",
         `I am based in ${LOCATION.locality}, Israel, and I work mostly in React and TypeScript on products where the hard part is the data: many sources, large volumes, and users who need an answer quickly.`,
       ],
     },
@@ -19,7 +19,7 @@ export const ABOUT_CONTENT: ProsePageProps = {
       id: "about-work",
       title: "The problems I take on",
       paragraphs: [
-        "Most recently I led frontend development on a mission-critical React and SAP system that replaced a legacy platform, built inside an Agile team and used to drive annual procurement decisions.",
+        "Most recently I was the front-end lead on a mission-critical React and SAP system that replaced a legacy platform, built inside an Agile team and used to drive annual procurement decisions.",
         "The work that interests me looks like that: a multi-source dashboard where every widget fetches, caches and parses its own data so it can load and fail independently; tables that render tens of thousands of rows with virtualization and server-side pagination; schema-driven forms that encode real business logic instead of a flat list of inputs.",
         "That kind of system is rarely solved on the client alone, so I spend a fair amount of time with backend engineers on schema and data-contract design, shaping the payload before it becomes a state management problem.",
       ],

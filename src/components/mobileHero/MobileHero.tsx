@@ -1,4 +1,4 @@
-import { getRoleTitle, SITE } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import type { MobileHeroProps } from "./types/mobileHero.types";
 import {
   heroDivider,
@@ -11,10 +11,7 @@ import {
 
 /** Fixed name/role/tagline header shared by Home and Resume, with the
  *  divider marking the start of the scrolling content below it. */
-const MobileHero: React.FC<MobileHeroProps> = ({
-  roleLabel,
-  pageHasOwnHeading,
-}) => {
+const MobileHero: React.FC<MobileHeroProps> = ({ pageHasOwnHeading }) => {
   return (
     <div className={heroFixed}>
       <header className={heroHeader}>
@@ -24,7 +21,7 @@ const MobileHero: React.FC<MobileHeroProps> = ({
           <h1 className={heroName}>{SITE.name}</h1>
         )}
 
-        <p className={heroRole}>{getRoleTitle(roleLabel)}</p>
+        <p className={heroRole}>{SITE.role}</p>
 
         <p className={heroTagline}>{SITE.tagline}</p>
       </header>

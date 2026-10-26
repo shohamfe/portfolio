@@ -1,12 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CASE_STUDY_PAGES } from "@/constants/caseStudyPages";
-import {
-  getCvUrl,
-  ROLE_LABELS,
-  ROLE_QUERY_VALUE,
-  SITE_PAGES,
-  absoluteUrl,
-} from "@/constants/site";
+import { CV_API_PATH, SITE_PAGES, absoluteUrl } from "@/constants/site";
 import { buildPageMarkdown } from "@/lib/markdown/pageMarkdown";
 import { buildProjectMarkdown } from "@/lib/markdown/projectMarkdown";
 import {
@@ -22,7 +16,7 @@ describe("buildPageMarkdown", () => {
   it.each(SITE_PAGES.map((page) => page.href))(
     "%s produces markdown under a single H1",
     (href) => {
-      const markdown = buildPageMarkdown(href, undefined);
+      const markdown = buildPageMarkdown(href);
 
       expect(markdown.length).toBeGreaterThan(0);
       expect(markdown.startsWith("# ")).toBe(true);
@@ -34,50 +28,37 @@ describe("buildPageMarkdown", () => {
   it.each(SITE_PAGES.map((page) => page.href))(
     "%s is pure - the same input yields identical output",
     (href) => {
-      expect(buildPageMarkdown(href, undefined)).toBe(
-        buildPageMarkdown(href, undefined),
-      );
+      expect(buildPageMarkdown(href)).toBe(buildPageMarkdown(href));
     },
   );
 
   it.each(SITE_PAGES.map((page) => page.href))(
     "%s links back to its own canonical HTML URL",
     (href) => {
-      expect(buildPageMarkdown(href, undefined)).toContain(absoluteUrl(href));
+      expect(buildPageMarkdown(href)).toContain(absoluteUrl(href));
     },
   );
 
-  it("swaps the role copy on the pages that support it", () => {
-    const defaultHome = buildPageMarkdown("/", undefined);
-    const frontendHome = buildPageMarkdown("/", ROLE_QUERY_VALUE);
-
-    expect(defaultHome).toContain("Software Developer++");
-    expect(frontendHome).toContain("Frontend Developer++");
-    expect(frontendHome).not.toBe(defaultHome);
-  });
-
-  it("ignores an unrecognised role value", () => {
-    expect(buildPageMarkdown("/resume", "cobol")).toBe(
-      buildPageMarkdown("/resume", undefined),
-    );
+  it("carries the job title on the home page", () => {
+    expect(buildPageMarkdown("/")).toContain("Product Engineer++");
   });
 
   it("carries the resume's real content, not a stub", () => {
-    const markdown = buildPageMarkdown("/resume", undefined);
+    const markdown = buildPageMarkdown("/resume");
 
-    expect(markdown).toContain("Lead Frontend Developer & UX/UI Designer");
+    expect(markdown).toContain("IDF Teleprocessing Corps (via Inford Team)");
     expect(markdown).toContain("OctSeven.com");
     expect(markdown).toContain("B.Sc. Computer Science");
   });
 
   it("renders prose page links as absolute markdown links", () => {
-    expect(buildPageMarkdown("/about", undefined)).toContain(
+    expect(buildPageMarkdown("/about")).toContain(
       `[Resume](${absoluteUrl("/resume")})`,
     );
   });
 
   it("renders the case study index from the project list", () => {
-    const markdown = buildPageMarkdown("/case-study", undefined);
+    const markdown = buildPageMarkdown("/case-study");
 
     CASE_STUDY_PAGES.forEach((page) => {
       expect(markdown).toContain(page.label);
@@ -172,26 +153,7 @@ describe("markdown route mapping", () => {
 });
 
 describe("resume CV link", () => {
-  it("downloads the CV the rendered page would, for each role", () => {
-    const defaultMarkdown = buildPageMarkdown("/resume", undefined);
-    const frontendMarkdown = buildPageMarkdown("/resume", ROLE_QUERY_VALUE);
-
-    expect(defaultMarkdown).toContain(getCvUrl(ROLE_LABELS.default));
-    expect(frontendMarkdown).toContain(getCvUrl(ROLE_LABELS.frontend));
-
-    /** The default URL is a prefix of the frontend one, so only the absence of
-     *  the frontend URL proves the default role did not emit it. */
-    expect(defaultMarkdown).not.toContain(getCvUrl(ROLE_LABELS.frontend));
-  });
-});
-
-describe("getCvUrl", () => {
-  it("picks by role content, not object identity", () => {
-    const lookAlike = {
-      primary: "Frontend Developer",
-      secondary: null,
-    } as const;
-
-    expect(getCvUrl(lookAlike)).toBe(getCvUrl(ROLE_LABELS.frontend));
+  it("downloads the CV the rendered page would", () => {
+    expect(buildPageMarkdown("/resume")).toContain(CV_API_PATH);
   });
 });

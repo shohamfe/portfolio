@@ -9,7 +9,6 @@ import { projectScroll } from "./components/mobileProject.variants";
 import type { MobileProjectProps } from "./types/mobileProject.types";
 
 const MobileProject: React.FC<MobileProjectProps> = ({
-  roleLabel,
   project,
   detail,
   previousProject,
@@ -17,7 +16,7 @@ const MobileProject: React.FC<MobileProjectProps> = ({
 }) => {
   return (
     <main id="project" className={mobileRoot}>
-      <MobileHero roleLabel={roleLabel} pageHasOwnHeading />
+      <MobileHero pageHasOwnHeading />
 
       <div
         id="mobile-project-scroll"

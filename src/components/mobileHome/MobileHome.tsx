@@ -7,7 +7,7 @@ import HomeCanvas from "@/components/homeCanvas/HomeCanvas";
 import MobileHero from "@/components/mobileHero/MobileHero";
 import MobileNav from "@/components/mobileNav/MobileNav";
 import { MOBILE_CANVAS_ORIGIN } from "@/constants/mobile";
-import { getSiteDescription } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import { HOME_CONTENT } from "@/content/home";
 import { motion } from "motion/react";
 import {
@@ -20,11 +20,10 @@ import {
   mobileRoot,
   mobileScroll,
 } from "./components/mobileHome.variants";
-import type { MobileHomeProps } from "./types/mobileHome.types";
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
-const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
+const MobileHome: React.FC = () => {
   const sheet = useSheetDrag();
 
   const sections = [
@@ -34,7 +33,7 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
 
   return (
     <main id="home" className={mobileRoot}>
-      <MobileHero roleLabel={roleLabel} />
+      <MobileHero />
 
       <motion.div
         id="mobile-home-scroll"
@@ -78,7 +77,7 @@ const MobileHome: React.FC<MobileHomeProps> = ({ roleLabel }) => {
               <span aria-hidden className={sectionUnderline} />
             </div>
 
-            <p className={bioParagraph}>{getSiteDescription(roleLabel)}</p>
+            <p className={bioParagraph}>{SITE.description}</p>
 
             {about.paragraphs.map((paragraph) => (
               <p key={paragraph} className={bioParagraph}>

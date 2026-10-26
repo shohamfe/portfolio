@@ -1,14 +1,6 @@
-import {
-  CONTACT,
-  getCvUrl,
-  getRoleTitle,
-  LINKS,
-  LOCATION,
-  SITE,
-} from "@/constants/site";
+import { CONTACT, CV_API_PATH, LINKS, LOCATION, SITE } from "@/constants/site";
 import type { ResumeEntry, ResumeSection } from "@/content/resume";
 import { RESUME_CARDS, RESUME_SECTIONS } from "@/content/resume";
-import type { RoleLabel } from "@/lib/pageMetadata";
 import { buildMarkdownDocument } from "@/lib/markdown/documentFrame";
 import {
   bulletList,
@@ -17,7 +9,7 @@ import {
   joinBlocks,
   link,
 } from "@/lib/markdown/markdownFormat";
-import { getResumeDescription } from "@/lib/pageMetadata";
+import { RESUME_DESCRIPTION } from "@/lib/pageMetadata";
 
 const RESUME_HREF = "/resume";
 const CONTACT_HEADING = "Contact";
@@ -63,10 +55,10 @@ const contactSection = (): string =>
 
 /** The CV is streamed through this site's own route rather than linked straight
  *  to Drive, which 403s on fetch(). */
-const cvSection = (roleLabel: RoleLabel): string =>
+const cvSection = (): string =>
   joinBlocks([
     heading(2, CV_HEADING),
-    `${link("Download the CV as PDF", getCvUrl(roleLabel))} - served from this domain.`,
+    `${link("Download the CV as PDF", CV_API_PATH)} - served from this domain.`,
   ]);
 
 const strengthsSection = (): string =>
@@ -79,15 +71,15 @@ const strengthsSection = (): string =>
     ),
   ]);
 
-export const buildResumeMarkdown = (roleLabel: RoleLabel): string =>
+export const buildResumeMarkdown = (): string =>
   buildMarkdownDocument({
     href: RESUME_HREF,
-    title: `Resume - ${SITE.name}, ${getRoleTitle(roleLabel)}`,
+    title: `Resume - ${SITE.name}, ${SITE.role}`,
     lede: SITE.tagline,
     blocks: [
-      getResumeDescription(roleLabel),
+      RESUME_DESCRIPTION,
       contactSection(),
-      cvSection(roleLabel),
+      cvSection(),
       ...RESUME_SECTIONS.map(sectionBlock),
       strengthsSection(),
     ],

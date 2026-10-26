@@ -7,7 +7,7 @@ import {
   CASE_STUDY_INDEX_HREF,
   caseStudyHref,
 } from "@/constants/caseStudyPages";
-import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import { getPageLabel } from "@/constants/structuredData";
 import { CASE_STUDY_PROJECTS } from "@/content/caseStudy";
 import {
@@ -44,8 +44,8 @@ export const generateMetadata = async ({
   });
 };
 
-const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
-  const [{ slug }, query] = await Promise.all([params, searchParams]);
+const ProjectPage = async ({ params }: ProjectPageProps) => {
+  const { slug } = await params;
 
   const project = getProject(slug);
   const detail = PROJECT_DETAILS[slug];
@@ -53,7 +53,6 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
 
   const previousProject = getPreviousProject(slug);
   const nextProject = getNextProject(slug);
-  const roleLabel = resolveRoleLabel(query[ROLE_QUERY_PARAM]);
 
   const path = caseStudyHref(slug);
   const graph = buildPageGraph({
@@ -76,7 +75,6 @@ const ProjectPage = async ({ params, searchParams }: ProjectPageProps) => {
       <ViewportSwitch
         mobile={
           <MobileProject
-            roleLabel={roleLabel}
             project={project}
             detail={detail}
             previousProject={previousProject}

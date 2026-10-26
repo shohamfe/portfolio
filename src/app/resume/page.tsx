@@ -3,49 +3,34 @@ import ResumeStage from "@/components/resumeStage/ResumeStage";
 import { buildPageGraph } from "@/components/structuredData/helpers/structuredData.helpers";
 import StructuredData from "@/components/structuredData/StructuredData";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
-import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
-import { buildPageMetadata, getResumeDescription } from "@/lib/pageMetadata";
+import { SITE } from "@/constants/site";
+import { buildPageMetadata, RESUME_DESCRIPTION } from "@/lib/pageMetadata";
 import type { Metadata } from "next";
 import { resumePageRoot } from "./styles/resumePage.variants";
-import { ResumePageProps } from "./types/resume.types";
 
 const RESUME_PATH = "/resume";
 const RESUME_TITLE = `Resume - ${SITE.name}`;
 
-/** See the matching generateMetadata in @/app/page.tsx - same `?role=frontend`
- *  swap, kept in sync so a shared link behaves the same on either page. */
-export const generateMetadata = async ({
-  searchParams,
-}: ResumePageProps): Promise<Metadata> => {
-  const params = await searchParams;
-  const description = getResumeDescription(
-    resolveRoleLabel(params[ROLE_QUERY_PARAM]),
-  );
+export const metadata: Metadata = buildPageMetadata({
+  path: RESUME_PATH,
+  title: RESUME_TITLE,
+  description: RESUME_DESCRIPTION,
+});
 
-  return buildPageMetadata({
-    path: RESUME_PATH,
-    title: RESUME_TITLE,
-    description,
-  });
-};
+const graph = buildPageGraph({
+  path: RESUME_PATH,
+  title: RESUME_TITLE,
+  description: RESUME_DESCRIPTION,
+});
 
-const ResumePage = async ({ searchParams }: ResumePageProps) => {
-  const params = await searchParams;
-  const roleLabel = resolveRoleLabel(params[ROLE_QUERY_PARAM]);
-
-  const graph = buildPageGraph({
-    path: RESUME_PATH,
-    title: RESUME_TITLE,
-    description: getResumeDescription(roleLabel),
-  });
-
+const ResumePage = () => {
   return (
     <>
       <StructuredData graph={graph} />
 
-      <ViewportSwitch mobile={<MobileResume roleLabel={roleLabel} />}>
+      <ViewportSwitch mobile={<MobileResume />}>
         <main id="resume" className={resumePageRoot}>
-          <ResumeStage roleLabel={roleLabel} />
+          <ResumeStage />
         </main>
       </ViewportSwitch>
     </>

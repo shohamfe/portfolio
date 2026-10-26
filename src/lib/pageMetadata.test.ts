@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { ROLE_LABELS, SITE_URL } from "@/constants/site";
+import { JOB_TITLE, SITE_URL } from "@/constants/site";
 import { CASE_STUDY_PROJECTS } from "@/content/caseStudy";
 import {
   buildPageMetadata,
   CASE_STUDY_DESCRIPTION,
   canonicalUrl,
   getProjectDescription,
-  getResumeDescription,
+  RESUME_DESCRIPTION,
 } from "@/lib/pageMetadata";
 
 describe("canonicalUrl", () => {
@@ -14,17 +14,15 @@ describe("canonicalUrl", () => {
     expect(canonicalUrl("/resume")).toBe(`${SITE_URL}/resume`);
   });
 
-  it("drops the query string and hash so role variants do not compete", () => {
-    expect(canonicalUrl("/?role=frontend")).toBe(`${SITE_URL}/`);
-    expect(canonicalUrl("/resume?role=frontend#top")).toBe(
-      `${SITE_URL}/resume`,
-    );
+  it("drops the query string and hash so URL variants do not compete", () => {
+    expect(canonicalUrl("/?tab=1")).toBe(`${SITE_URL}/`);
+    expect(canonicalUrl("/resume?tab=1#top")).toBe(`${SITE_URL}/resume`);
   });
 });
 
 describe("buildPageMetadata", () => {
   const metadata = buildPageMetadata({
-    path: "/resume?role=frontend",
+    path: "/resume?tab=1",
     title: "Resume title",
     description: "Resume description",
   });
@@ -49,7 +47,7 @@ describe("buildPageMetadata", () => {
         url: `${SITE_URL}/opengraph-image.jpg`,
         width: 1200,
         height: 1200,
-        alt: "Shoham Fellner - Software Developer++",
+        alt: "Shoham Fellner - Product Engineer++",
       },
     ]);
     expect(metadata.twitter?.images).toEqual([`${SITE_URL}/twitter-image.jpg`]);
@@ -65,22 +63,12 @@ describe("buildPageMetadata", () => {
 });
 
 describe("page descriptions", () => {
-  it("swaps the role wording on the resume description", () => {
-    expect(getResumeDescription(ROLE_LABELS.default)).toContain(
-      "Software Developer (Frontend Oriented)",
-    );
-    expect(getResumeDescription(ROLE_LABELS.frontend)).toContain(
-      "Frontend Developer",
-    );
-    expect(getResumeDescription(ROLE_LABELS.frontend)).not.toContain(
-      "Frontend Oriented",
-    );
+  it("names the job title on the resume description", () => {
+    expect(RESUME_DESCRIPTION).toContain(JOB_TITLE);
   });
 
   it("gives the case study index a description of its own", () => {
-    expect(CASE_STUDY_DESCRIPTION).not.toBe(
-      getResumeDescription(ROLE_LABELS.default),
-    );
+    expect(CASE_STUDY_DESCRIPTION).not.toBe(RESUME_DESCRIPTION);
 
     CASE_STUDY_PROJECTS.forEach((project) => {
       expect(CASE_STUDY_DESCRIPTION).toContain(project.title);

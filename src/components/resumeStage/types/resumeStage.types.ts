@@ -1,9 +1,7 @@
 import type { RefObject } from "react";
-import type { ROLE_LABELS } from "@/constants/site";
 
 export interface ResumeStageProps {
   className?: string;
-  roleLabel: (typeof ROLE_LABELS)[keyof typeof ROLE_LABELS];
 }
 
 export interface ResumeCardFieldProps {

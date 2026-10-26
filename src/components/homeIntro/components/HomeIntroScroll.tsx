@@ -4,7 +4,6 @@ import { useRef } from "react";
 import RulerScrollbar from "@/components/rulerScrollbar/RulerScrollbar";
 import { useSmoothScrollProgress } from "@/hooks/smoothScroll.hooks";
 import { HOME_CONTENT } from "@/content/home";
-import type { HomeIntroScrollProps } from "../types/homeIntro.types";
 import HomeIntroAboutSection from "./HomeIntroAboutSection";
 import HomeIntroSection from "./HomeIntroSection";
 import {
@@ -16,7 +15,7 @@ import {
 
 const { passion, howIWork, about } = HOME_CONTENT;
 
-const HomeIntroScroll: React.FC<HomeIntroScrollProps> = ({ roleLabel }) => {
+const HomeIntroScroll: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const { progress, hasOverflow, scrollToPercent } = useSmoothScrollProgress(
@@ -51,7 +50,7 @@ const HomeIntroScroll: React.FC<HomeIntroScrollProps> = ({ roleLabel }) => {
             bullets={howIWork.bullets}
           />
 
-          <HomeIntroAboutSection roleLabel={roleLabel} about={about} />
+          <HomeIntroAboutSection about={about} />
         </div>
       </div>
     </div>

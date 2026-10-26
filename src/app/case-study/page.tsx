@@ -4,11 +4,10 @@ import { buildPageGraph } from "@/components/structuredData/helpers/structuredDa
 import StructuredData from "@/components/structuredData/StructuredData";
 import ViewportSwitch from "@/components/viewportSwitch/ViewportSwitch";
 import { CASE_STUDY_INDEX_HREF } from "@/constants/caseStudyPages";
-import { resolveRoleLabel, ROLE_QUERY_PARAM, SITE } from "@/constants/site";
+import { SITE } from "@/constants/site";
 import { buildPageMetadata, CASE_STUDY_DESCRIPTION } from "@/lib/pageMetadata";
 import type { Metadata } from "next";
 import { caseStudyPageRoot } from "./styles/caseStudyPage.variants";
-import type { CaseStudyPageProps } from "./types/caseStudy.types";
 
 const CASE_STUDY_TITLE = `Case Study - ${SITE.name}`;
 
@@ -24,15 +23,12 @@ const graph = buildPageGraph({
   description: CASE_STUDY_DESCRIPTION,
 });
 
-const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
-  const params = await searchParams;
-  const roleLabel = resolveRoleLabel(params[ROLE_QUERY_PARAM]);
-
+const CaseStudyPage = () => {
   return (
     <>
       <StructuredData graph={graph} />
 
-      <ViewportSwitch mobile={<MobileCaseStudy roleLabel={roleLabel} />}>
+      <ViewportSwitch mobile={<MobileCaseStudy />}>
         <main id="case-study" className={caseStudyPageRoot}>
           <CaseStudyStage />
         </main>

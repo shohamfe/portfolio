@@ -45,7 +45,7 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
     meta: "IDF Teleprocessing Corps · via Inford-Team · 2024-2026",
     blurb:
       "Built from scratch to replace the legacy platform behind the Ground Forces' annual budget.",
-    role: "Lead Frontend Developer & UX/UI",
+    role: "Product Engineer",
     tech: ["React", "TypeScript", "TanStack Query", "SAP Gateway"],
     image: "/case-study/procurement-planning-system.png",
     accent: "blue",
@@ -57,7 +57,7 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
     meta: "Nando · 2022-2024",
     blurb:
       "Put the responding guard and the command room on the same live picture, from anywhere in the world.",
-    role: "Frontend Developer & UX/UI",
+    role: "Front-End Developer & UX/UI Designer",
     tech: ["React", "Leaflet"],
     image: "/case-study/live-drone-patrol-console.png",
     accent: "green",
@@ -69,7 +69,7 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
     meta: "October 7th Memorial Platform · Volunteer · 2023-2026",
     blurb:
       "A public platform where families build memorial pages for the people they lost. Development started two weeks after October 7th.",
-    role: "Core Frontend Developer",
+    role: "Front-End Developer",
     tech: ["Next.js", "Redux", "MUI"],
     image: "/case-study/octseven.png",
     accent: "pink",
@@ -78,10 +78,10 @@ export const CASE_STUDY_PROJECTS: readonly CaseStudyProject[] = [
   {
     id: "aura-cloud",
     title: "Aura Cloud",
-    meta: "AWS Resource Monitoring · Academic Project · 2026",
+    meta: "AWS Resource Monitoring · Academic Project · 2025-2026",
     blurb:
       "Resolves who can actually do what across AWS, and flags where identity and policy disagree.",
-    role: "Full-Stack Developer & UX/UI",
+    role: "Full-Stack Developer",
     tech: ["React", "Node.js", "AWS", "MCP"],
     image: "/case-study/aura-cloud.png",
     accent: "purple",

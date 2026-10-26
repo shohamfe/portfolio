@@ -1,6 +1,5 @@
 import SiteNav from "@/components/siteNav/SiteNav";
-import { getRoleTitle, SITE } from "@/constants/site";
-import type { HomeIntroHeaderProps } from "../types/homeIntro.types";
+import { SITE } from "@/constants/site";
 import {
   introDivider,
   introFixed,
@@ -10,7 +9,7 @@ import {
   introTagline,
 } from "./homeIntro.variants";
 
-const HomeIntroHeader: React.FC<HomeIntroHeaderProps> = ({ roleLabel }) => {
+const HomeIntroHeader: React.FC = () => {
   return (
     <div id="home-intro-fixed" className={introFixed}>
       <header id="home-intro-header" className={introHeader}>
@@ -19,7 +18,7 @@ const HomeIntroHeader: React.FC<HomeIntroHeaderProps> = ({ roleLabel }) => {
         </h1>
 
         <p id="home-intro-role" className={introRole}>
-          {getRoleTitle(roleLabel)}
+          {SITE.role}
         </p>
 
         <p id="home-intro-tagline" className={introTagline}>
