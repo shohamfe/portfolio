@@ -19,7 +19,6 @@ export const HOME_CONTENT = {
   about: {
     title: "About",
     paragraphs: [
-      "Full-stack developer (React, TypeScript, Node.js) with a product manager's mindset and a UX designer's eye, owning features end to end from discovery to production.",
       "Front-end lead on a mission-critical IDF platform.",
       "Builds developer tools and AI agent integrations (Claude Code, MCP, Agentic Workflows).",
     ],

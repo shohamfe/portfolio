@@ -11,7 +11,7 @@ export const SITE = {
 
 /** Hosted in Drive, not /public, so updating the resume needs no redeploy. */
 export const CV_URL =
-  "https://drive.google.com/uc?export=download&id=1JRrUFJZtyo1w2Mu02Mav4TpG4ZkXOaaY";
+  "https://drive.google.com/uc?export=download&id=1bshm4cDbZNEBwKdSMiETJSaEMb6sv3m8";
 
 /** Goes through /api/cv, not CV_URL directly - Drive 403s on fetch(). */
 export const CV_API_PATH = "/api/cv";
