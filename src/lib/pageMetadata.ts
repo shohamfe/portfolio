@@ -9,8 +9,9 @@ import { markdownUrlPath } from "@/lib/markdown/markdownRoutes";
 const OG_IMAGE_PATH = "/opengraph-image.jpg";
 const TWITTER_IMAGE_PATH = "/twitter-image.jpg";
 
-/** Both share the square source in src/app. */
-const SOCIAL_IMAGE_SIZE = 1200;
+/** Both share the same source image in src/app. */
+const SOCIAL_IMAGE_WIDTH = 1200;
+const SOCIAL_IMAGE_HEIGHT = 630;
 
 export interface PageMetadataInput {
   path: string;
@@ -60,8 +61,8 @@ export const buildPageMetadata = ({
       images: [
         {
           url: canonicalUrl(OG_IMAGE_PATH),
-          width: SOCIAL_IMAGE_SIZE,
-          height: SOCIAL_IMAGE_SIZE,
+          width: SOCIAL_IMAGE_WIDTH,
+          height: SOCIAL_IMAGE_HEIGHT,
           alt: `${SITE.name} - ${SITE.role}`,
         },
       ],

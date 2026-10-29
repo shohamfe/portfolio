@@ -46,7 +46,7 @@ describe("buildPageMetadata", () => {
       {
         url: `${SITE_URL}/opengraph-image.jpg`,
         width: 1200,
-        height: 1200,
+        height: 630,
         alt: "Shoham Fellner - Product Engineer++",
       },
     ]);

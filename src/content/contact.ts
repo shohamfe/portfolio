@@ -42,7 +42,7 @@ export const CONTACT_CONTENT: ProsePageProps = {
       id: "contact-topics",
       title: "What to write about",
       paragraphs: [
-        "The conversations that usually go somewhere are about product engineering and frontend roles and projects that involve complex, data-heavy React applications, product work where the same person is expected to own both the design and the implementation, or teams introducing AI-assisted engineering and agentic workflows into an existing codebase.",
+        "The conversations that usually go somewhere are about product engineering roles and projects that involve complex, data-heavy React applications, product work where the same person is expected to own both the design and the implementation, or teams introducing AI-assisted engineering and agentic workflows into an existing codebase.",
         "Questions about the resume, a project listed on it, or anything on this site are welcome too, and so are questions about what this site collects.",
       ],
     },

@@ -20,9 +20,8 @@ export const CV_API_PATH = "/api/cv";
 export const SITE_KEYWORDS = [
   "Shoham Fellner",
   "Product Engineer",
-  "Full-Stack Developer",
-  "Frontend Developer",
-  "React Developer",
+  "Product Engineering",
+  "React",
   "TypeScript",
   "UX/UI Designer",
   "Portfolio",
@@ -88,7 +87,7 @@ export const SITE_PAGES = [
     href: "/about",
     label: "About",
     summary:
-      "Longer-form background: how I got into frontend, the problems I like, and how I work with design.",
+      "Longer-form background: how I work as a product engineer, the problems I like, and how I work with design.",
     priority: 0.7,
   },
   {
